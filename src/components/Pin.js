@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
+import Modal from './Modal';
 
-class Pin extends React.Component {
+class Pin extends Component {
     render() {
+        const { id, name, img, description } = { ...this.props.pinData };
         return (
-            <div></div>
+            <div>
+                <div
+                    className="pin-list-item pin-modal-toggle"
+                    data-modal={'pin-' + id}
+                >
+                    <img
+                        className="pin-list-img"
+                        src={'./img/fpo-pins/' + img}
+                        alt={description}
+                    />
+                    <div className="pin-list-title">{name}</div>
+                </div>
+                <Modal pinData={this.props.pinData} />
+            </div>
         );
     }
-};
+}
+
+export default Pin;

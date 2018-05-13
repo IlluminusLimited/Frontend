@@ -6,16 +6,16 @@ import SvgCollections from './svg/SvgCollections';
 class NavBar extends Component {
     render() {
         return (
-            <nav class="footer-nav full-bleed">
-                <a class="nav-icon" href="/snippits.html">
+            <nav className="footer-nav full-bleed">
+                <a className="nav-icon" href="/snippits.html">
                     <SvgSettings />
                     <span>settings</span>
                 </a>
-                <a class="nav-icon" href="/index.html">
+                <a className="nav-icon" href="/index.html">
                     <SvgHome />
                     <span>home</span>
                 </a>
-                <a class="nav-icon" href="/login.html">
+                <a className="nav-icon" href="/login.html">
                     <SvgCollections />
                     <span>profile</span>
                 </a>

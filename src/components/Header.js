@@ -4,24 +4,28 @@ import SvgSearch from './svg/SvgSearch';
 class Header extends Component {
     render() {
         return (
-            <header class="container">
-                <div class="header-util">
-                    <span class="logo">pinster</span>
-                    <nav class="header-util-nav">
+            <header className="container">
+                <div className="header-util">
+                    <span className="logo">pinster</span>
+                    <nav className="header-util-nav">
                         <a href="/">home</a>
                         <a href="/snippits.html">about</a>
                         <a href="/snippits.html">support</a>
                     </nav>
                 </div>
-                <div class="large-header full-bleed container">
-                    <form class="global-search-form" action="/" method="post">
-                        <label class="sr-only" for="search">
+                <div className="large-header full-bleed container">
+                    <form
+                        className="global-search-form"
+                        action="/"
+                        method="post"
+                    >
+                        {/* <label className="sr-only" for="search">
                             search
-                        </label>
-                        <div class="global-search-wrapper">
+                        </label> */}
+                        <div className="global-search-wrapper">
                             <button type="submit">
                                 <SvgSearch />
-                                <span class="sr-only">Submit</span>
+                                <span className="sr-only">Submit</span>
                             </button>
                             <input
                                 id="search"
