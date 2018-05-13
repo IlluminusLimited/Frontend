@@ -4,7 +4,7 @@ import SvgSearch from './svg/SvgSearch';
 class Header extends Component {
     render() {
         return (
-            <React.Fragment>
+            <header className="container">
                 {/* <div className="header-util">
                     <span className="logo">pinster</span>
                 </div> */}
@@ -25,7 +25,7 @@ class Header extends Component {
                         />
                     </div>
                 </form>
-            </React.Fragment>
+            </header>
         );
     }
 }

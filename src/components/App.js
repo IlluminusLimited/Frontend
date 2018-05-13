@@ -271,7 +271,7 @@ class App extends Component {
     }
     render() {
         return (
-            <div className="App">
+            <main className="container">
                 {/* <header className="App-header">
                     <img src={logo} className="App-logo" alt="logo" />
                     <h1 className="App-title">Welcome to React</h1>
@@ -281,7 +281,7 @@ class App extends Component {
                         <Pin key={key} pinData={this.state.pins[key]} />
                     ))}
                 </div>
-            </div>
+            </main>
         );
     }
 }
