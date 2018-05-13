@@ -76,78 +76,76 @@ class Modal extends Component {
             ...this.props.pinData
         };
         return (
-            <div className="modal-overlay" tabIndex="-1">
-                <div
-                    id={'pin-' + id}
-                    className="pin-modal"
-                    aria-hidden="true"
-                    aria-labelledby={'title-' + id}
-                    role="dialog"
-                >
-                    <div className="pin-modal-container" role="document">
-                        <div className="pin-modal-viewer">
-                            <img
-                                className="pin-modal-img"
-                                src={'./img/fpo-pins/' + img}
-                                alt={description}
-                            />
-                        </div>
-                        <div className="pin-modal-content">
-                            <h1 id={'title-' + id}>{name}</h1>
-                            <p>{description}</p>
-                            <p>{maker}</p>
-                            <p>{year}</p>
-                            <div className="pin-modal-tags">
-                                {/* {Object.keys(tags).map(key => (
+            <div
+                id={'pin-' + id}
+                className="pin-modal"
+                aria-hidden="true"
+                aria-labelledby={'title-' + id}
+                role="dialog"
+            >
+                <div className="pin-modal-container" role="document">
+                    <div className="pin-modal-viewer">
+                        <img
+                            className="pin-modal-img"
+                            src={'./img/fpo-pins/' + img}
+                            alt={description}
+                        />
+                    </div>
+                    <div className="pin-modal-content">
+                        <h1 id={'title-' + id}>{name}</h1>
+                        <p>{description}</p>
+                        <p>{maker}</p>
+                        <p>{year}</p>
+                        <div className="pin-modal-tags">
+                            {/* {Object.keys(tags).map(key => (
                                 <Tag
                                     key={key}
                                     tagName={tags[key]}
                                 />
                             ))} */}
+                        </div>
+                        <div className="pin-modal-thumbs">
+                            <div className="pin-modal-thumb active">
+                                <img
+                                    className="pin-modal-img"
+                                    src={'./img/fpo-pins/' + img}
+                                    alt={description}
+                                />
                             </div>
-                            <div className="pin-modal-thumbs">
-                                <div className="pin-modal-thumb active">
-                                    <img
-                                        className="pin-modal-img"
-                                        src={'./img/fpo-pins/' + img}
-                                        alt={description}
-                                    />
-                                </div>
-                                <div className="pin-modal-thumb">
-                                    <img
-                                        className="pin-modal-img"
-                                        src="//via.placeholder.com/350x250/3ebeae/ffffff"
-                                        alt=""
-                                    />
-                                </div>
-                                <div className="pin-modal-thumb">
-                                    <img
-                                        className="pin-modal-img"
-                                        src="//via.placeholder.com/250x350/fdba1b/ffffff"
-                                        alt=""
-                                    />
-                                </div>
-                                <div className="pin-modal-thumb">
-                                    <img
-                                        className="pin-modal-img"
-                                        src="//via.placeholder.com/450x250/e86359/ffffff"
-                                        alt=""
-                                    />
-                                </div>
-                                <div className="pin-modal-thumb">
-                                    <img
-                                        className="pin-modal-img"
-                                        src="//via.placeholder.com/250x350/440933/ffffff"
-                                        alt=""
-                                    />
-                                </div>
+                            <div className="pin-modal-thumb">
+                                <img
+                                    className="pin-modal-img"
+                                    src="//via.placeholder.com/350x250/3ebeae/ffffff"
+                                    alt=""
+                                />
+                            </div>
+                            <div className="pin-modal-thumb">
+                                <img
+                                    className="pin-modal-img"
+                                    src="//via.placeholder.com/250x350/fdba1b/ffffff"
+                                    alt=""
+                                />
+                            </div>
+                            <div className="pin-modal-thumb">
+                                <img
+                                    className="pin-modal-img"
+                                    src="//via.placeholder.com/450x250/e86359/ffffff"
+                                    alt=""
+                                />
+                            </div>
+                            <div className="pin-modal-thumb">
+                                <img
+                                    className="pin-modal-img"
+                                    src="//via.placeholder.com/250x350/440933/ffffff"
+                                    alt=""
+                                />
                             </div>
                         </div>
                     </div>
-                    <button className="pin-modal-dismiss">
-                        <SvgClose />
-                    </button>
                 </div>
+                <button className="pin-modal-dismiss">
+                    <SvgClose />
+                </button>
             </div>
         );
     }

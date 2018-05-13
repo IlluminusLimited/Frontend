@@ -4,39 +4,28 @@ import SvgSearch from './svg/SvgSearch';
 class Header extends Component {
     render() {
         return (
-            <header className="container">
-                <div className="header-util">
+            <React.Fragment>
+                {/* <div className="header-util">
                     <span className="logo">pinster</span>
-                    <nav className="header-util-nav">
-                        <a href="/">home</a>
-                        <a href="/snippits.html">about</a>
-                        <a href="/snippits.html">support</a>
-                    </nav>
-                </div>
-                <div className="large-header full-bleed container">
-                    <form
-                        className="global-search-form"
-                        action="/"
-                        method="post"
-                    >
-                        {/* <label className="sr-only" for="search">
+                </div> */}
+                <form className="global-search-form" action="/" method="post">
+                    {/* <label className="sr-only" for="search">
                             search
                         </label> */}
-                        <div className="global-search-wrapper">
-                            <button type="submit">
-                                <SvgSearch />
-                                <span className="sr-only">Submit</span>
-                            </button>
-                            <input
-                                id="search"
-                                name="search"
-                                placeholder="Search pins"
-                                type="search"
-                            />
-                        </div>
-                    </form>
-                </div>
-            </header>
+                    <div className="global-search-wrapper">
+                        <button type="submit">
+                            <SvgSearch />
+                            <span className="sr-only">Submit</span>
+                        </button>
+                        <input
+                            id="search"
+                            name="search"
+                            placeholder="Search pins"
+                            type="search"
+                        />
+                    </div>
+                </form>
+            </React.Fragment>
         );
     }
 }

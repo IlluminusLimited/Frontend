@@ -5,7 +5,7 @@ class Pin extends Component {
     render() {
         const { id, name, img, description } = { ...this.props.pinData };
         return (
-            <div>
+            <React.Fragment>
                 <div
                     className="pin-list-item pin-modal-toggle"
                     data-modal={'pin-' + id}
@@ -18,7 +18,7 @@ class Pin extends Component {
                     <div className="pin-list-title">{name}</div>
                 </div>
                 <Modal pinData={this.props.pinData} />
-            </div>
+            </React.Fragment>
         );
     }
 }
