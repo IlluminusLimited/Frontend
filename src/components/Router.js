@@ -3,8 +3,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import App from './App';
 import Header from './Header';
 // import Collection from './Collection';
-// import Login from './Login';
+import Login from './Login';
 // import Help from './Help';
+import NavBar from './NavBar';
 
 const Router = () => (
     <BrowserRouter>
@@ -12,7 +13,7 @@ const Router = () => (
             <Route path="/" component={Header} />
             <Switch>
                 <Route exact path="/" component={App} />
-                {/* <Route exact path="/login" component={Login} /> */}
+                <Route exact path="/login" component={Login} />
                 {/* <Route exact path="/settings" component={Settings} /> */}
                 {/* <Route path="/user/:userId" component={User} /> */}
                 {/* <Route path="/collection/:collectionId" component={Collection} /> */}
@@ -20,6 +21,7 @@ const Router = () => (
                 {/* <Route path="/help" component={Help} /> */}
                 {/* <Route component={NotFound} /> */}
             </Switch>
+            <Route path="/" component={NavBar} />
         </React.Fragment>
     </BrowserRouter>
 );
