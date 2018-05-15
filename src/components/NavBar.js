@@ -12,11 +12,11 @@ class NavBar extends Component {
                         <SvgSettings />
                         <span>settings</span>
                     </a>
-                    <a className="nav-icon" href="/index.html">
+                    <a className="nav-icon" href="/">
                         <SvgHome />
                         <span>home</span>
                     </a>
-                    <a className="nav-icon" href="/login.html">
+                    <a className="nav-icon" href="/login">
                         <SvgCollections />
                         <span>profile</span>
                     </a>
