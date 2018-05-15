@@ -1,0 +1,51 @@
+.pin-modal-thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .pin-modal-thumb {
+    position: relative;
+    flex: 0 0 auto;
+    margin: 0 0 3%;
+    cursor: pointer;
+    width: 30%;
+    overflow: hidden;
+
+    &::after {
+      display: block;
+      padding-bottom: 100%;
+      content: "";
+    }
+
+    &.active { border: 3px solid $salmon; }
+
+    .pin-modal-img { position: absolute; }
+  }
+}
+
+@media screen and (min-width: 400px) {
+  .pin-modal-thumbs {
+    .pin-modal-thumb {
+      margin-bottom: 12px;
+      width: 22%;
+    }
+  }
+}
+
+@media screen and (min-width: $screen-tablet) {
+  .pin-modal-thumbs {
+    .pin-modal-thumb {
+      margin-bottom: 3%;
+      width: 30%;
+    }
+  }
+}
+
+@media screen and (min-width: $screen-tablet-lg) {
+  .pin-modal-thumbs {
+    .pin-modal-thumb {
+      margin-bottom: 12px;
+      width: 22%;
+    }
+  }
+}

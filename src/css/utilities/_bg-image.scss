@@ -1,0 +1,24 @@
+.bg-image {
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  min-height: 200px;
+
+  &:not(.grid) { display: block; }
+
+  &::after {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    bottom: -10px;
+    left: -10px;
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    content: '';
+  }
+
+  &.no-extend-left::after { left: 0; }
+  &.no-extend-right::after { right: 0; }
+}

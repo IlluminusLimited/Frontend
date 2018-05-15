@@ -1,0 +1,16 @@
+.large-header {
+  align-items: end;
+  background-image: url('/img/landing-image.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 20vh;
+  max-height: 250px;
+
+  .global-search-form {
+    margin: 0 auto $gutter;
+    padding: $gutter;
+    width: 80%;
+    max-width: 480px;
+  }
+}

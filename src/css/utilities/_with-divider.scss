@@ -1,0 +1,39 @@
+.with-divider {
+  display: table;
+  position: relative;
+  padding-right: $gutter;
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    right: calc(-100vw + 100%);
+    left: 100%;
+    transform: translateY(50%);
+    border-bottom: 0.125em solid;
+    content: "";
+  }
+}
+
+@media screen and (min-width: $screen-tablet) {
+  .with-divider::before {
+    right: calc(-#{$container-tablet} + 100%);
+  }
+}
+
+@media screen and (min-width: $screen-tablet-lg) {
+  .with-divider::before {
+    right: calc(-#{$container-tablet-lg} + 100%);
+  }
+}
+
+@media screen and (min-width: $screen-desktop) {
+  .with-divider::before {
+    right: calc(-#{$container-desktop} + 100%);
+  }
+}
+
+@media screen and (min-width: $screen-desktop-lg) {
+  .with-divider::before {
+    right: calc(-#{$container-desktop-lg} + 100%);
+  }
+}

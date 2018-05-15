@@ -1,0 +1,108 @@
+.pin-list-item {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  &::after {
+    display: block;
+    padding-bottom: 100%;
+    content: "";
+  }
+
+  &[data-count]::before {
+    display: block;
+    position: absolute;
+    right: 0.5em;
+    bottom: 1.2em;
+    z-index: 1;
+    border: 1px solid $gray-dark;
+    border-radius: 50px;
+    background-color: rgba($white, 0.85);
+    padding: 0.25em 0.375em 0.25em 0.4375em;
+    line-height: 1;
+    content: attr(data-count);
+  }
+
+  &.add-new {
+    background-color: $gray-dark;
+  }
+}
+
+.pin-list-img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.pin-list-title {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba($white, 0.85);
+  padding: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: calc(100% - 7ch);
+    background: linear-gradient(90deg, transparent, rgba($white, 0.75) 70%, $white);
+    content: "";
+  }
+
+  a & { color: $copy-dark; }
+
+  .add-new & {
+    overflow: auto;
+    &::after { content: none; }
+  }
+}
+
+.pin-round {
+  border: 3px solid $yellow;
+  border-radius: 50%;
+  overflow: hidden;
+
+  &[data-count]::before {
+    right: 50%;
+    bottom: 50%;
+    transform: translateY(50%) translateX(50%);
+  }
+
+  .pin-list-title { @include sr-only; }
+}
+
+.add-new {
+  .pin-list-img {
+    left: 50%;
+    transform: translateX(-50%) translateY(40%);
+    padding: 3px;
+    width: 50%;
+    height: 50%;
+  }
+
+  .pin-list-title {
+    bottom: 10px;
+    background-color: transparent;
+    padding: 0;
+    overflow: auto;
+    text-align: center;
+    white-space: normal;
+    color: $copy-light;
+    font-size: 0.875em;
+  }
+}
+
+body:not(.is-touch) {
+  a {
+    &.pin-list-item:hover {
+      box-shadow: $box-shadow-hover;
+    }
+  }
+}
