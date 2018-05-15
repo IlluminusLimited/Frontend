@@ -1,7 +1,7 @@
 files:
-  include: site/**/*.scss
+  include: src/**/*.scss
   ignore:
-    - site/assets/scss/*bootstrap*
+    - node_modules/*
 
 options:
   formatter: stylish

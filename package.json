@@ -22,11 +22,9 @@
         "react-scripts": "1.1.1"
     },
     "scripts": {
-        "lint":
-            "sass-lint --config .sass-lint.yml '**/*.scss' --verbose --no-exit",
+        "lint": "sass-lint --config .sass-lint.yml 'src/**/*.scss' --verbose --no-exit",
         "build-css": "node-sass-chokidar src/ -o src/",
-        "watch-css":
-            "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+        "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
         "start-js": "react-scripts start",
         "start": "npm-run-all -p watch-css start-js",
         "build-js": "react-scripts build",
