@@ -1,0 +1,52 @@
+files:
+  include: site/**/*.scss
+  ignore:
+    - site/assets/scss/*bootstrap*
+
+options:
+  formatter: stylish
+  merge-default-rules: true
+
+# https://github.com/sasstools/sass-lint/tree/master/docs/rules
+rules:
+
+  class-name-format:
+    - 1
+    - convention: 'hyphenatedbem'
+
+  force-pseudo-nesting: 0
+
+  id-name-format: 0
+
+  leading-zero:
+    - 1
+    - include: true
+
+  nesting-depth:
+    - 1
+    - max-depth: 4
+
+  no-css-comments: 0
+
+  no-color-literals:
+    - 1
+    -
+      allow-rgba: true
+
+  no-duplicate-properties: 1
+
+  no-qualifying-elements:
+    - 1
+    - allow-element-with-attribute: true # input[type='email'] but not div.class-name
+
+  no-vendor-prefixes: 1
+
+  property-sort-order:
+    - 1
+    -
+      # https://github.com/sasstools/sass-lint/blob/develop/lib/config/property-sort-orders/concentric.yml
+      order: concentric
+      # https://github.com/sasstools/sass-lint/blob/develop/lib/config/property-sort-orders/smacss.yml
+      # order: smacss
+
+  quotes: 0

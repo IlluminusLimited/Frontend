@@ -22,6 +22,8 @@
         "react-scripts": "1.1.1"
     },
     "scripts": {
+        "lint":
+            "sass-lint --config .sass-lint.yml '**/*.scss' --verbose --no-exit",
         "build-css": "node-sass-chokidar src/ -o src/",
         "watch-css":
             "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
@@ -31,5 +33,8 @@
         "build": "npm-run-all -p build-css build-js",
         "test": "react-scripts test --env=jsdom",
         "eject": "react-scripts eject"
+    },
+    "devDependencies": {
+        "sass-lint": "^1.12.1"
     }
 }
