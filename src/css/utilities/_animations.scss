@@ -1,0 +1,31 @@
+
+.slide-from-left {
+  animation-name: fade-from-left;
+  animation-duration: 0.75s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+  will-change: transform opacity;
+}
+
+.slide-from-right {
+  animation-name: fade-from-right;
+  animation-duration: 0.75s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+  will-change: transform opacity;
+}
+
+.up-on-hover {
+  transition: transform 0.35s ease-in-out;
+  will-change: transform;
+}
+
+body:not(.is-touch) {
+  .up-on-hover:hover {
+    transform: translateY(-#{$gutter});
+  }
+}

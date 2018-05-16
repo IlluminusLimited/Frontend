@@ -1,0 +1,24 @@
+.select-wrapper,
+textarea,
+[type="email"],
+[type="password"],
+[type="search"],
+[type="tel"],
+[type="text"] {
+  border: 0;
+  padding: 8px;
+  width: 100%;
+}
+
+.select-wrapper {
+  padding: 7px 6px 6px;
+  width: 100%;
+
+  select {
+    outline-offset: 6px;
+    border: 0;
+    background: transparent;
+    padding: 6px 0;
+    width: 100%;
+  }
+}

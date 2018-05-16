@@ -1,0 +1,19 @@
+@keyframes fade-from-left {
+  0% {
+    transform: translateX(-96px);
+    opacity: 0;
+  }
+
+  45% { opacity: 1; }
+  100% { transform: translateX(0); }
+}
+
+@keyframes fade-from-right {
+  0% {
+    transform: translateX(96px);
+    opacity: 0;
+  }
+
+  45% { opacity: 1; }
+  100% { transform: translateX(0); }
+}

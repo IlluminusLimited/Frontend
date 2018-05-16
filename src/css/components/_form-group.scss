@@ -1,0 +1,69 @@
+.form-group {
+  position: relative;
+  margin: ($gutter * 2) auto $gutter;
+  width: 100%;
+  max-width: 35em;
+  min-height: 2em;
+
+  input,
+  button {
+    background: $white;
+  }
+
+  [type="submit"],
+  [type="reset"],
+  label {
+    color: $purple;
+  }
+
+  label {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    transition-property: font-size, top, color;
+    transition-duration: 0.35s;
+    transition-timing-function: ease-out;
+  }
+
+  &:focus-within,
+  &.active {
+    &:not(.radio-toggle) {
+      label {
+        top: -1.2em;
+        color: $white;
+        font-size: 0.85em;
+      }
+    }
+  }
+
+  &.radio-toggle {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    background: $white;
+    padding: 1px;
+
+    label {
+      position: static;
+      flex: 1 1 auto;
+      padding: 10px 5px 12px;
+      text-align: center;
+    }
+
+    input:checked + label {
+      background-color: $purple;
+      color: $white;
+    }
+  }
+
+  &.form-action {
+    display: flex;
+    justify-content: space-between;
+
+    > * {
+      flex: 0 1 45%;
+      padding: 10px 5px 12px;
+    }
+  }
+}

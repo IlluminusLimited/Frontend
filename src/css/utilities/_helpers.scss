@@ -1,0 +1,27 @@
+.sr-only { @include sr-only; }
+
+.full-padding { padding: ($gutter * 3) 0; }
+.side-padding { padding: 0 $gutter; }
+
+.no-scroll { overflow: hidden; }
+
+.top-margin       { margin-top:    $gutter; }
+.top-margin-lg    { margin-top:    $gutter * 2; }
+
+.bottom-margin    { margin-bottom: $gutter; }
+.bottom-margin-lg { margin-bottom: $gutter * 2; }
+
+.copy-turquoise { color: $turquoise; }
+.copy-purple    { color: $purple; }
+.copy-salmon    { color: $salmon; }
+.copy-yellow    { color: $yellow; }
+
+.border-turquoise { border-color: $turquoise; }
+.border-purple    { border-color: $purple; }
+.border-salmon    { border-color: $salmon; }
+.border-yellow    { border-color: $yellow; }
+
+@media screen and (min-width: $screen-tablet) {
+  .full-padding { padding: $gutter * 3; }
+  .side-padding { padding: 0 ($gutter * 3); }
+}

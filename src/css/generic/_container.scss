@@ -1,0 +1,32 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
+
+  > * { grid-column: 2 / -2; }
+
+  > .full-bleed { grid-column: 1 / -1; }
+}
+
+@media screen and (min-width: #{$screen-tablet}) {
+  .container {
+    grid-template-columns: 1fr $container-tablet 1fr;
+  }
+}
+
+@media screen and (min-width: #{$screen-tablet-lg}) {
+  .container {
+    grid-template-columns: 1fr $container-tablet-lg 1fr;
+  }
+}
+
+@media screen and (min-width: #{$screen-desktop}) {
+  .container {
+    grid-template-columns: 1fr $container-desktop 1fr;
+  }
+}
+
+@media screen and (min-width: #{$screen-desktop-lg}) {
+  .container {
+    grid-template-columns: 1fr $container-desktop-lg 1fr;
+  }
+}

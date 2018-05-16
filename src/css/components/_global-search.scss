@@ -1,0 +1,40 @@
+.global-search-form {
+  margin: 0;
+
+  &:focus-within {
+    background-color: $turquoise;
+  }
+}
+
+.global-search-wrapper {
+  display: flex;
+  align-items: center;
+
+  [type="submit"],
+  [type="search"] {
+    border: 1px solid $gray-light;
+    background: $white;
+    width: auto;
+    height: 2.225em;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  [type="submit"] {
+    flex: 0 0 auto;
+    border-right-width: 0;
+    padding: 4px 8px 5px;
+
+    &:focus {
+      border-color: $white;
+      background: $turquoise;
+      svg { fill: $white; }
+    }
+  }
+
+  [type="search"] {
+    flex: 1 1 auto;
+  }
+}
