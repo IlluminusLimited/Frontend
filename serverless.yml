@@ -5,7 +5,8 @@ provider:
   runtime: nodejs6.10
   region: us-east-1
   stage: ${opt:stage, self:custom.defaultStage}
-  profile: ${self:custom.profiles.${self:provider.stage}, 'default'}
+  # The following line is for testing local deploys
+  # profile: ${self:custom.profiles.${self:provider.stage}, 'default'}
   endpointType: REGIONAL
   deploymentBucket:
       name: "pinster-serverless-deploy-${self:custom.profiles.${self:provider.stage}}"
