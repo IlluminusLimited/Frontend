@@ -36,6 +36,8 @@ jobs:
 
   deploy-dev:
     <<: *defaults
+    docker:
+      - image: pinster/awseb
     steps:
       - checkout
       - attach_workspace:
@@ -47,11 +49,16 @@ jobs:
           name: Install serverless
           command: npm install -g serverless
       - run:
-          name: Deploy
+          name: Deploy serverless
           command: serverless deploy --stage dev
+      - run:
+          name: Deploy React
+          command: aws s3 cp build s3://api-dev.pinster.io/
 
   deploy-prod:
     <<: *defaults
+    docker:
+      - image: pinster/awseb
     steps:
       - checkout
       - attach_workspace:
@@ -65,6 +72,9 @@ jobs:
       - run:
           name: Deploy
           command: serverless deploy --stage prod
+      - run:
+          name: Deploy React
+          command: aws s3 cp build s3://api-prod.pinster.io/
 
 workflows:
   version: 2
