@@ -1,0 +1,71 @@
+service: frontend
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  region: us-east-1
+  stage: ${opt:stage, self:custom.defaultStage}
+  profile: ${self:custom.profiles.${self:provider.stage}, 'default'}
+  endpointType: REGIONAL
+  deploymentBucket:
+      name: "pinster-serverless-deploy-${self:custom.profiles.${self:provider.stage}}"
+
+custom:
+  defaultStage: dev
+  profiles:
+    dev: dev
+    prod: prod
+  customDomain:
+    domainName: "app-${self:provider.stage}.pinster.io"
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+  reactBucket: ${self:custom.customDomain.domainName}
+
+# functions:
+#   imageUploader:
+#     handler: lambda/lambda.upload
+#     events:
+#       - http:
+#           method: post
+#           path: images/upload
+#           cors: true
+#     memorySize: 1024
+#     environment:
+#           BUCKET_NAME: ${self:custom.imageUploaderBucket}
+
+resources:
+  Resources:
+    ReactS3Bucket:
+      Type: 'AWS::S3::Bucket'
+      Properties:
+        BucketName: ${self:custom.reactBucket}
+        CorsConfiguration:
+          CorsRules:
+            - AllowedHeaders: ['*']
+              AllowedMethods: [GET, PUT, POST, HEAD]
+              AllowedOrigins: ['*']
+              MaxAge: '3600'
+        WebsiteConfiguration:
+          IndexDocument: index.html
+          ErrorDocument: index.html
+          # RoutingRules:
+          # - RedirectRule:
+          #     HostName: ${self:custom.customDomain.domainName}
+          #     HttpRedirectCode: 307
+          #     Protocol: https
+          #     ReplaceKeyPrefixWith: images/generate?key=
+          #   RoutingRuleCondition:
+          #     HttpErrorCodeReturnedEquals: 404
+    S3BucketPermissions:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket: ${self:custom.reactBucket}
+        PolicyDocument:
+          Statement:
+            - Principal: "*"
+              Action:
+                - s3:GetObject
+              Effect: Allow
+              Sid: "AddPerm"
+              Resource: arn:aws:s3:::${self:custom.reactBucket}/*

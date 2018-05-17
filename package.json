@@ -33,6 +33,7 @@
         "eject": "react-scripts eject"
     },
     "devDependencies": {
-        "sass-lint": "^1.12.1"
+        "sass-lint": "^1.12.1",
+        "serverless": "^1.27.2"
     }
 }
