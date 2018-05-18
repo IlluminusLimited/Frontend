@@ -19,7 +19,7 @@ jobs:
       - persist_to_workspace:
           root: /build
           paths:
-            - src
+            - /
 
   test:
     working_directory: ~/repo
@@ -34,7 +34,7 @@ jobs:
           name: Run tests
           command: npm test
 
-  deploy-dev:
+  deploy-dev-serverless:
     <<: *defaults
     docker:
       - image: pinster/awseb
@@ -51,6 +51,15 @@ jobs:
       - run:
           name: Deploy serverless
           command: serverless deploy --stage dev
+
+  deploy-dev-react:
+    <<: *defaults
+    docker:
+      - image: pinster/awseb
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /build
       - run:
           name: Deploy React
           command: aws s3 cp build s3://api-dev.pinster.io/
@@ -72,6 +81,15 @@ jobs:
       - run:
           name: Deploy
           command: serverless deploy --stage prod
+  
+  deploy-prod-react:
+    <<: *defaults
+    docker:
+      - image: pinster/awseb
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /build
       - run:
           name: Deploy React
           command: aws s3 cp build s3://api-prod.pinster.io/
@@ -84,17 +102,32 @@ workflows:
       - test:
           requires:
             - build
-      - deploy-dev:
+      - deploy-dev-serverless:
           requires:
             - test
           filters:
             branches:
               only:
                 - develop
-
-      - deploy-prod:
+      - deploy-dev-react:
           requires:
             - test
+              deploy-dev-serverless
+          filters:
+            branches:
+              only:
+                - develop
+      - deploy-prod-serverless:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - master
+      - deploy-prod-react:
+          requires:
+            - test
+              deploy-prod-serverless
           filters:
             branches:
               only:
