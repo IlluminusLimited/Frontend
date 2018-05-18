@@ -95,14 +95,13 @@ class Modal extends Component {
                     <div className="pin-modal-viewer">
                         <img
                             className="pin-modal-img"
-                            src={'./img/fpo-pins/' + img}
+                            src={'./img/fpo-pins/'}
                             alt={description}
                         />
                     </div>
                     <div className="pin-modal-content">
                         <h1 id={'title-' + id}>{name}</h1>
                         <p>{description}</p>
-                        <p>{maker}</p>
                         <p>{year}</p>
                         <div className="pin-modal-tags">
                             {/* {Object.keys(tags).map(key => (
@@ -116,7 +115,7 @@ class Modal extends Component {
                             <div className="pin-modal-thumb active">
                                 <img
                                     className="pin-modal-img"
-                                    src={'./img/fpo-pins/' + img}
+                                    src={'./img/fpo-pins/'}
                                     alt={description}
                                 />
                             </div>

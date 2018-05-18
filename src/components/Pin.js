@@ -22,7 +22,7 @@ class Pin extends Component {
                 >
                     <img
                         className="pin-list-img"
-                        src={images[0].url}
+                        src={images[0].storage_location_uri}
                         alt={description}
                     />
                     <div className="pin-list-title">{name}</div>

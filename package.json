@@ -22,9 +22,11 @@
         "react-scripts": "1.1.1"
     },
     "scripts": {
-        "lint": "sass-lint --config .sass-lint.yml 'src/**/*.scss' --verbose --no-exit",
+        "lint":
+            "sass-lint --config .sass-lint.yml 'src/**/*.scss' --verbose --no-exit",
         "build-css": "node-sass-chokidar src/ -o src/",
-        "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+        "watch-css":
+            "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
         "start-js": "react-scripts start",
         "start": "npm-run-all -p watch-css start-js",
         "build-js": "react-scripts build",
@@ -35,6 +37,6 @@
     "devDependencies": {
         "sass-lint": "^1.12.1",
         "serverless": "^1.27.2",
-        "serverless-pseudo-parameters": "^1.6.0"
+        "serverless-domain-manager": "^2.3.6"
     }
 }
