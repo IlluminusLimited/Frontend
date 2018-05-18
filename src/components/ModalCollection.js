@@ -3,24 +3,27 @@ import SvgClose from './svg/SvgClose';
 import ModalImage from './ModalImage';
 
 class ModalCollection extends Component {
-    openModalCollection = toggle => {
+    openModal = toggle => {
         let modalCollection = document.querySelector(
-            '#' + toggle.getAttribute('data-modalCollection')
+            '#' + toggle.getAttribute('data-modal')
         );
         modalCollection.classList.add('active');
-        document.querySelector('.modalCollection-overlay').classList.add('active');
+        document.querySelector('.modal-overlay').classList.add('active');
         document.querySelector('html').classList.add('no-scroll');
     };
-    closeModalCollection = () => {
+    closeModal = () => {
         document.querySelector('html').classList.remove('no-scroll');
-        document.querySelector('.modalCollection-overlay').classList.remove('active');
-        document.querySelectorAll('.pin-modalCollection.active').forEach(modalCollection => {
+        document.querySelector('.modal-overlay').classList.remove('active');
+        document.querySelectorAll('.pin-modal.active').forEach(modalCollection => {
             modalCollection.classList.remove('active');
         });
     };
     componentDidMount() {
         // close modalCollection on overlay click
-
+        document.querySelector('.modal-overlay')
+            .addEventListener('click', () => {
+                this.closeModal();
+            });
 
         // close open modalCollection on ESC
         document.addEventListener('keyup', event => {
@@ -30,35 +33,35 @@ class ModalCollection extends Component {
 
             let key = event.key || event.keyCode;
             if (key === 'Escape' || key === 'Esc' || key === 27) {
-                this.closeModalCollection();
+                this.closeModal();
             }
         });
 
         // close modalCollection on dismiss click
-        document.querySelectorAll('.pin-modalCollection-dismiss').forEach(dismiss => {
+        document.querySelectorAll('.pin-modal-dismiss').forEach(dismiss => {
             dismiss.addEventListener('click', () => {
-                this.closeModalCollection();
+                this.closeModal();
             });
         });
 
         // open modalCollection on toggler click
-        document.querySelectorAll('.pin-modalCollection-toggle').forEach(toggle => {
+        document.querySelectorAll('.pin-modal-toggle').forEach(toggle => {
             toggle.addEventListener('click', () => {
-                this.openModalCollection(toggle);
+                this.openModal(toggle);
             });
         });
 
         // swap viewer images
-        document.querySelectorAll('.pin-modalCollection-thumb').forEach(thumb => {
+        document.querySelectorAll('.pin-modal-thumb').forEach(thumb => {
             thumb.addEventListener('click', () => {
                 var viewer = thumb
-                    .closest('.pin-modalCollection-container ')
-                    .querySelector('.pin-modalCollection-viewer');
+                    .closest('.pin-modal-container ')
+                    .querySelector('.pin-modal-viewer');
                 viewer.querySelector('img').remove();
                 viewer.append(thumb.querySelector('img').cloneNode());
 
                 thumb.parentNode
-                    .querySelectorAll('.pin-modalCollection-thumb')
+                    .querySelectorAll('.pin-modal-thumb')
                     .forEach(elem => {
                         elem.classList.remove('active');
                     });
@@ -80,21 +83,21 @@ class ModalCollection extends Component {
         return (
             <div
                 id={'pin-' + id}
-                className="pin-modalCollection"
+                className="pin-modal"
                 aria-hidden="true"
                 aria-labelledby={'title-' + id}
                 role="dialog"
             >
-                <div className="pin-modalCollection-container" role="document">
-                    <div className="pin-modalCollection-viewer">
+                <div className="pin-modal-container" role="document">
+                    <div className="pin-modal-viewer">
                         <ModalImage imageData={this.props.collectionData.images[0]}/>
                     </div>
-                    <div className="pin-modalCollection-content">
+                    <div className="pin-modal-content">
                         <h1 id={'title-' + id}>{name}</h1>
                         <p>{description}</p>
-                        <div className="pin-modalCollection-thumbs">
+                        <div className="pin-modal-thumbs">
                             {this.props.collectionData.images.map(image =>
-                                <div className="pin-modalCollection-thumb">
+                                <div className="pin-modal-thumb">
                                     <ModalImage imageData={image}/>
                                 </div>
                             )}
@@ -102,7 +105,7 @@ class ModalCollection extends Component {
                         </div>
                     </div>
                 </div>
-                <button className="pin-modalCollection-dismiss">
+                <button className="pin-modal-dismiss">
                     <SvgClose />
                 </button>
             </div>

@@ -17,8 +17,8 @@ class CollectionItem extends Component {
         return (
             <React.Fragment>
                 <div
-                    className="collectionItem-list-item collectionItem-modal-toggle"
-                    data-modal={'collectionItem-' + id}
+                    className="pin-list-item pin-modal-toggle"
+                    data-modal={'pin-' + id}
                 > {this.props.collectionData.images.map(image =>
                     <ListImage imageData={image}/>
                 )}
