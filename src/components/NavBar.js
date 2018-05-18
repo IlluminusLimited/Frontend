@@ -8,7 +8,7 @@ class NavBar extends Component {
         return (
             <footer className="container">
                 <nav className="footer-nav full-bleed">
-                    <a className="nav-icon" href="/snippits.html">
+                    <a className="nav-icon" href="/login">
                         <SvgSettings />
                         <span>settings</span>
                     </a>

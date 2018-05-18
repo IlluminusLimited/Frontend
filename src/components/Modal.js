@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SvgClose from './svg/SvgClose';
-// import Tag from './Tag';
+import Tag from './Tag';
 import ModalImage from './ModalImage';
 
 class Modal extends Component {
@@ -101,12 +101,12 @@ class Modal extends Component {
                         <p>{description}</p>
                         <p>{year}</p>
                         <div className="pin-modal-tags">
-                            {/* {Object.keys(tags).map(key => (
+                             {Object.keys(tags).map(key => (
                                 <Tag
-                                    key={key}
+                                    tagKey={key}
                                     tagName={tags[key]}
                                 />
-                            ))} */}
+                            ))}
                         </div>
                         <div className="pin-modal-thumbs">
                             {this.props.pinData.images.map(image =>
