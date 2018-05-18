@@ -82,7 +82,7 @@ resources:
       Properties:
         HostedZoneName: pinster.io.
         RecordSets:
-        - Name: ${self:custom.reactBucket}
+        - Name: app-${self:provider.stage}
           Type: A
           AliasTarget:
             HostedZoneId: Z2XVRILSTTAGW1
