@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SvgClose from './svg/SvgClose';
 // import Tag from './Tag';
+import ModalImage from './ModalImage';
 
 class Modal extends Component {
     openModal = toggle => {
@@ -93,11 +94,7 @@ class Modal extends Component {
             >
                 <div className="pin-modal-container" role="document">
                     <div className="pin-modal-viewer">
-                        <img
-                            className="pin-modal-img"
-                            src={images[0].storage_location_uri}
-                            alt={description}
-                        />
+                        <ModalImage imageData={this.props.pinData.images[0]}/>
                     </div>
                     <div className="pin-modal-content">
                         <h1 id={'title-' + id}>{name}</h1>
@@ -112,41 +109,12 @@ class Modal extends Component {
                             ))} */}
                         </div>
                         <div className="pin-modal-thumbs">
-                            <div className="pin-modal-thumb active">
-                                <img
-                                    className="pin-modal-img"
-                                    src={images[0].storage_location_uri}
-                                    alt={description}
-                                />
-                            </div>
-                            <div className="pin-modal-thumb">
-                                <img
-                                    className="pin-modal-img"
-                                    src="//via.placeholder.com/350x250/3ebeae/ffffff"
-                                    alt=""
-                                />
-                            </div>
-                            <div className="pin-modal-thumb">
-                                <img
-                                    className="pin-modal-img"
-                                    src="//via.placeholder.com/250x350/fdba1b/ffffff"
-                                    alt=""
-                                />
-                            </div>
-                            <div className="pin-modal-thumb">
-                                <img
-                                    className="pin-modal-img"
-                                    src="//via.placeholder.com/450x250/e86359/ffffff"
-                                    alt=""
-                                />
-                            </div>
-                            <div className="pin-modal-thumb">
-                                <img
-                                    className="pin-modal-img"
-                                    src="//via.placeholder.com/250x350/440933/ffffff"
-                                    alt=""
-                                />
-                            </div>
+                            {this.props.pinData.images.map(image =>
+                                <div className="pin-modal-thumb active">
+                                    <ModalImage imageData={image}/>
+                                </div>
+                            )}
+
                         </div>
                     </div>
                 </div>

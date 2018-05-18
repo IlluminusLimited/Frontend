@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Modal from './Modal';
+import ListImage from './ListImage';
 
 class Pin extends Component {
     render() {
@@ -19,12 +20,9 @@ class Pin extends Component {
                 <div
                     className="pin-list-item pin-modal-toggle"
                     data-modal={'pin-' + id}
-                >
-                    <img
-                        className="pin-list-img"
-                        src={images[0].storage_location_uri}
-                        alt={description}
-                    />
+                > {this.props.pinData.images.map(image =>
+                    <ListImage imageData={image}/>
+                )}
                     <div className="pin-list-title">{name}</div>
                 </div>
                 <Modal pinData={this.props.pinData} />
