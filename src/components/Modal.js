@@ -95,7 +95,7 @@ class Modal extends Component {
                     <div className="pin-modal-viewer">
                         <img
                             className="pin-modal-img"
-                            src={'./img/fpo-pins/'}
+                            src={images[0].storage_location_uri}
                             alt={description}
                         />
                     </div>
@@ -115,7 +115,7 @@ class Modal extends Component {
                             <div className="pin-modal-thumb active">
                                 <img
                                     className="pin-modal-img"
-                                    src={'./img/fpo-pins/'}
+                                    src={images[0].storage_location_uri}
                                     alt={description}
                                 />
                             </div>
