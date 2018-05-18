@@ -42,11 +42,8 @@ jobs:
           name: Build React
           command: npm run build
       - run:
-          name: Install serverless
-          command: npm install -g serverless
-      - run:
-          name: Deploy serverless
-          command: serverless deploy --stage dev
+          name: Deploy S3 Bucket
+          command: ./node_modules/serverless/bin/serverless deploy --stage dev
 
   deploy-dev-react:
     working_directory: /repo
@@ -70,11 +67,8 @@ jobs:
           name: Build React
           command: npm run build
       - run:
-          name: Install serverless
-          command: npm install -g serverless
-      - run:
-          name: Deploy
-          command: serverless deploy --stage prod
+          name: Deploy S3 Bucket
+          command: ./node_modules/serverless/bin/serverless deploy --stage prod
   
   deploy-prod-react:
     working_directory: /repo
