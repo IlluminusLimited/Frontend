@@ -16,58 +16,46 @@ custom:
   profiles:
     dev: dev
     prod: prod
-  customDomain:
-    domainName: "app-${self:provider.stage}.pinster.io"
-    basePath: ''
-    stage: ${self:provider.stage}
-    certificateName: "image-service-dev.pinster.io"
-    createRoute53Record: true
-  reactBucket: ${self:custom.customDomain.domainName}
+  reactBucket: "app-${self:provider.stage}.pinster.io"
 
 resources:
   Resources:
-  WebsiteBucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: ${self:custom.reactBucket}
-      AccessControl: PublicRead
-      WebsiteConfiguration:
-        IndexDocument: index.html
-        ErrorDocument: index.html
-    DeletionPolicy: Retain
-  WebsiteBucketPolicy:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket:
-        Ref: WebsiteBucket
-      PolicyDocument:
-        Statement:
-          - Sid: PublicReadForGetBucketObjects
-            Effect: Allow
-            Principal: '*'
-            Action: s3:GetObject
-            Resource:
-              Fn::Join:
-                    - ":"
-                    - - 'arn:aws:s3'
-                      - Ref: 'WebsiteBucket'
-                      - '/*'
+    WebsiteBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.reactBucket}
+        AccessControl: PublicRead
+        WebsiteConfiguration:
+          IndexDocument: index.html
+          ErrorDocument: index.html
 
-  WebsiteCloudfront:
-    Type: AWS::CloudFront::Distribution
-    DependsOn:
-      - WebsiteBucket
-    Properties:
-      DistributionConfig:
-        Comment: Cloudfront Distribution pointing to S3 bucket
-        Origins:
-        - DomainName:
-        	- Fn::Select:
-       	  	- 2
-             - Fn::Split:
-               - "/"
-               - Fn::GetAtt: WebsiteBucket.WebsiteURL
+    WebsiteBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket:
+          Ref: WebsiteBucket
+        PolicyDocument:
+          Statement:
+            - Sid: PublicReadForGetBucketObjects
+              Effect: Allow
+              Principal: '*'
+              Action: s3:GetObject
+              Resource:
+                Fn::Join:
+                  - ":"
+                  - - 'arn:aws:s3'
+                    - Ref: 'WebsiteBucket'
+                    - '/*'
 
+    WebsiteCloudfront:
+      Type: AWS::CloudFront::Distribution
+      DependsOn:
+        - WebsiteBucket
+      Properties:
+        DistributionConfig:
+          Comment: Cloudfront Distribution pointing to S3 bucket
+          Origins:
+          - DomainName: "${self:custom.reactBucket}"
             Id: S3Origin
             CustomOriginConfig:
               HTTPPort: '80'
@@ -76,8 +64,6 @@ resources:
           Enabled: true
           HttpVersion: 'http2'
           DefaultRootObject: index.html
-          Aliases:
-            - ${self:custom.reactBucket}
           DefaultCacheBehavior:
             AllowedMethods:
               - GET
@@ -89,23 +75,24 @@ resources:
               Cookies:
                 Forward: none
             ViewerProtocolPolicy: redirect-to-https
-          PriceClass: PriceClass_All
+          PriceClass: PriceClass_100
           ViewerCertificate:
             AcmCertificateArn: arn:aws:acm:us-east-1:582149114309:certificate/4527b2fc-14a6-417c-a35c-82f5426e516a
             SslSupportMethod: sni-only
-  WebsiteDNSName:
-    Type: AWS::Route53::RecordSetGroup
-    Properties:
-      HostedZoneName: pinster.io.
-      RecordSets:
-        - Name: ${self:custom.reactBucket}
-          Type: A
-          AliasTarget:
-            HostedZoneId: Z2XVRILSTTAGW1
-            DNSName:
-            Fn::GetAtt:
-              - WebsiteCloudfront
-              - DomainName
+
+#    WebsiteDNSName:
+#      Type: AWS::Route53::RecordSetGroup
+#      Properties:
+#        HostedZoneName: pinster.io.
+#        RecordSets:
+#          - Name: ${self:custom.reactBucket}
+#            Type: A
+#            AliasTarget:
+#              HostedZoneId: Z2XVRILSTTAGW1
+#              DNSName:
+#                Fn::GetAtt:
+#                  - WebsiteCloudfront
+#                  - DomainName
     # ReactS3Bucket:
     #   Type: 'AWS::S3::Bucket'
     #   Properties:
@@ -145,5 +132,5 @@ resources:
     #       Comment: Hosted zone for ${self:custom.reactBucket}
     #     Name: ${self:custom.reactBucket}
 
-# plugins:
-#   - serverless-domain-manager
+plugins:
+  - serverless-pseudo-parameters
