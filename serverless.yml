@@ -67,6 +67,7 @@ resources:
             - Principal: "*"
               Action:
                 - s3:GetObject
+                - s3:PutObject
               Effect: Allow
               Sid: "AddPerm"
               Resource: arn:aws:s3:::${self:custom.reactBucket}/*

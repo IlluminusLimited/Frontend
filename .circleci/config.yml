@@ -59,7 +59,7 @@ jobs:
           at: /repo
       - run:
           name: Deploy React
-          command: aws s3 cp ./build s3://api-dev.pinster.io/ --recursive
+          command: aws s3 cp ./build s3://api-dev.pinster.io --recursive
 
   deploy-prod-serverless:
     <<: *defaults
@@ -84,7 +84,7 @@ jobs:
           at: /repo
       - run:
           name: Deploy React
-          command: aws s3 cp build s3://api-prod.pinster.io/ --recursive
+          command: aws s3 cp ./build s3://api-prod.pinster.io --recursive
 
 workflows:
   version: 2
