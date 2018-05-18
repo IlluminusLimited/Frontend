@@ -1,0 +1,40 @@
+{
+    "name": "frontend",
+    "version": "0.1.0",
+    "description": "Core Pinster web user interface using React",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/PinsterTeam/Frontend.git"
+    },
+    "author": "Joel Moser",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/PinsterTeam/Frontend/issues"
+    },
+    "homepage": "https://github.com/PinsterTeam/Frontend#readme",
+    "dependencies": {
+        "node-sass-chokidar": "^1.3.0",
+        "npm-run-all": "^4.1.3",
+        "prop-types": "^15.6.1",
+        "react": "^16.3.0",
+        "react-dom": "^16.3.0",
+        "react-router-dom": "^4.2.2",
+        "react-scripts": "1.1.1"
+    },
+    "scripts": {
+        "lint": "sass-lint --config .sass-lint.yml 'src/**/*.scss' --verbose --no-exit",
+        "build-css": "node-sass-chokidar src/ -o src/",
+        "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+        "start-js": "react-scripts start",
+        "start": "npm-run-all -p watch-css start-js",
+        "build-js": "react-scripts build",
+        "build": "npm-run-all -p build-css build-js",
+        "test": "react-scripts test --env=jsdom",
+        "eject": "react-scripts eject"
+    },
+    "devDependencies": {
+        "sass-lint": "^1.12.1",
+        "serverless": "^1.27.2",
+        "serverless-pseudo-parameters": "^1.6.0"
+    }
+}

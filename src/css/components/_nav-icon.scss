@@ -1,0 +1,57 @@
+.nav-icon {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-end;
+  align-items: flex-end;
+  justify-content: center;
+  border: 1px solid transparent;
+  padding: 15px 5px 5px;
+  text-align: center;
+
+  &,
+  &:visited {
+    text-decoration: none;
+    color: $turquoise;
+  }
+
+  &:focus {
+    outline: none;
+    border: 1px solid $turquoise;
+  }
+
+  &:active {
+    background-color: $turquoise;
+    text-decoration: none;
+    color: $white;
+
+    svg {
+      fill: $white;
+      .outer { stroke: $white; }
+    }
+  }
+
+  > * {
+    flex: 0 0 auto;
+    margin: 0 auto;
+  }
+
+  svg {
+    margin: auto auto 5px;
+  }
+
+}
+
+body:not(.is-touch) {
+  .nav-icon {
+    &:hover {
+      background-color: $turquoise;
+      text-decoration: none;
+      color: $white;
+
+      svg {
+        fill: $white;
+        .outer { stroke: $white; }
+      }
+    }
+  }
+}

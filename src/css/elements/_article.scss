@@ -1,0 +1,10 @@
+article {
+  margin: 0 auto;
+  max-width: 80rem;
+}
+
+@media screen and (max-width: #{$screen-tablet - 1}) {
+  article {
+    margin: 0 $gutter;
+  }
+}

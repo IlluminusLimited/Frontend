@@ -1,0 +1,25 @@
+.pin-modal-content {
+  padding: 0 $gutter $gutter;
+
+  h1 { font-size: 1.2em; }
+
+  p {
+    margin: 0.5em 0 0;
+    padding: 0;
+  }
+}
+
+.pin-modal-tags {
+  margin: 5px 0 $gutter;
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: $copy-dark;
+  padding: 5px 0;
+}
+
+@media screen and (min-width: $screen-tablet) {
+  .pin-modal-content {
+    padding: 0 $gutter $gutter ($gutter * 2);
+    width: 50%;
+  }
+}

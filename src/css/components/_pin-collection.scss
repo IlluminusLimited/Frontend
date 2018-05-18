@@ -1,0 +1,41 @@
+.pin-collection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 45vw;
+  grid-gap: $gutter;
+}
+
+@media screen and (min-width: $screen-phone-lg) {
+  .pin-collection {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: 30vw;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .pin-collection {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-auto-rows: $container-tablet / 4;
+  }
+}
+
+@media screen and (min-width: $screen-tablet-lg) {
+  .pin-collection {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-auto-rows: $container-tablet-lg / 4;
+  }
+}
+
+@media screen and (min-width: $screen-desktop) {
+  .pin-collection {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-auto-rows: $container-desktop / 6;
+  }
+}
+
+@media screen and (min-width: $screen-desktop-lg) {
+  .pin-collection {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-auto-rows: $container-desktop-lg / 6;
+  }
+}

@@ -1,0 +1,36 @@
+@mixin slim-ul {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+  }
+}
+
+@mixin sr-only {
+  position: absolute;
+  border: 0;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  clip: rect(0, 0, 0, 0);
+
+  &.with-focus {
+    &:active,
+    &:focus {
+      position: static;
+      width: auto;
+      height: auto;
+      overflow: visible;
+      white-space: normal;
+      clip: auto;
+    }
+  }
+}

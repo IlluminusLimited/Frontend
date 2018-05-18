@@ -1,0 +1,70 @@
+body {
+  font-family: $opensans;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: $gutter 0;
+  padding: 0;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+h1 { font-size: 3rem; }
+h2 { font-size: 2.375rem; }
+h3 { font-size: 1.875rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1rem; }
+
+h6 {
+  margin: $gutter 0 0;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+p {
+  margin: 0 0 $gutter;
+  padding: 0;
+  line-height: 1.6;
+}
+
+article,
+section {
+  font-size: 1.125em;
+
+  li {
+    line-height: 1.6;
+  }
+}
+
+.copy-small {
+  font-size: 0.875em;
+}
+
+.copy-privacy {
+  font-size: 0.75em;
+}
+
+.copy-italic {
+  letter-spacing: 0.03em;
+  font-style: italic;
+}
+
+.strong {
+  font-weight: 700;
+}
+
+@media screen and (min-width: $screen-tablet-lg) {
+  h1 { font-size: 3.4375rem; }
+  h2 { font-size: 3rem; }
+  h3 { font-size: 2.5rem; }
+  h4 { font-size: 1.5rem; }
+  h5 { font-size: 1rem; }
+  h6 { font-size: 1rem; }
+}

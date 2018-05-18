@@ -1,0 +1,132 @@
+# Ruby CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-ruby/ for more details
+#
+version: 2
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:8
+
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name:  Build
+          command:  npm install
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - ./
+
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Install
+          command: npm install
+      - run:
+          name: Run tests
+          command: npm test
+
+  deploy-dev-serverless:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Build React
+          command: npm run build
+      # - run:
+      #     name: Create Domain
+      #     command: ./node_modules/serverless/bin/serverless create_domain --stage dev
+      - run:
+          name: Deploy S3 Bucket
+          command: ./node_modules/serverless/bin/serverless deploy --stage dev
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - ./
+
+  deploy-dev-react:
+    working_directory: /repo
+    docker:
+      - image: pinster/awseb
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /repo
+      - run:
+          name: Deploy React
+          command: aws s3 cp ./build s3://app-dev.pinster.io --recursive
+
+  deploy-prod-serverless:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Build React
+          command: npm run build
+      - run:
+          name: Create Domain
+          command: ./node_modules/serverless/bin/serverless create_domain --stage prod
+      - run:
+          name: Deploy S3 Bucket
+          command: ./node_modules/serverless/bin/serverless deploy --stage prod
+  
+  deploy-prod-react:
+    working_directory: /repo
+    docker:
+      - image: pinster/awseb
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /repo
+      - run:
+          name: Deploy React
+          command: aws s3 cp ./build s3://app-prod.pinster.io --recursive
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy-dev-serverless:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - develop
+      - deploy-dev-react:
+          requires:
+            - test
+            - deploy-dev-serverless
+          filters:
+            branches:
+              only:
+                - develop
+      - deploy-prod-serverless:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - master
+      - deploy-prod-react:
+          requires:
+            - test
+            - deploy-prod-serverless
+          filters:
+            branches:
+              only:
+                - master

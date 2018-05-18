@@ -1,0 +1,94 @@
+service: frontend
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: us-east-1
+  stage: ${opt:stage, self:custom.defaultStage}
+  # The following line is for testing local deploys
+  # profile: ${self:custom.profiles.${self:provider.stage}, 'default'}
+  endpointType: REGIONAL
+  deploymentBucket:
+      name: "pinster-serverless-deploy-${self:custom.profiles.${self:provider.stage}}"
+
+custom:
+  defaultStage: dev
+  profiles:
+    dev: dev
+    prod: prod
+  reactBucket: "app-${self:provider.stage}.pinster.io"
+
+resources:
+  Resources:
+    WebsiteBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.reactBucket}
+        AccessControl: PublicRead
+        WebsiteConfiguration:
+          IndexDocument: index.html
+          ErrorDocument: index.html
+
+    WebsiteBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket:
+          Ref: WebsiteBucket
+        PolicyDocument:
+          Statement:
+            - Sid: PublicReadForGetBucketObjects
+              Effect: Allow
+              Principal: '*'
+              Action: s3:GetObject
+              Resource: "arn:aws:s3:::${self:custom.reactBucket}/*"
+
+    WebsiteCloudfront:
+      Type: AWS::CloudFront::Distribution
+      DependsOn:
+        - WebsiteBucket
+      Properties:
+        DistributionConfig:
+          Aliases:
+            - ${self:custom.reactBucket}
+          Comment: Cloudfront Distribution pointing to S3 bucket
+          Origins:
+            - DomainName: "${self:custom.reactBucket}.s3.amazonaws.com"
+              Id: S3Origin
+              CustomOriginConfig:
+                HTTPPort: '80'
+                HTTPSPort: '443'
+                OriginProtocolPolicy: http-only
+          Enabled: true
+          HttpVersion: 'http2'
+          DefaultRootObject: index.html
+          DefaultCacheBehavior:
+            AllowedMethods:
+              - GET
+              - HEAD
+            Compress: true
+            TargetOriginId: S3Origin
+            ForwardedValues:
+              QueryString: true
+              Cookies:
+                Forward: none
+            ViewerProtocolPolicy: redirect-to-https
+          PriceClass: PriceClass_100
+          ViewerCertificate:
+            AcmCertificateArn: arn:aws:acm:us-east-1:582149114309:certificate/4527b2fc-14a6-417c-a35c-82f5426e516a
+            SslSupportMethod: sni-only
+
+    WebsiteDNSName:
+      Type: AWS::Route53::RecordSetGroup
+      Properties:
+        HostedZoneName: pinster.io.
+        RecordSets:
+        - Name: ${self:custom.reactBucket}
+          Type: A
+          AliasTarget:
+            HostedZoneId: Z2XVRILSTTAGW1
+            DNSName:
+              Fn::GetAtt:
+                - WebsiteCloudfront
+                - DomainName
+plugins:
+  - serverless-pseudo-parameters

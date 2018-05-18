@@ -1,0 +1,22 @@
+.header-util {
+  padding: $gutter 0;
+  color: $turquoise;
+
+  .logo {
+    font-size: 1.2em;
+    font-weight: 700;
+  }
+}
+
+.header-util-nav {
+  display: flex;
+  float: right;
+
+  > * {
+    flex: 0 0 auto;
+    margin: 0.2em 0 0 $gutter;
+    padding: 0;
+    text-decoration: none;
+    color: $turquoise;
+  }
+}
