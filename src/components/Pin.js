@@ -3,7 +3,17 @@ import Modal from './Modal';
 
 class Pin extends Component {
     render() {
-        const { id, name, img, description } = { ...this.props.pinData };
+        const {
+            id,
+            name,
+            year,
+            description,
+            tags,
+            created_at,
+            updated_at,
+            images,
+            url
+        } = { ...this.props.pinData };
         return (
             <React.Fragment>
                 <div
@@ -12,7 +22,7 @@ class Pin extends Component {
                 >
                     <img
                         className="pin-list-img"
-                        src={'./img/fpo-pins/' + img}
+                        src={images[0].url}
                         alt={description}
                     />
                     <div className="pin-list-title">{name}</div>
