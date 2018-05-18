@@ -2,7 +2,7 @@ service: frontend
 
 provider:
   name: aws
-  runtime: nodejs6.10
+  runtime: nodejs8.10
   region: us-east-1
   stage: ${opt:stage, self:custom.defaultStage}
   # The following line is for testing local deploys
@@ -52,7 +52,7 @@ resources:
           ErrorDocument: index.html
           RoutingRules:
           - RedirectRule:
-              HostName: ${self:custom.customDomain.domainName}
+              HostName: ${self:custom.reactBucket}
               HttpRedirectCode: 307
               Protocol: https
             RoutingRuleCondition:
