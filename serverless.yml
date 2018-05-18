@@ -82,13 +82,12 @@ resources:
       Properties:
         HostedZoneName: pinster.io.
         RecordSets:
-        - Name: app-${self:provider.stage}
-          Type: A
-          AliasTarget:
-            HostedZoneId: Z2XVRILSTTAGW1
-            DNSName:
-              Fn::GetAtt:
-                - WebsiteCloudfront
-                - DomainName
+        - Name: "app-${self:provider.stage}.pinster.io"
+          Type: CNAME
+          TTL: 900
+          ResourceRecords:
+            - Fn::GetAtt:
+              - WebsiteCloudfront
+              - DomainName
 plugins:
   - serverless-pseudo-parameters
