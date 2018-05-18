@@ -45,7 +45,8 @@ resources:
           Effect: Allow
           Principal: '*'
           Action: s3:GetObject
-          Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
+          Resource: 
+            - Fn::Join: [':', ['arn:aws:s3', Ref: 'WebsiteBucket', '/*']]
   WebsiteCloudfront:
     Type: AWS::CloudFront::Distribution
     DependsOn:
@@ -54,7 +55,7 @@ resources:
       DistributionConfig:
         Comment: Cloudfront Distribution pointing to S3 bucket
         Origins:
-        - DomainName: !Select [2, !Split ["/", !GetAtt WebsiteBucket.WebsiteURL]]
+        - DomainName: Fn::Select: [2, Fn::Split: ["/", Fn::GetAtt: WebsiteBucket.WebsiteURL]]
           Id: S3Origin
           CustomOriginConfig:
             HTTPPort: '80'
@@ -89,7 +90,7 @@ resources:
         Type: A
         AliasTarget:
           HostedZoneId: Z2XVRILSTTAGW1
-          DNSName: !GetAtt [WebsiteCloudfront, DomainName]
+          DNSName: Fn::GetAtt: [WebsiteCloudfront, DomainName]
     # ReactS3Bucket:
     #   Type: 'AWS::S3::Bucket'
     #   Properties:
