@@ -36,8 +36,6 @@ jobs:
 
   deploy-dev-serverless:
     <<: *defaults
-    docker:
-      - image: pinster/awseb
     steps:
       - checkout
       - attach_workspace:
@@ -64,10 +62,8 @@ jobs:
           name: Deploy React
           command: aws s3 cp build s3://api-dev.pinster.io/
 
-  deploy-prod:
+  deploy-prod-serverless:
     <<: *defaults
-    docker:
-      - image: pinster/awseb
     steps:
       - checkout
       - attach_workspace:
