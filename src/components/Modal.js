@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SvgClose from './svg/SvgClose';
-import Tag from './Tag';
+// import Tag from './Tag';
 
 class Modal extends Component {
     openModal = toggle => {
@@ -72,7 +72,7 @@ class Modal extends Component {
     }
     componentWillUnmount() {}
     render() {
-        const { id, name, img, description, maker, year, tags } = {
+        const { id, name, img, description, maker, year /*, tags*/ } = {
             ...this.props.pinData
         };
         return (
