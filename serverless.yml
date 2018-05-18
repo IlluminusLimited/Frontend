@@ -76,6 +76,7 @@ resources:
           ViewerCertificate:
             AcmCertificateArn: arn:aws:acm:us-east-1:582149114309:certificate/4527b2fc-14a6-417c-a35c-82f5426e516a
             SslSupportMethod: sni-only
+
     WebsiteDNSName:
       Type: AWS::Route53::RecordSetGroup
       Properties:
