@@ -16,9 +16,9 @@ class NavBar extends Component {
                         <SvgHome />
                         <span>home</span>
                     </a>
-                    <a className="nav-icon" href="/login">
+                    <a className="nav-icon" href="/collections">
                         <SvgCollections />
-                        <span>my collections</span>
+                        <span>collections</span>
                     </a>
                 </nav>
             </footer>
