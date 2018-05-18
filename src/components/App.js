@@ -42,7 +42,8 @@ class App extends Component {
                     {
                         Object.keys(this.state.pins).map(key => (
                             <Pin key={key} pinData={this.state.pins[key]}/>
-                        ))}
+                        ))
+                    }
                 </div>
             </main>
         );

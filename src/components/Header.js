@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import SvgSearch from './svg/SvgSearch';
 
 class Header extends Component {
@@ -15,8 +15,31 @@ class Header extends Component {
     }
 
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.value);
+        this.fetchResults(this.state.value);
         event.preventDefault();
+    }
+
+    fetchResults(query) {
+        let url =new URL("http://localhost:3000/v1/search"),
+            params = {query: query};
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+        fetch(url)
+            .then(
+                results => {
+                    return results.json();
+                },
+                error => {
+                    console.log('error');
+                    console.log(error);
+                }
+            )
+            .then(response => {
+                // Display the pins
+                console.log(response.data);
+                this.setState({
+                    results: response.data
+                });
+            });
     }
 
     render() {
@@ -25,13 +48,13 @@ class Header extends Component {
                 {/* <div className="header-util">
                     <span className="logo">pinster</span>
                 </div> */}
-                <form className="global-search-form" onSubmit={this.handleSubmit} >
+                <form className="global-search-form" onSubmit={this.handleSubmit}>
                     {/* <label className="sr-only" for="search">
                             search
                         </label> */}
                     <div className="global-search-wrapper">
                         <button type="submit">
-                            <SvgSearch />
+                            <SvgSearch/>
                             <span className="sr-only">Submit</span>
                         </button>
                         <input
@@ -40,6 +63,8 @@ class Header extends Component {
                             placeholder="Search pins"
                             type="search"
                             value={this.state.value}
+                            onChange={this.handleChange}
+
                         />
                     </div>
                 </form>
