@@ -15,7 +15,7 @@ jobs:
       - checkout
       - run:
           name:  Build
-          command:  npm install --production
+          command:  npm install
       - persist_to_workspace:
           root: ~/repo
           paths:
