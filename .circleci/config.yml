@@ -18,8 +18,6 @@ jobs:
           command:  npm install --production
       - persist_to_workspace:
           root: /build
-          paths:
-            - build
 
   test:
     working_directory: ~/repo
