@@ -42,6 +42,9 @@ jobs:
           name: Build React
           command: npm run build
       - run:
+          name: Create Domain
+          command: ./node_modules/serverless/bin/serverless create_domain --stage dev
+      - run:
           name: Deploy S3 Bucket
           command: ./node_modules/serverless/bin/serverless deploy --stage dev
       - persist_to_workspace:
@@ -70,6 +73,9 @@ jobs:
       - run:
           name: Build React
           command: npm run build
+      - run:
+          name: Create Domain
+          command: ./node_modules/serverless/bin/serverless create_domain --stage prod
       - run:
           name: Deploy S3 Bucket
           command: ./node_modules/serverless/bin/serverless deploy --stage prod
