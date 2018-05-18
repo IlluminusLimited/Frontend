@@ -5,7 +5,7 @@ import ModalImage from './ModalImage';
 
 class Modal extends Component {
     openModal = toggle => {
-        var modal = document.querySelector(
+        let modal = document.querySelector(
             '#' + toggle.getAttribute('data-modal')
         );
         modal.classList.add('active');
@@ -33,7 +33,7 @@ class Modal extends Component {
                 return;
             }
 
-            var key = event.key || event.keyCode;
+            let key = event.key || event.keyCode;
             if (key === 'Escape' || key === 'Esc' || key === 27) {
                 this.closeModal();
             }
@@ -110,7 +110,7 @@ class Modal extends Component {
                         </div>
                         <div className="pin-modal-thumbs">
                             {this.props.pinData.images.map(image =>
-                                <div className="pin-modal-thumb active">
+                                <div className="pin-modal-thumb">
                                     <ModalImage imageData={image}/>
                                 </div>
                             )}
