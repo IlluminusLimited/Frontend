@@ -11,6 +11,13 @@ provider:
   deploymentBucket:
       name: "pinster-serverless-deploy-${self:custom.profiles.${self:provider.stage}}"
 
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:*"
+      Resource:
+        - "arn:aws:s3:::${self:custom.reactBucket}/*"
+
 custom:
   defaultStage: dev
   profiles:
@@ -23,17 +30,17 @@ custom:
     createRoute53Record: true
   reactBucket: ${self:custom.customDomain.domainName}
 
-# functions:
-#   imageUploader:
-#     handler: lambda/lambda.upload
-#     events:
-#       - http:
-#           method: post
-#           path: images/upload
-#           cors: true
-#     memorySize: 1024
-#     environment:
-#           BUCKET_NAME: ${self:custom.imageUploaderBucket}
+functions:
+  dummyLambda:
+    handler: dummyLambda.mock
+    events:
+      - http:
+          method: post
+          path: dummy
+          cors: true
+    memorySize: 1024
+    environment:
+          BUCKET_NAME: ${self:custom.reactBucket}
 
 resources:
   Resources:
