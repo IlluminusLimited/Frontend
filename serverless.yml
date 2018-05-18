@@ -48,14 +48,16 @@ resources:
         - WebsiteBucket
       Properties:
         DistributionConfig:
+          Aliases:
+            - ${self:custom.reactBucket}
           Comment: Cloudfront Distribution pointing to S3 bucket
           Origins:
-          - DomainName: "${self:custom.reactBucket}"
-            Id: S3Origin
-            CustomOriginConfig:
-              HTTPPort: '80'
-              HTTPSPort: '443'
-              OriginProtocolPolicy: http-only
+            - DomainName: "${self:custom.reactBucket}.s3.amazonaws.com"
+              Id: S3Origin
+              CustomOriginConfig:
+                HTTPPort: '80'
+                HTTPSPort: '443'
+                OriginProtocolPolicy: http-only
           Enabled: true
           HttpVersion: 'http2'
           DefaultRootObject: index.html
