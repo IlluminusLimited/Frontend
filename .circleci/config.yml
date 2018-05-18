@@ -107,6 +107,7 @@ workflows:
             branches:
               only:
                 - develop
+                - moser-serverless-test-ideas
       - deploy-dev-react:
           requires:
             - test
@@ -115,6 +116,7 @@ workflows:
             branches:
               only:
                 - develop
+                - moser-serverless-test-ideas
       - deploy-prod-serverless:
           requires:
             - test
