@@ -50,14 +50,13 @@ resources:
         WebsiteConfiguration:
           IndexDocument: index.html
           ErrorDocument: index.html
-          # RoutingRules:
-          # - RedirectRule:
-          #     HostName: ${self:custom.customDomain.domainName}
-          #     HttpRedirectCode: 307
-          #     Protocol: https
-          #     ReplaceKeyPrefixWith: images/generate?key=
-          #   RoutingRuleCondition:
-          #     HttpErrorCodeReturnedEquals: 404
+          RoutingRules:
+          - RedirectRule:
+              HostName: ${self:custom.customDomain.domainName}
+              HttpRedirectCode: 307
+              Protocol: https
+            RoutingRuleCondition:
+              HttpErrorCodeReturnedEquals: 404
     S3BucketPermissions:
       Type: AWS::S3::BucketPolicy
       Properties:
@@ -67,7 +66,9 @@ resources:
             - Principal: "*"
               Action:
                 - s3:GetObject
-                - s3:PutObject
               Effect: Allow
               Sid: "AddPerm"
               Resource: arn:aws:s3:::${self:custom.reactBucket}/*
+
+plugins:
+  - serverless-domain-manager
