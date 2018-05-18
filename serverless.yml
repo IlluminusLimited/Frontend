@@ -40,12 +40,7 @@ resources:
               Effect: Allow
               Principal: '*'
               Action: s3:GetObject
-              Resource:
-                Fn::Join:
-                  - ":"
-                  - - 'arn:aws:s3'
-                    - Ref: 'WebsiteBucket'
-                    - '/*'
+              Resource: "arn:aws:s3:::${self:custom.reactBucket}/*"
 
     WebsiteCloudfront:
       Type: AWS::CloudFront::Distribution
