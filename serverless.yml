@@ -58,6 +58,12 @@ resources:
               Effect: Allow
               Sid: "AddPerm"
               Resource: arn:aws:s3:::${self:custom.reactBucket}/*
+    DNS:
+      Type: AWS::Route53::HostedZone
+      Properties:
+        HostedZoneConfig:
+          Comment: Hosted zone for ${self:custom.reactBucket}
+        Name: ${self:custom.reactBucket}
 
 # plugins:
 #   - serverless-domain-manager
