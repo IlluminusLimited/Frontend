@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import SvgSearch from './svg/SvgSearch';
-import App from './App';
 
 class Header extends Component {
     state = { value: '' };
