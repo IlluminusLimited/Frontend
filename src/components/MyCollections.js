@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Collection from './Collection';
-// import logo from '../logo.svg';
 
 class MyCollections extends Component {
     state = {
@@ -32,12 +31,6 @@ class MyCollections extends Component {
                 });
             });
     }
-
-    // updatePins = updatedPins => {
-    //     this.setState({
-    //         collections:
-    //     });
-    // };
 
     componentDidMount() {
         this.makeFetch();
