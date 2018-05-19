@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 // import logo from '../logo.svg';
 import Header from './Header';
 import Pin from './Pin';
-import Loader from './Loader';
 
-class Archive extends Component {
+class Home extends Component {
     state = {
         pins: []
     };
 
     makeFetch = () => {
-        fetch('http://api-dev.pinster.io:3000/v1/pins')
+        fetch('http://api-dev.pinster.io/v1/pins')
             .then(
                 results => {
                     return results.json();
@@ -36,7 +35,7 @@ class Archive extends Component {
     };
 
     componentDidMount() {
-        // this.makeFetch();
+        this.makeFetch();
     }
 
     render() {
@@ -44,14 +43,14 @@ class Archive extends Component {
             <React.Fragment>
                 <Header updatePins={this.updatePins} />
                 <main className="container">
-                    {/* <header className="App-header">
-                        <img src={logo} className="App-logo" alt="logo" />
-                        <h1 className="App-title">Welcome to React</h1>
-                    </header> */}
-
                     <div className="pin-collection">
                         {Object.keys(this.state.pins).map(key => (
-                            <Pin key={key} pinData={this.state.pins[key]} />
+                            <Pin
+                                key={key}
+                                uid={key}
+                                pinData={this.state.pins[key]}
+                                uiType="pin-modal-toggle"
+                            />
                         ))}
                     </div>
                 </main>
@@ -60,4 +59,4 @@ class Archive extends Component {
     }
 }
 
-export default Archive;
+export default Home;
