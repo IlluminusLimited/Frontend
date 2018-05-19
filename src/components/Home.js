@@ -61,7 +61,7 @@ class Home extends Component {
                             />
                         ))}
                     </div>
-                    <button className="load-more" onClick={this.makeFetch}>
+                    <button className="btn-load-more" onClick={this.makeFetch}>
                         Load more
                     </button>
                 </main>
