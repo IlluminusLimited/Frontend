@@ -25,8 +25,7 @@ class Header extends Component {
                     return results.json();
                 },
                 error => {
-                    console.log('error');
-                    console.log(error);
+                    console.error(error);
                 }
             )
             .then(response => {
