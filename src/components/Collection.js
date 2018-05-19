@@ -16,6 +16,7 @@ class Collection extends Component {
                                 key={index}
                                 pinData={collectable}
                                 uiType="pin-modal-toggle"
+                                history={this.props.history}
                             />
                         )
                     )}

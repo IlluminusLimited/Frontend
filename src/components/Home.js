@@ -57,7 +57,6 @@ class Home extends Component {
                                 uid={key}
                                 pinData={this.state.pins[key]}
                                 uiType="pin-modal-toggle"
-                                history={this.props.history}
                             />
                         ))}
                     </div>
