@@ -1,29 +1,25 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import SvgSearch from './svg/SvgSearch';
 import App from './App';
 
 class Header extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {value: ''};
+    state = { value: '' };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+    handleChange = event => {
+        this.setState({ value: event.target.value });
+    };
 
-    handleChange(event) {
-        this.setState({value: event.target.value});
-    }
-
-    handleSubmit(event) {
-        this.fetchResults(this.state.value);
+    handleSubmit = event => {
         event.preventDefault();
-    }
+        this.fetchResults(this.state.value);
+    };
 
-    fetchResults(query) {
-        let url =new URL("http://localhost:3000/v1/search"),
-            params = {query: query};
-        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+    fetchResults = query => {
+        let url = new URL('http://api-dev.pinster.io/v1/search'),
+            params = { query: query };
+        Object.keys(params).forEach(key =>
+            url.searchParams.append(key, params[key])
+        );
         fetch(url)
             .then(
                 results => {
@@ -37,11 +33,12 @@ class Header extends Component {
             .then(response => {
                 // Display the pins
                 console.log(response.data);
+                this.props.updatePins(response.data);
                 this.setState({
                     results: response.data
                 });
             });
-    }
+    };
 
     render() {
         return (
@@ -49,13 +46,16 @@ class Header extends Component {
                 {/* <div className="header-util">
                     <span className="logo">pinster</span>
                 </div> */}
-                <form className="global-search-form" onSubmit={this.handleSubmit}>
+                <form
+                    className="global-search-form"
+                    onSubmit={this.handleSubmit}
+                >
                     {/* <label className="sr-only" for="search">
                             search
                         </label> */}
                     <div className="global-search-wrapper">
                         <button type="submit">
-                            <SvgSearch/>
+                            <SvgSearch />
                             <span className="sr-only">Submit</span>
                         </button>
                         <input
@@ -65,7 +65,6 @@ class Header extends Component {
                             type="search"
                             value={this.state.value}
                             onChange={this.handleChange}
-
                         />
                     </div>
                 </form>
