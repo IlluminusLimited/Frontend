@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
+import PinDetails from './PinDetails';
 import SvgClose from './svg/SvgClose';
-import Tag from './Tag';
-import ModalImage from './ModalImage';
 
 class Modal extends Component {
     openModal = toggle => {
@@ -93,30 +92,10 @@ class Modal extends Component {
                 role="dialog"
             >
                 <div className="pin-modal-container" role="document">
-                    <div className="pin-modal-viewer">
-                        <ModalImage imageData={this.props.pinData.images[0]}/>
-                    </div>
-                    <div className="pin-modal-content">
-                        <h1 id={'title-' + id}>{name}</h1>
-                        <p>{description}</p>
-                        <p>{year}</p>
-                        <div className="pin-modal-tags">
-                             {Object.keys(tags).map(key => (
-                                <Tag
-                                    tagKey={key}
-                                    tagName={tags[key]}
-                                />
-                            ))}
-                        </div>
-                        <div className="pin-modal-thumbs">
-                            {this.props.pinData.images.map(image =>
-                                <div className="pin-modal-thumb">
-                                    <ModalImage imageData={image}/>
-                                </div>
-                            )}
-
-                        </div>
-                    </div>
+                    <PinDetails
+                        pinData={this.props.pinData}
+                        classType="pin-modal"
+                    />
                 </div>
                 <button className="pin-modal-dismiss">
                     <SvgClose />
