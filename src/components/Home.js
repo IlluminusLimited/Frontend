@@ -25,8 +25,8 @@ class Home extends Component {
                 console.log(response.data);
                 this.setState(prevState => {
                     return {
-                        pins: [...prevState.pins, response.data],
-                        pageLink: response.links.self
+                        pins: [...prevState.pins, ...response.data],
+                        pageLink: response.links.next
                     };
                 });
             });
@@ -38,6 +38,10 @@ class Home extends Component {
             pageLink: updatedPins.links.self
         });
     };
+
+    componentDidUpdate() {
+        console.log(this.state);
+    }
 
     componentDidMount() {
         this.makeFetch();
@@ -59,7 +63,9 @@ class Home extends Component {
                             />
                         ))}
                     </div>
-                    <button className="load-more" onClick={this.loadMore} />
+                    <button className="load-more" onClick={this.makeFetch}>
+                        Load more
+                    </button>
                 </main>
             </React.Fragment>
         );
