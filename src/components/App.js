@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import logo from '../logo.svg';
 import Header from './Header';
 import Pin from './Pin';
+import Loader from './Loader';
 
 class Archive extends Component {
     state = {
@@ -47,6 +48,7 @@ class Archive extends Component {
                         <img src={logo} className="App-logo" alt="logo" />
                         <h1 className="App-title">Welcome to React</h1>
                     </header> */}
+
                     <div className="pin-collection">
                         {Object.keys(this.state.pins).map(key => (
                             <Pin key={key} pinData={this.state.pins[key]} />
