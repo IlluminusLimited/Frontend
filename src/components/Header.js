@@ -34,9 +34,6 @@ class Header extends Component {
                 // Display the pins
                 console.log(response.data);
                 this.props.updatePins(response.data);
-                this.setState({
-                    results: response.data
-                });
             });
     };
 
