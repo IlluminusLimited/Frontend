@@ -43,13 +43,12 @@ class Header extends Component {
                 {/* <div className="header-util">
                     <span className="logo">pinster</span>
                 </div> */}
+
                 <form
-                    className="global-search-form"
+                    className="global-search-form full-bleed container"
                     onSubmit={this.handleSubmit}
                 >
-                    {/* <label className="sr-only" for="search">
-                            search
-                        </label> */}
+                    <label className="sr-only" for="search">search</label>
                     <div className="global-search-wrapper">
                         <button type="submit">
                             <SvgSearch />
