@@ -1,0 +1,23 @@
+.form-modal-toggle {
+  cursor: pointer;
+}
+
+.form-modal {
+  display: none;
+  position: fixed;
+  top: $gutter;
+  right: $gutter;
+  left: $gutter;
+  z-index: $z-modal;
+  max-height: calc(100vh - 50px);
+  overflow: auto;
+
+  &.active { display: block; }
+}
+
+
+body:not(.is-touch) {
+  .form-modal-toggle:hover {
+    box-shadow: $box-shadow;
+  }
+}

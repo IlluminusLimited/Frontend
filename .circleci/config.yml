@@ -41,6 +41,8 @@ jobs:
       - run:
           name: Build React
           command: npm run build
+          environment:
+            STAGE_ENV: dev
       - run:
           name: Deploy S3 Bucket
           command: ./node_modules/serverless/bin/serverless deploy --stage dev
@@ -70,14 +72,12 @@ jobs:
       - run:
           name: Build React
           command: npm run build
+          environment:
+            STAGE_ENV: prod
       - run:
           name: Deploy S3 Bucket
           command: ./node_modules/serverless/bin/serverless deploy --stage prod
-      - persist_to_workspace:
-          root: ~/repo
-          paths:
-            - ./
-
+  
   deploy-prod-react:
     working_directory: /repo
     docker:
@@ -108,7 +108,6 @@ workflows:
       - deploy-dev-react:
           requires:
             - test
-            - deploy-dev-serverless
           filters:
             branches:
               only:
@@ -123,7 +122,6 @@ workflows:
       - deploy-prod-react:
           requires:
             - test
-            - deploy-prod-serverless
           filters:
             branches:
               only:

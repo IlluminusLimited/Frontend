@@ -14,12 +14,22 @@
         },
         "sourceType": "module"
     },
+    "parser": "babel-eslint",
     "plugins": ["react"],
     "rules": {
         "indent": ["error", 4, { "SwitchCase": 1 }],
-        "linebreak-style": ["error", "windows"],
+        "linebreak-style": ["off", "windows"],
         "no-unused-vars": "off",
         "quotes": ["error", "single"],
-        "semi": ["error", "always"]
+        "semi": ["error", "always"],
+        "no-console": [
+            "warn",
+            {
+              "allow": [
+                "warn",
+                "error"
+              ]
+            }
+          ]
     }
 }
