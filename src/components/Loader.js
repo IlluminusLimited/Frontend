@@ -5,9 +5,9 @@ class Loader extends Component {
         return (
             <React.Fragment>
                 <div className="loader">
-                   <div className="pip" />
-                   <div className="pip" />
-                   <div className="pip" />
+                    <div className="pip" />
+                    <div className="pip" />
+                    <div className="pip" />
                 </div>
             </React.Fragment>
         );

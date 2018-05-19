@@ -14,6 +14,7 @@ class CollectionPage extends Component {
                         />
                     ))}
                 </div>
+                <button className="load-more" onClick={this.loadMore} />
             </main>
         );
     }

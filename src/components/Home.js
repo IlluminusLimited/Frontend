@@ -5,11 +5,12 @@ import Pin from './Pin';
 
 class Home extends Component {
     state = {
-        pins: []
+        pins: [],
+        pageLink: 'http://api-dev.pinster.io/v1/pins'
     };
 
     makeFetch = () => {
-        fetch('http://api-dev.pinster.io/v1/pins')
+        fetch(this.state.pageLink)
             .then(
                 results => {
                     return results.json();
@@ -22,15 +23,19 @@ class Home extends Component {
             .then(response => {
                 // Display the pins
                 console.log(response.data);
-                this.setState({
-                    pins: response.data
+                this.setState(prevState => {
+                    return {
+                        pins: [...prevState.pins, updatedPins.data],
+                        pageLink: updatedPins.links.self
+                    };
                 });
             });
     };
 
     updatePins = updatedPins => {
         this.setState({
-            pins: updatedPins
+            pins: updatedPins.data,
+            pageLink: updatedPins.links.self
         });
     };
 
@@ -50,9 +55,11 @@ class Home extends Component {
                                 uid={key}
                                 pinData={this.state.pins[key]}
                                 uiType="pin-modal-toggle"
+                                history={this.props.history}
                             />
                         ))}
                     </div>
+                    <button className="load-more" onClick={this.loadMore} />
                 </main>
             </React.Fragment>
         );
