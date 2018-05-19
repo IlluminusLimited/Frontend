@@ -32,8 +32,8 @@ class Header extends Component {
             )
             .then(response => {
                 // Display the pins
-                console.log(response.data);
-                this.props.updatePins(response.data);
+                console.log(response);
+                this.props.updatePins(response);
             });
     };
 
@@ -48,7 +48,9 @@ class Header extends Component {
                     className="global-search-form full-bleed container"
                     onSubmit={this.handleSubmit}
                 >
-                    <label className="sr-only" for="search">search</label>
+                    <label className="sr-only" for="search">
+                        search
+                    </label>
                     <div className="global-search-wrapper">
                         <button type="submit">
                             <SvgSearch />
