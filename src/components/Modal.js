@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import PinDetails from './PinDetails';
 import SvgClose from './svg/SvgClose';
-// import Tag from './Tag';
 
 class Modal extends Component {
     openModal = toggle => {
-        var modal = document.querySelector(
+        let modal = document.querySelector(
             '#' + toggle.getAttribute('data-modal')
         );
         modal.classList.add('active');
@@ -32,7 +32,7 @@ class Modal extends Component {
                 return;
             }
 
-            var key = event.key || event.keyCode;
+            let key = event.key || event.keyCode;
             if (key === 'Escape' || key === 'Esc' || key === 27) {
                 this.closeModal();
             }
@@ -72,9 +72,17 @@ class Modal extends Component {
     }
     componentWillUnmount() {}
     render() {
-        const { id, name, img, description, maker, year /*, tags*/ } = {
-            ...this.props.pinData
-        };
+        const {
+            id,
+            name,
+            year,
+            description,
+            tags,
+            created_at,
+            updated_at,
+            images,
+            url
+        } = { ...this.props.pinData };
         return (
             <div
                 id={'pin-' + id}
@@ -84,64 +92,10 @@ class Modal extends Component {
                 role="dialog"
             >
                 <div className="pin-modal-container" role="document">
-                    <div className="pin-modal-viewer">
-                        <img
-                            className="pin-modal-img"
-                            src={'./img/fpo-pins/' + img}
-                            alt={description}
-                        />
-                    </div>
-                    <div className="pin-modal-content">
-                        <h1 id={'title-' + id}>{name}</h1>
-                        <p>{description}</p>
-                        <p>{maker}</p>
-                        <p>{year}</p>
-                        <div className="pin-modal-tags">
-                            {/* {Object.keys(tags).map(key => (
-                                <Tag
-                                    key={key}
-                                    tagName={tags[key]}
-                                />
-                            ))} */}
-                        </div>
-                        <div className="pin-modal-thumbs">
-                            <div className="pin-modal-thumb active">
-                                <img
-                                    className="pin-modal-img"
-                                    src={'./img/fpo-pins/' + img}
-                                    alt={description}
-                                />
-                            </div>
-                            <div className="pin-modal-thumb">
-                                <img
-                                    className="pin-modal-img"
-                                    src="//via.placeholder.com/350x250/3ebeae/ffffff"
-                                    alt=""
-                                />
-                            </div>
-                            <div className="pin-modal-thumb">
-                                <img
-                                    className="pin-modal-img"
-                                    src="//via.placeholder.com/250x350/fdba1b/ffffff"
-                                    alt=""
-                                />
-                            </div>
-                            <div className="pin-modal-thumb">
-                                <img
-                                    className="pin-modal-img"
-                                    src="//via.placeholder.com/450x250/e86359/ffffff"
-                                    alt=""
-                                />
-                            </div>
-                            <div className="pin-modal-thumb">
-                                <img
-                                    className="pin-modal-img"
-                                    src="//via.placeholder.com/250x350/440933/ffffff"
-                                    alt=""
-                                />
-                            </div>
-                        </div>
-                    </div>
+                    <PinDetails
+                        pinData={this.props.pinData}
+                        classType="pin-modal"
+                    />
                 </div>
                 <button className="pin-modal-dismiss">
                     <SvgClose />

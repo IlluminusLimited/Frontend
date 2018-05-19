@@ -8,7 +8,7 @@ class NavBar extends Component {
         return (
             <footer className="container">
                 <nav className="footer-nav full-bleed">
-                    <a className="nav-icon" href="/snippits.html">
+                    <a className="nav-icon" href="/login">
                         <SvgSettings />
                         <span>settings</span>
                     </a>
@@ -16,9 +16,9 @@ class NavBar extends Component {
                         <SvgHome />
                         <span>home</span>
                     </a>
-                    <a className="nav-icon" href="/login">
+                    <a className="nav-icon" href="/collections">
                         <SvgCollections />
-                        <span>profile</span>
+                        <span>collections</span>
                     </a>
                 </nav>
             </footer>

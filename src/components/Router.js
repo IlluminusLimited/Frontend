@@ -1,8 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import App from './App';
-import Header from './Header';
-// import Collection from './Collection';
+import Home from './Home';
+import MyCollections from './MyCollections';
+import Collection from './Collection';
+import CollectionPage from './CollectionPage';
+import PinPage from './PinPage';
 import Login from './Login';
 // import Help from './Help';
 import NavBar from './NavBar';
@@ -10,13 +12,17 @@ import NavBar from './NavBar';
 const Router = () => (
     <BrowserRouter>
         <React.Fragment>
-            <Route path="/" component={Header} />
             <Switch>
-                <Route exact path="/" component={App} />
+                <Route exact path="/" component={Home} />
                 <Route exact path="/login" component={Login} />
-                {/* <Route exact path="/settings" component={Settings} /> */}
+                {/*<Route exact path="/settings" component={Settings} />*/}
                 {/* <Route path="/user/:userId" component={User} /> */}
-                {/* <Route path="/collection/:collectionId" component={Collection} /> */}
+                <Route path="/pin/:pinId" component={PinPage} />
+                <Route path="/collections" component={MyCollections} />
+                <Route
+                    path="/collection/:collectionId"
+                    component={CollectionPage}
+                />
                 {/* <Route path="/set/:setId" component={PinSet} /> */}
                 {/* <Route path="/help" component={Help} /> */}
                 {/* <Route component={NotFound} /> */}
