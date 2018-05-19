@@ -108,7 +108,6 @@ workflows:
       - deploy-dev-react:
           requires:
             - test
-            - deploy-dev-serverless
           filters:
             branches:
               only:
@@ -123,7 +122,6 @@ workflows:
       - deploy-prod-react:
           requires:
             - test
-            - deploy-prod-serverless
           filters:
             branches:
               only:
