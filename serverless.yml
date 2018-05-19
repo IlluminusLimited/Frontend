@@ -16,48 +16,78 @@ custom:
   profiles:
     dev: dev
     prod: prod
-  customDomain:
-    domainName: "app-${self:provider.stage}.pinster.io"
-    basePath: ''
-    stage: ${self:provider.stage}
-    certificateName: "image-service-dev.pinster.io"
-    createRoute53Record: true
-  reactBucket: ${self:custom.customDomain.domainName}
+  reactBucket: "app-${self:provider.stage}.pinster.io"
 
 resources:
   Resources:
-    ReactS3Bucket:
-      Type: 'AWS::S3::Bucket'
+    WebsiteBucket:
+      Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:custom.reactBucket}
-        CorsConfiguration:
-          CorsRules:
-            - AllowedHeaders: ['*']
-              AllowedMethods: [GET, PUT, POST, HEAD]
-              AllowedOrigins: ['*']
-              MaxAge: '3600'
+        AccessControl: PublicRead
         WebsiteConfiguration:
           IndexDocument: index.html
           ErrorDocument: index.html
-          # RoutingRules:
-          # - RedirectRule:
-          #     HostName: ${self:custom.reactBucket}
-          #     HttpRedirectCode: 307
-          #     Protocol: https
-          #   RoutingRuleCondition:
-          #     HttpErrorCodeReturnedEquals: 404
-    S3BucketPermissions:
+
+    WebsiteBucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
-        Bucket: ${self:custom.reactBucket}
+        Bucket:
+          Ref: WebsiteBucket
         PolicyDocument:
           Statement:
-            - Principal: "*"
-              Action:
-                - s3:GetObject
+            - Sid: PublicReadForGetBucketObjects
               Effect: Allow
-              Sid: "AddPerm"
-              Resource: arn:aws:s3:::${self:custom.reactBucket}/*
+              Principal: '*'
+              Action: s3:GetObject
+              Resource: "arn:aws:s3:::${self:custom.reactBucket}/*"
 
-# plugins:
-#   - serverless-domain-manager
+    WebsiteCloudfront:
+      Type: AWS::CloudFront::Distribution
+      DependsOn:
+        - WebsiteBucket
+      Properties:
+        DistributionConfig:
+          Aliases:
+            - ${self:custom.reactBucket}
+          Comment: Cloudfront Distribution pointing to S3 bucket
+          Origins:
+            - DomainName: "${self:custom.reactBucket}.s3.amazonaws.com"
+              Id: S3Origin
+              CustomOriginConfig:
+                HTTPPort: '80'
+                HTTPSPort: '443'
+                OriginProtocolPolicy: http-only
+          Enabled: true
+          HttpVersion: 'http2'
+          DefaultRootObject: index.html
+          DefaultCacheBehavior:
+            AllowedMethods:
+              - GET
+              - HEAD
+            Compress: true
+            TargetOriginId: S3Origin
+            ForwardedValues:
+              QueryString: true
+              Cookies:
+                Forward: none
+            ViewerProtocolPolicy: redirect-to-https
+          PriceClass: PriceClass_100
+          ViewerCertificate:
+            AcmCertificateArn: arn:aws:acm:us-east-1:582149114309:certificate/4527b2fc-14a6-417c-a35c-82f5426e516a
+            SslSupportMethod: sni-only
+
+    WebsiteDNSName:
+      Type: AWS::Route53::RecordSetGroup
+      Properties:
+        HostedZoneName: pinster.io.
+        RecordSets:
+        - Name: "app-${self:provider.stage}.pinster.io"
+          Type: CNAME
+          TTL: 900
+          ResourceRecords:
+            - Fn::GetAtt:
+              - WebsiteCloudfront
+              - DomainName
+plugins:
+  - serverless-pseudo-parameters
