@@ -14,17 +14,16 @@ class Pin extends Component {
                 break;
             case 'pin-page-toggle':
             default:
-                document
-                    .querySelector('.pin-page')
-                    .addEventListener('click', () => {
-                        this.props.history.push(
-                            `/pin/${this.props.pinData.id}`
-                        );
-                    });
                 retVal = null;
                 break;
         }
         return retVal;
+    };
+
+    resolveClick = () => {
+        if (this.props.uiType === 'pin-page-toggle') {
+            this.props.history.push(`/pin/${this.props.pinData.id}`);
+        }
     };
 
     render() {
@@ -44,6 +43,7 @@ class Pin extends Component {
                 <div
                     className={'pin-list-item ' + this.props.uiType}
                     data-modal={'pin-' + id}
+                    onClick={this.resolveClick}
                 >
                     {images.map((image, index) => (
                         <Image
