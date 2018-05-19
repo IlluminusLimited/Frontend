@@ -25,8 +25,8 @@ class Home extends Component {
                 console.log(response.data);
                 this.setState(prevState => {
                     return {
-                        pins: [...prevState.pins, updatedPins.data],
-                        pageLink: updatedPins.links.self
+                        pins: [...prevState.pins, response.data],
+                        pageLink: response.links.self
                     };
                 });
             });
