@@ -22,8 +22,8 @@
     "react-scripts": "1.1.1"
   },
   "scripts": {
-    "lint":
-      "sass-lint --config .sass-lint.yml 'src/**/*.scss' --verbose --no-exit",
+    "lintjs": "eslint --config .eslintrc.json src/**/*.js",
+    "lint": "sass-lint --config .sass-lint.yml 'src/**/*.scss' --verbose --no-exit",
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css":
       "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
