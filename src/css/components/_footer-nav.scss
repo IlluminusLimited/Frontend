@@ -1,19 +1,30 @@
-.footer-nav {
-  display: flex;
+.footer-nav-wrapper {
   position: fixed;
   top: auto;
   right: 0;
   bottom: 0;
   left: 0;
-  align-content: flex-end;
-  align-items: stretch;
-  justify-content: space-between;
+  z-index: $z-nav;
   margin: 0;
   box-shadow: 0 5px 10px 5px rgba($black, 0.25);
   background-color: $white;
   padding: 0;
   height: 67px;
-  overflow: auto;
+}
+
+.footer-nav {
+  display: flex;
+  align-content: flex-end;
+  align-items: stretch;
+  justify-content: space-between;
 
   > * { flex: 1 1 auto; }
+}
+
+@media screen and (max-width: #{$screen-tablet - 1}) {
+  .footer-nav-wrapper {
+    &.container {
+      grid-template-columns: 1fr;
+    }
+  }
 }
