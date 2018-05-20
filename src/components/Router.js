@@ -8,6 +8,7 @@ import PinPage from './PinPage';
 import Login from './Login';
 // import Help from './Help';
 import NavBar from './NavBar';
+import Settings from './Settings';
 
 const Router = () => (
     <BrowserRouter>
@@ -15,7 +16,7 @@ const Router = () => (
             <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/login" component={Login} />
-                {/*<Route exact path="/settings" component={Settings} />*/}
+                <Route exact path="/settings" component={Settings} />
                 {/* <Route path="/user/:userId" component={User} /> */}
                 <Route path="/pin/:pinId" component={PinPage} />
                 <Route path="/collections" component={MyCollections} />
