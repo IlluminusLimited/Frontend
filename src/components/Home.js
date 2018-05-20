@@ -8,7 +8,7 @@ class Home extends Component {
         pageLink: 'http://api-dev.pinster.io/v1/pins'
     };
 
-    makeFetch = () => {
+    fetchPins = () => {
         fetch(this.state.pageLink)
             .then(
                 results => {
@@ -42,7 +42,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.makeFetch();
+        this.fetchPins();
     }
 
     render() {
@@ -60,7 +60,7 @@ class Home extends Component {
                             />
                         ))}
                     </div>
-                    <button className="btn-load-more" onClick={this.makeFetch}>
+                    <button className="btn-load-more" onClick={this.fetchPins}>
                         Load more
                     </button>
                 </main>

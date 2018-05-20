@@ -6,7 +6,11 @@ class Image extends Component {
             ...this.props.imageData
         };
         return (
-            <img className={this.props.imageClass} src={storage_location_uri} alt={description} />
+            <img
+                className={this.props.imageClass}
+                src={storage_location_uri}
+                alt={description}
+            />
         );
     }
 }

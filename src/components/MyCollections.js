@@ -3,18 +3,13 @@ import Collection from './Collection';
 
 class MyCollections extends Component {
     state = {
-        collections: []
+        collections: [],
+        pageLink: ''
     };
 
     makeFetch() {
-        fetch(
-            'https://api-dev.pinster.io/v1/users/441fa4b6-4a8f-4c01-8334-a348ceafc1c4/collections',
-            {
-                headers: {
-                    Authorization: 'Bearer 729f0b555734beed00b07588a5616ad2'
-                }
-            }
-        )
+        const blah = '6f22c875-f795-436b-8528-e1cb9e35a412';
+        fetch(`https://api-dev.pinster.io/v1/users/${blah}/collections`)
             .then(
                 results => {
                     return results.json();
@@ -25,9 +20,10 @@ class MyCollections extends Component {
             )
             .then(response => {
                 // Display the pins
-                console.log(response.data);
+                console.log(response);
                 this.setState({
-                    collections: response.data
+                    collections: response.data,
+                    pageLink: response.links.next
                 });
             });
     }
@@ -38,18 +34,21 @@ class MyCollections extends Component {
 
     render() {
         return (
-            <React.Fragment>
-                <main className="container">
-                    <div className="pin-collection">
-                        {Object.keys(this.state.collections).map(key => (
-                            <Collection
-                                key={key}
-                                collectionData={this.state.collections[key]}
-                            />
-                        ))}
-                    </div>
-                </main>
-            </React.Fragment>
+            <main className="container">
+                <div className="pin-collection">
+                    {Object.keys(this.state.collections).map(key => (
+                        <Collection
+                            key={key}
+                            userId={this.props.userId}
+                            collectionData={this.state.collections[key]}
+                            history={this.props.history}
+                        />
+                    ))}
+                </div>
+                <button className="btn-load-more" onClick={this.makeFetch}>
+                    Load more
+                </button>
+            </main>
         );
     }
 }

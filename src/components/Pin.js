@@ -45,13 +45,7 @@ class Pin extends Component {
                     data-modal={'pin-' + id}
                     onClick={this.resolveClick}
                 >
-                    {images.map((image, index) => (
-                        <Image
-                            key={index}
-                            imageData={image}
-                            imageClass="pin-list-img"
-                        />
-                    ))}
+                    <Image imageData={images[0]} imageClass="pin-list-img" />
                     <div className="pin-list-title">{name}</div>
                 </div>
                 {this.pinListType()}
