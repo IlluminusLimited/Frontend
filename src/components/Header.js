@@ -46,7 +46,7 @@ class Header extends Component {
                     className="global-search-form full-bleed container"
                     onSubmit={this.handleSubmit}
                 >
-                    <label className="sr-only" for="search">
+                    <label className="sr-only" htmlFor="search">
                         search
                     </label>
                     <div className="global-search-wrapper">
