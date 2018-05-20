@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PinDetails from './PinDetails';
+import CollectableDetails from './CollectableDetails';
 import Loader from './Loader';
 
 class PinPage extends Component {
@@ -37,7 +37,11 @@ class PinPage extends Component {
         return (
             <div className="pin-page">
                 {this.state.loading ? (
-                    <PinDetails pinData={this.state.pinData} classType="pin" />
+                    <CollectableDetails
+                        collectableData={this.state.pinData}
+                        classType="pin"
+                        collectableType="pin"
+                    />
                 ) : (
                     <Loader />
                 )}

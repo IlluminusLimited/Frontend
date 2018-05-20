@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PinDetails from './PinDetails';
+import CollectableDetails from './CollectableDetails';
 import SvgClose from './svg/SvgClose';
 
 class Modal extends Component {
@@ -70,7 +70,7 @@ class Modal extends Component {
             });
         });
     }
-    componentWillUnmount() {}
+
     render() {
         const {
             id,
@@ -82,7 +82,7 @@ class Modal extends Component {
             updated_at,
             images,
             url
-        } = { ...this.props.pinData };
+        } = { ...this.props.collectableData };
         return (
             <div
                 id={'pin-' + id}
@@ -92,9 +92,10 @@ class Modal extends Component {
                 role="dialog"
             >
                 <div className="pin-modal-container" role="document">
-                    <PinDetails
-                        pinData={this.props.pinData}
+                    <CollectableDetails
+                        collectableData={this.props.collectableData}
                         classType="pin-modal"
+                        collectableType={this.props.collectableType}
                     />
                 </div>
                 <button className="pin-modal-dismiss">
