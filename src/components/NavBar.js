@@ -10,11 +10,7 @@ class NavBar extends Component {
             <footer className="container">
                 <div className="footer-nav-wrapper full-bleed container">
                     <nav className="footer-nav">
-<<<<<<< HEAD
-                        <a className="nav-icon" href="/settings">
-=======
                         <NavLink className="nav-icon" to="/login">
->>>>>>> Use React-Router NavLink instead for navigation
                             <SvgSettings />
                             <span>settings</span>
                         </NavLink>
