@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import Pin from './Pin';
 import Image from './Image';
 
-class Collection extends Component {
+class CollectionListItem extends Component {
     resolveClick = () => {
         this.props.history.push(`/collection/${this.props.collectionData.id}`);
     };
@@ -40,4 +39,4 @@ class Collection extends Component {
     }
 }
 
-export default Collection;
+export default CollectionListItem;

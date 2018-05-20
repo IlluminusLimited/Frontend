@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from './Header';
-import Pin from './Pin';
+import CollectableListItem from './CollectableListItem';
 
 class Home extends Component {
     state = {
@@ -37,10 +37,6 @@ class Home extends Component {
         });
     };
 
-    componentDidUpdate() {
-        console.log(this.state);
-    }
-
     componentDidMount() {
         this.fetchPins();
     }
@@ -52,11 +48,12 @@ class Home extends Component {
                 <main className="container">
                     <div className="pin-collection">
                         {Object.keys(this.state.pins).map(key => (
-                            <Pin
+                            <CollectableListItem
                                 key={key}
                                 uid={key}
-                                pinData={this.state.pins[key]}
+                                collectableData={this.state.pins[key]}
                                 uiType="pin-modal-toggle"
+                                collectableType="pin"
                             />
                         ))}
                     </div>

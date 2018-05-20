@@ -1,28 +1,24 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import Modal from './Modal';
+import CollectableModal from './CollectableModal';
 import Image from './Image';
 
-class Pin extends Component {
-    pinListType = () => {
-        let retVal;
-        switch (this.props.uiType) {
-            case 'pin-modal-toggle':
-                retVal = (
-                    <Modal key={this.props.uid} pinData={this.props.pinData} />
-                );
-                break;
-            case 'pin-page-toggle':
-            default:
-                retVal = null;
-                break;
+class CollectableListItem extends Component {
+    listItemType = () => {
+        if (this.props.uiType === 'pin-modal-toggle') {
+            return (
+                <CollectableModal
+                    key={this.props.uid}
+                    collectableData={this.props.collectableData}
+                    collectableType={this.props.collectableType}
+                />
+            );
         }
-        return retVal;
+        return null;
     };
 
     resolveClick = () => {
         if (this.props.uiType === 'pin-page-toggle') {
-            this.props.history.push(`/pin/${this.props.pinData.id}`);
+            this.props.history.push(`/pin/${this.props.collectableData.id}`);
         }
     };
 
@@ -37,7 +33,7 @@ class Pin extends Component {
             updated_at,
             images,
             url
-        } = { ...this.props.pinData };
+        } = { ...this.props.collectableData };
         return (
             <React.Fragment>
                 <div
@@ -48,10 +44,10 @@ class Pin extends Component {
                     <Image imageData={images[0]} imageClass="pin-list-img" />
                     <div className="pin-list-title">{name}</div>
                 </div>
-                {this.pinListType()}
+                {this.listItemType()}
             </React.Fragment>
         );
     }
 }
 
-export default Pin;
+export default CollectableListItem;

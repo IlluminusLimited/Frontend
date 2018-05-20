@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Collection from './Collection';
+import CollectionListItem from './CollectionListItem';
 
 class MyCollections extends Component {
     state = {
@@ -9,7 +9,9 @@ class MyCollections extends Component {
 
     makeFetch() {
         const blah = '6f22c875-f795-436b-8528-e1cb9e35a412';
-        fetch(`https://api-dev.pinster.io/v1/users/${blah}/collections`)
+        fetch(`https://api-dev.pinster.io/v1/users/${blah}/collections`, {
+            Authorization: ''
+        })
             .then(
                 results => {
                     return results.json();
@@ -37,7 +39,7 @@ class MyCollections extends Component {
             <main className="container">
                 <div className="pin-collection">
                     {Object.keys(this.state.collections).map(key => (
-                        <Collection
+                        <CollectionListItem
                             key={key}
                             userId={this.props.userId}
                             collectionData={this.state.collections[key]}
