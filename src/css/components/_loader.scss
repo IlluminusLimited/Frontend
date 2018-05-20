@@ -32,3 +32,12 @@
     &:nth-of-type(n+4) { display: none; }
   }
 }
+
+
+.btn-load-more {
+  margin: $gutter 0;
+  background-color: $turquoise;
+  cursor: pointer;
+  padding: 10px;
+  color: $copy-light;
+}
