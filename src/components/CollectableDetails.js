@@ -1,8 +1,31 @@
 import React, { Component } from 'react';
 import Tag from './Tag';
 import Image from './Image';
+import CollectableListItem from './CollectableListItem';
 
-class PinDetails extends Component {
+class CollectableDetails extends Component {
+    detailsType = () => {
+        if (this.props.collectableType.toLowerCase() === 'assortment') {
+            return (
+                <div className="assortment-pin-list">
+                    {this.props.collectableData.pins.map((pin, index) => {
+                        return (
+                            <CollectableListItem
+                                key={index}
+                                uid={index}
+                                collectableData={pin}
+                                uiType="pin-modal-toggle pin-modal-list"
+                                collectableType="pin"
+                            />
+                        );
+                    })}
+                </div>
+            );
+        }
+
+        return;
+    };
+
     render() {
         const {
             id,
@@ -14,19 +37,21 @@ class PinDetails extends Component {
             updated_at,
             images,
             url
-        } = { ...this.props.pinData };
+        } = { ...this.props.collectableData };
         return (
             <React.Fragment>
                 <div className={this.props.classType + '-viewer'}>
-                    <Image
-                        imageData={images[0]}
-                        imageClass={this.props.classType + '-img'}
-                    />
+                    {images ? (
+                        <Image
+                            imageData={images[0]}
+                            imageClass={this.props.classType + '-img'}
+                        />
+                    ) : null}
                 </div>
                 <div className={this.props.classType + '-content'}>
                     <h1 id={'title-' + id}>{name}</h1>
                     <p>{description}</p>
-                    <p>{year}</p>
+                    <p>{year || 2018}</p>
                     <div className={this.props.classType + '-tags'}>
                         {Object.keys(tags).map(key => (
                             <Tag key={key} tagKey={key} tagName={tags[key]} />
@@ -46,10 +71,11 @@ class PinDetails extends Component {
                             </div>
                         ))}
                     </div>
+                    {this.detailsType()}
                 </div>
             </React.Fragment>
         );
     }
 }
 
-export default PinDetails;
+export default CollectableDetails;

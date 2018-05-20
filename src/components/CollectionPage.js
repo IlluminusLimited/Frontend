@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Pin from './Pin';
+import CollectableListItem from './CollectableListItem';
 import Loader from './Loader';
 
 class CollectionPage extends Component {
@@ -42,6 +42,8 @@ class CollectionPage extends Component {
                         .then(innerResponse => {
                             // Display the pins
                             // console.log(response);
+                            innerResponse.collectable_type =
+                                collectable.collectable_type;
                             this.setState(prevState => {
                                 return {
                                     loading: true,
@@ -72,10 +74,16 @@ class CollectionPage extends Component {
                     {this.state.loading ? (
                         Object.keys(this.state.collectablesData).map(key => {
                             return (
-                                <Pin
+                                <CollectableListItem
                                     key={key}
-                                    pinData={this.state.collectablesData[key]}
+                                    collectableData={
+                                        this.state.collectablesData[key]
+                                    }
                                     uiType="pin-page-toggle"
+                                    collectableType={
+                                        this.state.collectablesData[key]
+                                            .collectable_type
+                                    }
                                     history={this.props.history}
                                 />
                             );
