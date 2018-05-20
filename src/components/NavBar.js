@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import SvgSettings from './svg/SvgSettings';
 import SvgHome from './svg/SvgHome';
 import SvgCollections from './svg/SvgCollections';
@@ -9,18 +10,18 @@ class NavBar extends Component {
             <footer className="container">
                 <div className="footer-nav-wrapper full-bleed container">
                     <nav className="footer-nav">
-                        <a className="nav-icon" href="/login">
+                        <NavLink className="nav-icon" to="/login">
                             <SvgSettings />
                             <span>settings</span>
-                        </a>
-                        <a className="nav-icon" href="/">
+                        </NavLink>
+                        <NavLink className="nav-icon" to="/">
                             <SvgHome />
                             <span>home</span>
-                        </a>
-                        <a className="nav-icon" href="/collections">
+                        </NavLink>
+                        <NavLink className="nav-icon" to="/collections">
                             <SvgCollections />
                             <span>collections</span>
-                        </a>
+                        </NavLink>
                     </nav>
                 </div>
             </footer>
