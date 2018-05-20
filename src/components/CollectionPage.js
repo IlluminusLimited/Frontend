@@ -10,11 +10,7 @@ class CollectionPage extends Component {
     };
 
     fetchPins = () => {
-        fetch(
-            `http://api-dev.pinster.io/v1/collections/${
-                this.props.match.params.collectionId
-            }`
-        )
+        fetch(`https://api-dev.pinster.io/v1/collections/${this.props.match.params.collectionId}`)
             .then(
                 results => {
                     return results.json();
@@ -28,7 +24,7 @@ class CollectionPage extends Component {
                 console.log(response);
                 response.collectables.map(collectable => {
                     fetch(
-                        `http://api-dev.pinster.io/v1/${collectable.collectable_type.toLowerCase() +
+                        `https://api-dev.pinster.io/v1/${collectable.collectable_type.toLowerCase() +
                             's'}/${collectable.id}`
                     )
                         .then(
@@ -42,16 +38,12 @@ class CollectionPage extends Component {
                         .then(innerResponse => {
                             // Display the pins
                             // console.log(response);
-                            innerResponse.collectable_type =
-                                collectable.collectable_type;
+                            innerResponse.collectable_type = collectable.collectable_type;
                             this.setState(prevState => {
                                 return {
                                     loading: true,
                                     collectionData: response,
-                                    collectablesData: [
-                                        ...prevState.collectablesData,
-                                        innerResponse
-                                    ]
+                                    collectablesData: [...prevState.collectablesData, innerResponse]
                                 };
                             });
                         });
@@ -76,13 +68,10 @@ class CollectionPage extends Component {
                             return (
                                 <CollectableListItem
                                     key={key}
-                                    collectableData={
-                                        this.state.collectablesData[key]
-                                    }
+                                    collectableData={this.state.collectablesData[key]}
                                     uiType="pin-page-toggle"
                                     collectableType={
-                                        this.state.collectablesData[key]
-                                            .collectable_type
+                                        this.state.collectablesData[key].collectable_type
                                     }
                                     history={this.props.history}
                                 />

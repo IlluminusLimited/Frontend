@@ -5,7 +5,7 @@ import CollectableListItem from './CollectableListItem';
 class Home extends Component {
     state = {
         pins: [],
-        pageLink: 'http://api-dev.pinster.io/v1/pins'
+        pageLink: 'https://api-dev.pinster.io/v1/pins'
     };
 
     fetchPins = () => {

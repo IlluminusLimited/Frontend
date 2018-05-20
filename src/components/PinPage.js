@@ -9,9 +9,7 @@ class PinPage extends Component {
     };
 
     makeFetch = () => {
-        fetch(
-            `http://api-dev.pinster.io/v1/pins/${this.props.match.params.pinId}`
-        )
+        fetch(`https://api-dev.pinster.io/v1/pins/${this.props.match.params.pinId}`)
             .then(
                 results => {
                     return results.json();

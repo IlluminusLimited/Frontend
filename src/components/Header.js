@@ -14,7 +14,7 @@ class Header extends Component {
     };
 
     fetchResults = query => {
-        let url = new URL('http://api-dev.pinster.io/v1/search'),
+        let url = new URL('https://api-dev.pinster.io/v1/search'),
             params = { query: query };
         Object.keys(params).forEach(key =>
             url.searchParams.append(key, params[key])
