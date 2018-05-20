@@ -27,20 +27,20 @@ class SettingsForm extends Component {
         return (
             <form className="my-settings">
                 <div className="form-group">
-                  <label htmlFor="display_name">display name</label>
-                  <input type="text" id="display_name" />
+                    <label htmlFor="display_name">display name</label>
+                    <input type="text" id="display_name" />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="bio">bio</label>
-                  <textarea id="bio" rows="8"></textarea>
+                    <label htmlFor="bio">bio</label>
+                    <textarea id="bio" rows="8"></textarea>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="email">email</label>
-                  <input type="email" id="email" />
+                    <label htmlFor="email">email</label>
+                    <input type="email" id="email" />
                 </div>
                 <div className="form-group form-action">
-                  <input type="submit" id="submit" name="submit" value="save changes" />
-                  <input type="reset"  id="cancel" name="cancel" value="cancel" />
+                    <input type="submit" id="submit" name="submit" value="save changes" />
+                    <input type="reset"  id="cancel" name="cancel" value="cancel" />
                 </div>
             </form>
         );
