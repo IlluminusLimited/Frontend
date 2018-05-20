@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './Home';
 import MyCollections from './MyCollections';
-import Collection from './Collection';
 import CollectionPage from './CollectionPage';
 import PinPage from './PinPage';
 import Login from './Login';
