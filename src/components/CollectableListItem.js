@@ -26,13 +26,13 @@ class CollectableListItem extends Component {
         const {
             id,
             name,
-            year,
-            description,
-            tags,
-            created_at,
-            updated_at,
-            images,
-            url
+            // year,
+            // description,
+            // tags,
+            // created_at,
+            // updated_at,
+            images
+            // url
         } = { ...this.props.collectableData };
         return (
             <React.Fragment>

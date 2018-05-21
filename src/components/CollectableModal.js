@@ -4,9 +4,7 @@ import SvgClose from './svg/SvgClose';
 
 class Modal extends Component {
     openModal = toggle => {
-        let modal = document.querySelector(
-            '#' + toggle.getAttribute('data-modal')
-        );
+        let modal = document.querySelector('#' + toggle.getAttribute('data-modal'));
         modal.classList.add('active');
         document.querySelector('.modal-overlay').classList.add('active');
         document.querySelector('html').classList.add('no-scroll');
@@ -20,11 +18,9 @@ class Modal extends Component {
     };
     componentDidMount() {
         // close modal on overlay click
-        document
-            .querySelector('.modal-overlay')
-            .addEventListener('click', () => {
-                this.closeModal();
-            });
+        document.querySelector('.modal-overlay').addEventListener('click', () => {
+            this.closeModal();
+        });
 
         // close open modal on ESC
         document.addEventListener('keyup', event => {
@@ -61,11 +57,9 @@ class Modal extends Component {
                 viewer.querySelector('img').remove();
                 viewer.append(thumb.querySelector('img').cloneNode());
 
-                thumb.parentNode
-                    .querySelectorAll('.pin-modal-thumb')
-                    .forEach(elem => {
-                        elem.classList.remove('active');
-                    });
+                thumb.parentNode.querySelectorAll('.pin-modal-thumb').forEach(elem => {
+                    elem.classList.remove('active');
+                });
                 thumb.classList.add('active');
             });
         });
@@ -73,15 +67,15 @@ class Modal extends Component {
 
     render() {
         const {
-            id,
-            name,
-            year,
-            description,
-            tags,
-            created_at,
-            updated_at,
-            images,
-            url
+            id
+            // name,
+            // year,
+            // description,
+            // tags,
+            // created_at,
+            // updated_at,
+            // images,
+            // url
         } = { ...this.props.collectableData };
         return (
             <div
