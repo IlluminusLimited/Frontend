@@ -4,7 +4,7 @@ import Loader from './Loader';
 
 class CollectionPage extends Component {
     state = {
-        loading: false,
+        loaded: false,
         collectionData: {},
         collectablesData: []
     };
@@ -41,7 +41,7 @@ class CollectionPage extends Component {
                             innerResponse.collectable_type = collectable.collectable_type;
                             this.setState(prevState => {
                                 return {
-                                    loading: true,
+                                    loaded: true,
                                     collectionData: response,
                                     collectablesData: [...prevState.collectablesData, innerResponse]
                                 };
@@ -63,7 +63,7 @@ class CollectionPage extends Component {
         return (
             <main className="container">
                 <div className="pin-collection">
-                    {this.state.loading ? (
+                    {this.state.loaded ? (
                         Object.keys(this.state.collectablesData).map(key => {
                             return (
                                 <CollectableListItem
