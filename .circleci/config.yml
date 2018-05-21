@@ -77,7 +77,7 @@ jobs:
       - run:
           name: Deploy S3 Bucket
           command: ./node_modules/serverless/bin/serverless deploy --stage prod
-  
+
   deploy-prod-react:
     working_directory: /repo
     docker:
@@ -88,7 +88,7 @@ jobs:
           at: /repo
       - run:
           name: Deploy React
-          command: aws s3 cp ./build s3://app-prod.pinster.io --recursive
+          command: aws s3 cp ./build s3://app-prod.pinster.io --recursive --add-header="Cache-Control:max-age=1800"
 
 workflows:
   version: 2
