@@ -9,7 +9,9 @@ class Settings extends Component {
 
     makeFetch = () => {
         fetch('https://api-dev.pinster.io/v1/me', {
-            Authorization: 'Bearer ' + localStorage.getItem('userToken')
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('userToken')
+            }
         })
             .then(
                 results => {
