@@ -16,7 +16,7 @@ const Router = () => (
             <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/login" component={Login} />
-                <Route exact path="/authenticate" component={AuthRedirect} />
+                <Route exact path="/authenticate/:token" component={AuthRedirect} />
                 <Route exact path="/settings" component={Settings} />
                 {/* <Route path="/user/:userId" component={User} /> */}
                 <Route path="/pin/:pinId" component={PinPage} />
