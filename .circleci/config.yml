@@ -61,7 +61,7 @@ jobs:
           at: /repo
       - run:
           name: Deploy React
-          command: aws s3 cp ./build s3://app-dev.pinster.io --recursive --add-header="Cache-Control:max-age=60"
+          command: aws s3 cp ./build s3://app-dev.pinster.io --recursive --cache-control max-age=60
 
   deploy-prod-serverless:
     <<: *defaults
@@ -88,7 +88,7 @@ jobs:
           at: /repo
       - run:
           name: Deploy React
-          command: aws s3 cp ./build s3://app-prod.pinster.io --recursive --add-header="Cache-Control:max-age=1800"
+          command: aws s3 cp ./build s3://app-prod.pinster.io --recursive --cache-control max-age=1800
 
 workflows:
   version: 2
