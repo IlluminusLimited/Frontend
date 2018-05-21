@@ -56,7 +56,7 @@ class Home extends Component {
                             />
                         ))}
                     </div>
-                    <button className="btn-load-more" onClick={this.fetchPins}>
+                    <button className="btn-load-more" onClick={this.fetchMorePins}>
                         Load more
                     </button>
                 </main>

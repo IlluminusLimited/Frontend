@@ -33,6 +33,10 @@ class Header extends Component {
             });
     };
 
+    componentDidMount() {
+        this.fetchPins();
+    }
+
     render() {
         return (
             <header className="container">
