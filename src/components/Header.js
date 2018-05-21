@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import SvgSearch from './svg/SvgSearch';
-import Home from "./Home";
+import Home from './Home';
 
 class Header extends Component {
-    state = {value: ''};
+    state = { value: '' };
 
     handleChange = event => {
-        this.setState({value: event.target.value});
+        this.setState({ value: event.target.value });
     };
 
     handleSubmit = event => {
@@ -17,10 +17,8 @@ class Header extends Component {
 
     fetchResults = query => {
         let url = new URL('https://api-dev.pinster.io/v1/search'),
-            params = {query: query};
-        Object.keys(params).forEach(key =>
-            url.searchParams.append(key, params[key])
-        );
+            params = { query: query };
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
         fetch(url)
             .then(
                 results => {
@@ -51,11 +49,15 @@ class Header extends Component {
                             this.props.updatePins({
                                 pin: innerResponse,
                                 pageLink: response.links.next ? response.links.next : undefined
-                            })
+                            });
                         });
                 });
             });
     };
+
+    componentDidMount() {
+        this.fetchPins();
+    }
 
     render() {
         return (
@@ -73,7 +75,7 @@ class Header extends Component {
                     </label>
                     <div className="global-search-wrapper">
                         <button type="submit">
-                            <SvgSearch/>
+                            <SvgSearch />
                             <span className="sr-only">Submit</span>
                         </button>
                         <input

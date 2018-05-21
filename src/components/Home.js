@@ -8,9 +8,11 @@ class Home extends Component {
         pageLink: null
     };
 
-    fetchPins = () => {
+    fetchMorePins = () => {
         console.log(this.state.pageLink);
-        const url = this.state.pageLink ? this.state.pageLink : 'https://api-dev.pinster.io/v1/pins'
+        const url = this.state.pageLink
+            ? this.state.pageLink
+            : 'https://api-dev.pinster.io/v1/pins';
         fetch(url)
             .then(
                 results => {
@@ -46,14 +48,6 @@ class Home extends Component {
         });
     };
 
-    componentDidUpdate() {
-
-    }
-
-    componentDidMount() {
-        this.fetchPins();
-    }
-
     render() {
         return (
             <React.Fragment>
@@ -70,7 +64,7 @@ class Home extends Component {
                             />
                         ))}
                     </div>
-                    <button className="btn-load-more" onClick={this.fetchPins}>
+                    <button className="btn-load-more" onClick={this.fetchMorePins}>
                         Load more
                     </button>
                 </main>
