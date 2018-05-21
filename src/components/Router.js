@@ -8,6 +8,7 @@ import Login from './Login';
 // import Help from './Help';
 import NavBar from './NavBar';
 import Settings from './Settings';
+import AuthRedirect from './AuthRedirect';
 
 const Router = () => (
     <BrowserRouter>
@@ -15,14 +16,12 @@ const Router = () => (
             <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/authenticate" component={AuthRedirect} />
                 <Route exact path="/settings" component={Settings} />
                 {/* <Route path="/user/:userId" component={User} /> */}
                 <Route path="/pin/:pinId" component={PinPage} />
                 <Route path="/collections" component={MyCollections} />
-                <Route
-                    path="/collection/:collectionId"
-                    component={CollectionPage}
-                />
+                <Route path="/collection/:collectionId" component={CollectionPage} />
                 {/* <Route path="/set/:setId" component={PinSet} /> */}
                 {/* <Route path="/help" component={Help} /> */}
                 {/* <Route component={NotFound} /> */}
