@@ -8,15 +8,15 @@ class CollectionListItem extends Component {
 
     render() {
         const {
-            id,
+            // id,
             name,
-            year,
-            description,
-            tags,
-            created_at,
-            updated_at,
-            images,
-            url
+            // year,
+            // description,
+            // tags,
+            // created_at,
+            // updated_at,
+            images
+            // url
         } = { ...this.props.collectionData };
         return (
             <React.Fragment>
@@ -26,11 +26,7 @@ class CollectionListItem extends Component {
                     onClick={this.resolveClick}
                 >
                     {images.map((image, index) => (
-                        <Image
-                            key={index}
-                            imageData={image}
-                            imageClass="pin-list-img"
-                        />
+                        <Image key={index} imageData={image} imageClass="pin-list-img" />
                     ))}
                     <div className="pin-list-title">{name}</div>
                 </div>

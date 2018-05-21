@@ -33,19 +33,16 @@ class CollectableDetails extends Component {
             year,
             description,
             tags,
-            created_at,
-            updated_at,
-            images,
-            url
+            // created_at,
+            // updated_at,
+            images
+            // url
         } = { ...this.props.collectableData };
         return (
             <React.Fragment>
                 <div className={this.props.classType + '-viewer'}>
                     {images ? (
-                        <Image
-                            imageData={images[0]}
-                            imageClass={this.props.classType + '-img'}
-                        />
+                        <Image imageData={images[0]} imageClass={this.props.classType + '-img'} />
                     ) : null}
                 </div>
                 <div className={this.props.classType + '-content'}>
@@ -59,10 +56,7 @@ class CollectableDetails extends Component {
                     </div>
                     <div className={this.props.classType + '-thumbs'}>
                         {images.map((image, index) => (
-                            <div
-                                key={index}
-                                className={this.props.classType + '-thumb'}
-                            >
+                            <div key={index} className={this.props.classType + '-thumb'}>
                                 <Image
                                     key={index}
                                     imageData={image}
