@@ -10,7 +10,7 @@ class MyCollections extends Component {
     makeFetch() {
         const blah = '6f22c875-f795-436b-8528-e1cb9e35a412';
         fetch(`https://api-dev.pinster.io/v1/users/${blah}/collections`, {
-            Authorization: ''
+            Authorization: 'Bearer ' + localStorage.getItem('userToken')
         })
             .then(
                 results => {
