@@ -16,9 +16,7 @@ class Header extends Component {
     fetchResults = query => {
         let url = new URL(process.env.REACT_APP_API_URL + '/v1/search'),
             params = { query: query };
-        Object.keys(params).forEach(key =>
-            url.searchParams.append(key, params[key])
-        );
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
         fetch(url)
             .then(
                 results => {
