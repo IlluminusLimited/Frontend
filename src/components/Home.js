@@ -5,15 +5,11 @@ import CollectableListItem from './CollectableListItem';
 class Home extends Component {
     state = {
         pins: [],
-        pageLink: null
+        pageLink: process.env.REACT_APP_API_URL + '/v1/pins'
     };
 
     fetchMorePins = () => {
-        console.log(this.state.pageLink);
-        const url = this.state.pageLink
-            ? this.state.pageLink
-            : 'https://api-dev.pinster.io/v1/pins';
-        fetch(url)
+        fetch(this.state.pageLink)
             .then(
                 results => {
                     return results.json();
@@ -24,7 +20,6 @@ class Home extends Component {
             )
             .then(response => {
                 // Display the pins
-                console.log(response.data);
                 this.setState(prevState => {
                     return {
                         pins: [...prevState.pins, ...response.data],

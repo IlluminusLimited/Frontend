@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import SvgSearch from './svg/SvgSearch';
-import Home from './Home';
 
 class Header extends Component {
     state = { value: '' };
@@ -16,7 +15,7 @@ class Header extends Component {
     };
 
     fetchResults = query => {
-        let url = new URL('https://api-dev.pinster.io/v1/search'),
+        let url = new URL(process.env.REACT_APP_API_URL + '/v1/search'),
             params = { query: query };
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
         fetch(url)

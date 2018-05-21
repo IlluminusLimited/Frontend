@@ -27,8 +27,9 @@ class SettingsForm extends Component {
     }
 
     putForm(data) {
-        fetch('https://api-dev.pinster.io/v1/me', {
+        fetch(process.env.REACT_APP_API_URL + '/v1/me', {
             headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('pinsterUserToken'),
                 'content-type': 'application/json'
             },
             method: 'PUT',
@@ -43,7 +44,11 @@ class SettingsForm extends Component {
                 }
             )
             .then(response => {
-                // post op
+                this.setState({
+                    display_name: response.display_name,
+                    bio: response.bio,
+                    email: response.email
+                });
             });
     }
 
@@ -103,7 +108,13 @@ class SettingsForm extends Component {
                 </div>
                 <div className="form-group form-action">
                     <input type="submit" id="submit" name="submit" value="save changes" />
-                    <input type="reset" id="cancel" name="cancel" value="cancel" />
+                    <input
+                        type="reset"
+                        id="cancel"
+                        name="cancel"
+                        value="cancel"
+                        onClick={this.props.history.goBack}
+                    />
                 </div>
             </form>
         );

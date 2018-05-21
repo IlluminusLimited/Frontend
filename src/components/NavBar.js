@@ -10,7 +10,7 @@ class NavBar extends Component {
             <footer className="container">
                 <div className="footer-nav-wrapper full-bleed container">
                     <nav className="footer-nav">
-                        <NavLink className="nav-icon" to="/login">
+                        <NavLink className="nav-icon" to="/settings">
                             <SvgSettings />
                             <span>settings</span>
                         </NavLink>

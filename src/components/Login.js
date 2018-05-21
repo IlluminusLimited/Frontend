@@ -9,7 +9,7 @@ class Login extends Component {
     };
 
     fetchAuth = () => {
-        fetch('https://api-dev.pinster.io/login')
+        fetch(process.env.REACT_APP_API_URL + '/login')
             .then(
                 results => {
                     return results.json();
@@ -20,7 +20,6 @@ class Login extends Component {
             )
             .then(response => {
                 // Display the pins
-                console.log(response);
                 this.setState({
                     loading: true,
                     oauthProviders: response.oauth_providers
