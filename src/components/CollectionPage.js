@@ -22,7 +22,7 @@ class CollectionPage extends Component {
             .then(response => {
                 // Display the pins
                 console.log(response);
-                response.collectables.map(collectable => {
+                response.collectables.forEach(collectable => {
                     fetch(
                         `https://api-dev.pinster.io/v1/${collectable.collectable_type.toLowerCase() +
                             's'}/${collectable.id}`

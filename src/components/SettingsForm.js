@@ -10,15 +10,14 @@ class SettingsForm extends Component {
 
     handleChange(event) {
         var input = event.target;
-        if(input.value != ''){
+        if (input.value !== '') {
             input.parentnode.classlist.add('active');
         } else {
             input.parentnode.classlist.remove('active');
         }
     }
 
-    handleSubmit(event) {
-    }
+    handleSubmit(event) {}
 
     // TODO: conditionally add active class to form groups where value is prepopulated
     // TODO: handleChange to toggle active class on .form-group
@@ -32,7 +31,7 @@ class SettingsForm extends Component {
                 </div>
                 <div className="form-group">
                     <label htmlFor="bio">bio</label>
-                    <textarea id="bio" rows="8"></textarea>
+                    <textarea id="bio" rows="8" />
                 </div>
                 <div className="form-group">
                     <label htmlFor="email">email</label>
@@ -40,7 +39,7 @@ class SettingsForm extends Component {
                 </div>
                 <div className="form-group form-action">
                     <input type="submit" id="submit" name="submit" value="save changes" />
-                    <input type="reset"  id="cancel" name="cancel" value="cancel" />
+                    <input type="reset" id="cancel" name="cancel" value="cancel" />
                 </div>
             </form>
         );
