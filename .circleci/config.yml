@@ -15,7 +15,7 @@ jobs:
       - checkout
       - run:
           name:  Build
-          command:  npm install
+          command: npm install
       - persist_to_workspace:
           root: ~/repo
           paths:
@@ -34,6 +34,8 @@ jobs:
 
   deploy-dev-serverless:
     <<: *defaults
+    environment:
+      - REACT_APP_API_URL: dev
     steps:
       - checkout
       - attach_workspace:
@@ -41,8 +43,6 @@ jobs:
       - run:
           name: Build React
           command: npm run build
-          environment:
-            STAGE_ENV: dev
       - run:
           name: Deploy S3 Bucket
           command: ./node_modules/serverless/bin/serverless deploy --stage dev
@@ -65,6 +65,8 @@ jobs:
 
   deploy-prod-serverless:
     <<: *defaults
+    environment:
+      - REACT_APP_API_URL: prod
     steps:
       - checkout
       - attach_workspace:
@@ -72,8 +74,6 @@ jobs:
       - run:
           name: Build React
           command: npm run build
-          environment:
-            STAGE_ENV: prod
       - run:
           name: Deploy S3 Bucket
           command: ./node_modules/serverless/bin/serverless deploy --stage prod
