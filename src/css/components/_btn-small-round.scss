@@ -1,0 +1,20 @@
+.btn-small-round {
+  position: relative;
+  margin: 5px 10px 10px;
+  border: 1px solid $gray-dark;
+  border-radius: 50%;
+  box-shadow: $box-shadow-small;
+  width: 1.6em;
+  height: 1.6em;
+  line-height: 1;
+  font-size: 1em;
+
+  svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 1em;
+    height: auto;
+  }
+}

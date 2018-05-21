@@ -5,6 +5,7 @@ svg {
   &.purple { fill: $purple; }
   &.salmon { fill: $salmon; }
   &.yellow { fill: $yellow; }
+  &.grey   { fill: $gray-dark; }
 }
 
 .svg-add {
@@ -18,4 +19,5 @@ svg {
   &.purple { .outer { stroke: $purple; } }
   &.salmon { .outer { stroke: $salmon; } }
   &.yellow { .outer { stroke: $yellow; } }
+  &.grey   { .outer { stroke: $gray-dark; } }
 }
