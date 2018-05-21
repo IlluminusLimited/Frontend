@@ -1,21 +1,23 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import SvgSearch from './svg/SvgSearch';
+import Home from "./Home";
 
 class Header extends Component {
-    state = { value: '' };
+    state = {value: ''};
 
     handleChange = event => {
-        this.setState({ value: event.target.value });
+        this.setState({value: event.target.value});
     };
 
     handleSubmit = event => {
         event.preventDefault();
+        this.props.clearPins();
         this.fetchResults(this.state.value);
     };
 
     fetchResults = query => {
         let url = new URL('https://api-dev.pinster.io/v1/search'),
-            params = { query: query };
+            params = {query: query};
         Object.keys(params).forEach(key =>
             url.searchParams.append(key, params[key])
         );
@@ -31,7 +33,27 @@ class Header extends Component {
             .then(response => {
                 // Display the pins
                 console.log(response);
-                this.props.updatePins(response);
+                this.setState(prevState => {
+                    return undefined;
+                });
+                response.data.forEach(searchable => {
+                    fetch(searchable.url)
+                        .then(
+                            results => {
+                                return results.json();
+                            },
+                            error => {
+                                console.error(error);
+                            }
+                        )
+                        .then(innerResponse => {
+                            // Display the searchable
+                            this.props.updatePins({
+                                pin: innerResponse,
+                                pageLink: response.links.next ? response.links.next : undefined
+                            })
+                        });
+                });
             });
     };
 
@@ -51,7 +73,7 @@ class Header extends Component {
                     </label>
                     <div className="global-search-wrapper">
                         <button type="submit">
-                            <SvgSearch />
+                            <SvgSearch/>
                             <span className="sr-only">Submit</span>
                         </button>
                         <input

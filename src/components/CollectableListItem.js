@@ -34,6 +34,7 @@ class CollectableListItem extends Component {
             images
             // url
         } = { ...this.props.collectableData };
+        console.log(this.props.collectableData);
         return (
             <React.Fragment>
                 <div

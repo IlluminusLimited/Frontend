@@ -5,11 +5,13 @@ import CollectableListItem from './CollectableListItem';
 class Home extends Component {
     state = {
         pins: [],
-        pageLink: 'https://api-dev.pinster.io/v1/pins'
+        pageLink: null
     };
 
     fetchPins = () => {
-        fetch(this.state.pageLink)
+        console.log(this.state.pageLink);
+        const url = this.state.pageLink ? this.state.pageLink : 'https://api-dev.pinster.io/v1/pins'
+        fetch(url)
             .then(
                 results => {
                     return results.json();
@@ -32,10 +34,21 @@ class Home extends Component {
 
     updatePins = updatedPins => {
         this.setState({
-            pins: updatedPins.data,
-            pageLink: updatedPins.links.self
+            pins: [...this.state.pins, updatedPins.pin],
+            pageLink: updatedPins.pageLink
         });
     };
+
+    clearPins = () => {
+        this.setState({
+            pins: [],
+            pageLink: null
+        });
+    };
+
+    componentDidUpdate() {
+
+    }
 
     componentDidMount() {
         this.fetchPins();
@@ -44,7 +57,7 @@ class Home extends Component {
     render() {
         return (
             <React.Fragment>
-                <Header updatePins={this.updatePins} />
+                <Header updatePins={this.updatePins} clearPins={this.clearPins} />
                 <main className="container">
                     <div className="pin-collection">
                         {Object.keys(this.state.pins).map(key => (
