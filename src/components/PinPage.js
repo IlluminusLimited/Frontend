@@ -4,7 +4,7 @@ import Loader from './Loader';
 
 class PinPage extends Component {
     state = {
-        loading: false,
+        loaded: false,
         pinData: {}
     };
 
@@ -21,7 +21,7 @@ class PinPage extends Component {
             .then(response => {
                 // Display the pins
                 this.setState({
-                    loading: true,
+                    loaded: true,
                     pinData: response
                 });
             });
@@ -34,7 +34,7 @@ class PinPage extends Component {
     render() {
         return (
             <div className="pin-page">
-                {this.state.loading ? (
+                {this.state.loaded ? (
                     <CollectableDetails
                         collectableData={this.state.pinData}
                         classType="pin"

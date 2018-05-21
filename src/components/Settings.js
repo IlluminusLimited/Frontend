@@ -4,13 +4,11 @@ import Loader from './Loader';
 
 class Settings extends Component {
     state = {
-        loading: false,
+        loaded: false
     };
 
     makeFetch = () => {
-        fetch(
-            'https://api-dev.pinster.io/v1/me',
-        )
+        fetch('https://api-dev.pinster.io/v1/me')
             .then(
                 results => {
                     return results.json();
@@ -21,7 +19,7 @@ class Settings extends Component {
             )
             .then(response => {
                 this.setState({
-                    loading: true,
+                    loaded: true,
                     data: response
                 });
             });
@@ -34,11 +32,7 @@ class Settings extends Component {
     render() {
         return (
             <main className="settings-page container">
-                {this.state.loading ? (
-                    <SettingsForm data={this.state.data} />
-                ) : (
-                    <Loader />
-                )}
+                {this.state.loaded ? <SettingsForm data={this.state.data} /> : <Loader />}
             </main>
         );
     }
