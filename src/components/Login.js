@@ -9,7 +9,7 @@ class Login extends Component {
     };
 
     fetchAuth = () => {
-        fetch('https://api-dev.pinster.io/login')
+        fetch(process.env.REACT_APP_API_URL + '/login')
             .then(
                 results => {
                     return results.json();

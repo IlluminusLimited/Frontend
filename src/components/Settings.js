@@ -20,7 +20,7 @@ class Settings extends Component {
     };
 
     makeFetch = () => {
-        fetch('https://api-dev.pinster.io/v1/me', {
+        fetch(process.env.REACT_APP_API_URL + '/v1/me', {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('pinsterUserToken')
             }
