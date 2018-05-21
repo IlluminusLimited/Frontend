@@ -20,7 +20,6 @@ class Login extends Component {
             )
             .then(response => {
                 // Display the pins
-                console.log(response);
                 this.setState({
                     loading: true,
                     oauthProviders: response.oauth_providers
