@@ -64,15 +64,15 @@ class CollectableDetails extends Component {
                                         imageClass={this.props.classType + '-img'}
                                     />
                                 </div>
-                            } else {
-                               return <div key={index} className={this.props.classType + '-thumb'}>
-                                    <Image
-                                        key={index}
-                                        imageData={image}
-                                        imageClass={this.props.classType + '-img'}
-                                    />
-                                </div>
                             }
+                            return <div key={index} className={this.props.classType + '-thumb'}>
+                                <Image
+                                    key={index}
+                                    imageData={image}
+                                    imageClass={this.props.classType + '-img'}
+                                />
+                            </div>
+
                         })}
                     </div>
                     {this.detailsType()}
