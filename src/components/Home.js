@@ -20,7 +20,6 @@ class Home extends Component {
             )
             .then(response => {
                 // Display the pins
-                console.log(response.data);
                 this.setState(prevState => {
                     return {
                         pins: [...prevState.pins, ...response.data],
