@@ -9,12 +9,7 @@ class Settings extends Component {
 
     makeFetch = () => {
         fetch(
-            'http://api-dev.pinster.io/v1/me',
-            {
-                headers: {
-                    Authorization: 'Bearer 729f0b555734beed00b07588a5616ad2'
-                }
-            }
+            'https://api-dev.pinster.io/v1/me',
         )
             .then(
                 results => {
@@ -40,7 +35,7 @@ class Settings extends Component {
         return (
             <main className="settings-page container">
                 {this.state.loading ? (
-                    <SettingsForm />
+                    <SettingsForm data={this.state.data} />
                 ) : (
                     <Loader />
                 )}
