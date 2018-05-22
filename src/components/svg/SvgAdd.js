@@ -33,8 +33,4 @@ class SvgAdd extends Component {
     }
 }
 
-<<<<<<< HEAD
 export default SvgAdd;
-=======
-export default SvgClose;
->>>>>>> 93e184198cff349ac3af416ef05c0de5950f6cd5
