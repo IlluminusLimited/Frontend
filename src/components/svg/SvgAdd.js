@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class SvgClose extends Component {
+class SvgAdd extends Component {
     render() {
         return (
             <svg
@@ -33,4 +33,4 @@ class SvgClose extends Component {
     }
 }
 
-export default SvgClose;
+export default SvgAdd;
