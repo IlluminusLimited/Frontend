@@ -14,7 +14,9 @@
   color: $copy-light;
   font-weight: 700;
 
-  > * { flex: 0 0 auto; }
+  > * {
+    flex: 0 0 auto;
+  }
 }
 
 .header-nav-back,
@@ -30,7 +32,9 @@
   height: 32px;
   overflow: hidden;
 
-  > * { flex: 0 0 auto; }
+  > * {
+    flex: 0 0 auto;
+  }
 
   svg {
     width: auto;
@@ -38,8 +42,20 @@
   }
 }
 
-.header-nav-back { margin-right: 10px; }
+.header-nav-back {
+  margin-right: 10px;
+}
 
 .header-nav-modal-toggle {
-  svg { height: 1.2em; }
+  svg {
+    height: 1.2em;
+  }
+}
+
+.header-nav-spacer {
+  background-color: transparent;
+  width: 32px;
+  height: 32px;
+  color: transparent;
+  font-size: 0;
 }

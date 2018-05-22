@@ -52,7 +52,7 @@ class Settings extends Component {
     render() {
         return (
             <React.Fragment>
-                <HeaderNav history={this.props.history} label='Settings'/>
+                <HeaderNav history={this.props.history} label='Settings' modal={false} />
                 <main className="settings-page container">{this.isLoggedIn()}</main>
             </React.Fragment>
         )
