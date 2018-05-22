@@ -84,7 +84,7 @@ class Modal extends Component {
                 aria-hidden="true"
                 aria-labelledby={'title-' + id}
                 role="dialog"
-            >
+            >xF
                 <div className="pin-modal-container" role="document">
                     <CollectableDetails
                         collectableData={this.props.collectableData}

@@ -5,6 +5,7 @@ import MyCollections from './MyCollections';
 import CollectionPage from './CollectionPage';
 import PinPage from './PinPage';
 import Login from './Login';
+import Legal from './Legal';
 // import Help from './Help';
 import NavBar from './NavBar';
 import Settings from './Settings';
@@ -24,6 +25,8 @@ const Router = () => (
                 <Route path="/collection/:collectionId" component={CollectionPage} />
                 {/* <Route path="/set/:setId" component={PinSet} /> */}
                 {/* <Route path="/help" component={Help} /> */}
+                <Route path="/legal" component={Legal} />
+
                 {/* <Route component={NotFound} /> */}
             </Switch>
             <Route path="/" component={NavBar} />
