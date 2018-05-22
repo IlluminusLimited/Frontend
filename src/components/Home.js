@@ -55,7 +55,7 @@ class Home extends Component {
     render() {
         return (
             <React.Fragment>
-                <GlobalSearch fetchResults={this.fethResults} />
+                <GlobalSearch fetchResults={this.fetchResults} />
                 <main className="container">
                     <div className="pin-collection">
                         {Object.keys(this.state.pins).map(key => (
