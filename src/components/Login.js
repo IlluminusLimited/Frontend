@@ -4,7 +4,7 @@ import SvgRaccoon from './svg/SvgRaccoon';
 
 class Login extends Component {
     state = {
-        loading: false,
+        loaded: false,
         oauthProviders: {}
     };
 
@@ -21,7 +21,7 @@ class Login extends Component {
             .then(response => {
                 // Display the pins
                 this.setState({
-                    loading: true,
+                    loaded: true,
                     oauthProviders: response.oauth_providers
                 });
             });
@@ -37,7 +37,7 @@ class Login extends Component {
                 <div className="login-splash full-bleed">
                     <SvgRaccoon color="white" />
                     <h1>pinster</h1>
-                    {this.state.loading ? (
+                    {this.state.loaded ? (
                         Object.keys(this.state.oauthProviders).map(key => {
                             return (
                                 <a

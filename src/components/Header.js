@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import SvgSearch from './svg/SvgSearch';
 
 class Header extends Component {
-    state = { value: '' };
+    state = {
+        value: ''
+    };
 
     handleChange = event => {
         this.setState({ value: event.target.value });
@@ -10,52 +12,11 @@ class Header extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        this.props.clearPins();
-        this.fetchResults(this.state.value);
-    };
-
-    fetchResults = query => {
-        let url = new URL(process.env.REACT_APP_API_URL + '/v1/search'),
-            params = { query: query };
-        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-        fetch(url)
-            .then(
-                results => {
-                    return results.json();
-                },
-                error => {
-                    console.error(error);
-                }
-            )
-            .then(response => {
-                // Display the pins
-                console.log(response);
-                this.setState(prevState => {
-                    return undefined;
-                });
-                response.data.forEach(searchable => {
-                    fetch(searchable.url)
-                        .then(
-                            results => {
-                                return results.json();
-                            },
-                            error => {
-                                console.error(error);
-                            }
-                        )
-                        .then(innerResponse => {
-                            // Display the searchable
-                            this.props.updatePins({
-                                pin: innerResponse,
-                                pageLink: response.links.next ? response.links.next : undefined
-                            });
-                        });
-                });
-            });
+        this.props.fetchResults(this.state.value);
     };
 
     componentDidMount() {
-        this.fetchPins();
+        this.props.fetchResults(this.state.value);
     }
 
     render() {
