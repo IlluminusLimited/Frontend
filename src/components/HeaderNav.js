@@ -5,21 +5,24 @@ import SvgEllipse from "./svg/SvgEllipse";
 class HeaderNav extends Component {
     render() {
         return (
-            <div className="header-nav-wrapper full-bleed container">
-                <div className="header-nav">
-                    <a className="header-nav-back" href="#back">
-                        <span className="sr-only">back</span>
-                        <SvgAngleLeft color={'white'}/>
-                    </a>
+            <header className="container">
+                <div className="header-nav-wrapper full-bleed container">
+                    <div className="header-nav">
+                        <a className="header-nav-back" onClick={this.props.history.goBack}>
+                            <span className="sr-only">back</span>
+                            <SvgAngleLeft color={'white'}/>
+                        </a>
 
-                    <span>You Are Here</span>
+                        <span>{this.props.label}</span>
 
-                    <button className="header-nav-modal-toggle modal-toggle" data-modal="form-modal-nav">
-                        <SvgEllipse color={'white'}/>
-                    </button>
+                        <button className="header-nav-modal-toggle modal-toggle" data-modal="form-modal-nav">
+                            <SvgEllipse color={'white'}/>
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </header>
         )
+
     }
 
 }

@@ -6,7 +6,8 @@ import HeaderNav from "./HeaderNav";
 
 class Settings extends Component {
     state = {
-        loaded: false
+        loaded: false,
+
     };
 
     isLoggedIn = () => {
@@ -51,9 +52,7 @@ class Settings extends Component {
     render() {
         return (
             <React.Fragment>
-                <header className="container">
-                    <HeaderNav/>
-                </header>
+                <HeaderNav history={this.props.history} label='Settings'/>
                 <main className="settings-page container">{this.isLoggedIn()}</main>
             </React.Fragment>
         )
