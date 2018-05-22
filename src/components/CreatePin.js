@@ -6,7 +6,7 @@ class CreatePin extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {pictures: [], name: '', description: '', year: 2018, tags: '{}'};
+        this.state = {data: {pictures: [], name: '', description: '', year: 2018, tags: {}}};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onDrop = this.onDrop.bind(this);
@@ -23,7 +23,7 @@ class CreatePin extends Component {
         try {
             const input = event.target;
             this.toggleActive(input);
-            this.setState({tags: JSON.stringify(JSON.parse(input.value), null, 2)})
+            this.setState({tags: JSON.parse(input.value)})
         } catch (e) {
             console.log(`Json was invalid: ${e}`);
         }
@@ -48,7 +48,7 @@ class CreatePin extends Component {
         }
     }
 
-    putForm(data) {
+    postForm(data) {
         fetch(process.env.REACT_APP_API_URL + '/v1/pins', {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('pinsterUserToken'),
@@ -83,7 +83,7 @@ class CreatePin extends Component {
     }
 
     handleSubmit(event) {
-        this.putForm(this.prepData());
+        this.postForm(this.prepData());
         event.preventDefault();
     }
 
@@ -136,7 +136,7 @@ class CreatePin extends Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="tags">tags</label>
+                            <label htmlFor='tags'>tags</label>
                             <textarea
                                 id="tags"
                                 name="tags"
@@ -145,7 +145,9 @@ class CreatePin extends Component {
                                 onChange={this.parseTags}
                             />
                             <div>
-                                <pre>{this.state.tags}</pre>
+                                <pre>{
+                                    Object.keys(this.state.data.tags).length === 0 ? 'Example JSON: \n\n' + JSON.stringify({"tag_name":"tag_value","tag_with_many_values":["value","value"]}, null, 2) : JSON.stringify(this.state.tags, null, 2)
+                                }</pre>
                             </div>
                         </div>
 
