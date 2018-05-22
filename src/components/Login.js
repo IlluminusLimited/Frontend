@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Loader from './Loader';
 import SvgRaccoon from './svg/SvgRaccoon';
 
@@ -6,6 +6,11 @@ class Login extends Component {
     state = {
         loading: false,
         oauthProviders: {}
+    };
+
+    linkToLegal = () => {
+        console.log(this.props)
+        this.props.history.push("/legal");
     };
 
     fetchAuth = () => {
@@ -35,22 +40,26 @@ class Login extends Component {
         return (
             <main className="container">
                 <div className="login-splash full-bleed">
-                    <SvgRaccoon color="white" />
+                    <SvgRaccoon color="white"/>
                     <h1>pinster</h1>
                     {this.state.loading ? (
-                        Object.keys(this.state.oauthProviders).map(key => {
-                            return (
-                                <a
-                                    key={key}
-                                    href={this.state.oauthProviders[key]}
-                                    className="auth-link"
-                                >
-                                    <span>Login with {key}</span>
-                                </a>
-                            );
-                        })
+                        <React.Fragment>
+                            {Object.keys(this.state.oauthProviders).map(key => {
+                                return (
+                                    <a
+                                        key={key}
+                                        href={this.state.oauthProviders[key]}
+                                        className="auth-link"
+                                    >
+                                        <span>Login with {key}</span>
+                                    </a>
+                                );
+                            })}
+                            <br />
+                            <button className="auth-link-legal" onClick={this.linkToLegal}>legal</button>
+                        </React.Fragment>
                     ) : (
-                        <Loader />
+                        <Loader/>
                     )}
                 </div>
             </main>
