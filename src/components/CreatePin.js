@@ -6,7 +6,7 @@ class CreatePin extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {data: {pictures: [], name: '', description: '', year: 2018, tags: {}}};
+        this.state = {output: {}, pictures: [], data: {name: '', description: '', year: 2018, tags: {}}};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onDrop = this.onDrop.bind(this);
@@ -23,7 +23,7 @@ class CreatePin extends Component {
         try {
             const input = event.target;
             this.toggleActive(input);
-            this.setState({tags: JSON.parse(input.value)})
+            this.setState({data: {tags: JSON.parse(input.value)}})
         } catch (e) {
             console.log(`Json was invalid: ${e}`);
         }
@@ -32,10 +32,10 @@ class CreatePin extends Component {
     prepData() {
         return {
             data: {
-                name: this.state.name,
-                description: this.state.description,
+                name: this.state.data.name,
+                description: this.state.data.description,
                 year: 2018,
-                tags: this.state.tags
+                tags: this.state.data.tags
             }
         };
     }
@@ -59,21 +59,41 @@ class CreatePin extends Component {
         })
             .then(
                 results => {
+                    this.setState({output: results.json()});
                     return results.json();
                 },
                 error => {
                     console.error(error);
+                    this.setState({output: JSON.stringify(error)});
                 }
             )
             .then(response => {
                 this.setState({
-                    name: response.name,
-                    description: response.description,
-                    year: response.year,
-                    tags: response.tags
+                    name: response.data.name,
+                    description: response.data.description,
+                    year: response.data.year,
+                    tags: response.data.tags
                 });
-            });
+                return response.data;
+            }).then(imageableData => {
+
+            this.postImage(imageableData);
+        });
     }
+
+    postImage = (imageable) => {
+
+        const data = {}
+
+
+
+        fetch(process.env.REACT_APP_IMAGE_SERVICE_API_URL + '/images/upload', {
+            headers: {
+                'content-type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(data))
+    };
 
     handleChange(event) {
         const input = event.target;
@@ -97,7 +117,7 @@ class CreatePin extends Component {
     }
 
     componentDidUpdate() {
-        console.log(this.state.tags);
+        console.log(this.state.data.tags);
     }
 
     render() {
@@ -146,9 +166,18 @@ class CreatePin extends Component {
                             />
                             <div>
                                 <pre>{
-                                    Object.keys(this.state.data.tags).length === 0 ? 'Example JSON: \n\n' + JSON.stringify({"tag_name":"tag_value","tag_with_many_values":["value","value"]}, null, 2) : JSON.stringify(this.state.tags, null, 2)
+                                    Object.keys(this.state.data.tags).length === 0 ? 'Example JSON: \n\n' + JSON.stringify({
+                                        "tag_name": "tag_value",
+                                        "tag_with_many_values": ["value", "value"]
+                                    }, null, 2) : JSON.stringify(this.state.data.tags, null, 2)
                                 }</pre>
                             </div>
+                        </div>
+                        <br/>
+                        <hr/>
+                        <label htmlFor='output'>api output</label>
+                        <div id='output'>
+                            <pre>{JSON.stringify(this.state.output, null, 2)}</pre>
                         </div>
 
                         <div className="form-group form-action">
