@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 
-<<<<<<< HEAD
 class SvgAdd extends Component {
-=======
-class SvgClose extends Component {
->>>>>>> 93e184198cff349ac3af416ef05c0de5950f6cd5
     render() {
         return (
             <svg
