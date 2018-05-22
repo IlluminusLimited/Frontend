@@ -1,15 +1,20 @@
-import React, {Component} from 'react';
-import SvgAngleLeft from "./svg/SvgAngleLeft";
-import SvgEllipse from "./svg/SvgEllipse";
+import React, { Component } from 'react';
+import SvgAngleLeft from './svg/SvgAngleLeft';
+import SvgEllipse from './svg/SvgEllipse';
 
 class HeaderNav extends Component {
     getModalButton(modal) {
-        if (modal === null) {
-            return (<button className="header-nav-modal-toggle modal-toggle" data-modal="form-modal-nav">
-                <SvgEllipse color={'white'}/>
-            </button>);
+        if (modal) {
+            return (
+                <button
+                    className="header-nav-modal-toggle modal-toggle"
+                    data-modal="form-modal-nav"
+                >
+                    <SvgEllipse color={'white'} />
+                </button>
+            );
         }
-        return <div className='header-nav-spacer'/>
+        return <div className="header-nav-spacer" />;
     }
 
     render() {
@@ -19,17 +24,15 @@ class HeaderNav extends Component {
                     <div className="header-nav">
                         <a className="header-nav-back" onClick={this.props.history.goBack}>
                             <span className="sr-only">back</span>
-                            <SvgAngleLeft color={'white'}/>
+                            <SvgAngleLeft color={'white'} />
                         </a>
                         <span>{this.props.label}</span>
                         {this.getModalButton(this.props.modal)}
                     </div>
                 </div>
             </header>
-        )
-
+        );
     }
-
 }
 
 export default HeaderNav;
