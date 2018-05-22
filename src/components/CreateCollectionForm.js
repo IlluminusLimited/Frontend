@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import HeaderNav from './HeaderNav';
 
-class AddCollectionForm extends Component {
+class CreateCollectionForm extends Component {
     state = {
         loaded: false,
         name: '',
@@ -117,4 +117,4 @@ class AddCollectionForm extends Component {
     }
 }
 
-export default AddCollectionForm;
+export default CreateCollectionForm;
