@@ -4,7 +4,7 @@ import SvgEllipse from "./svg/SvgEllipse";
 
 class HeaderNav extends Component {
     getModalButton(modal) {
-        if (modal === null) {
+        if (modal) {
             return (<button className="header-nav-modal-toggle modal-toggle" data-modal="form-modal-nav">
                 <SvgEllipse color={'white'}/>
             </button>);
