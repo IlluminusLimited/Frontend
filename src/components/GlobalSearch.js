@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import SvgSearch from './svg/SvgSearch';
 
-class Header extends Component {
+
+class GlobalSearch extends Component {
     state = {
-        value: ''
-    };
+    value: ''
+};
 
     handleChange = event => {
         this.setState({ value: event.target.value });
@@ -22,10 +23,6 @@ class Header extends Component {
     render() {
         return (
             <header className="container">
-                {/* <div className="header-util">
-                    <span className="logo">pinster</span>
-                </div> */}
-
                 <form
                     className="global-search-form full-bleed container"
                     onSubmit={this.handleSubmit}
@@ -53,4 +50,4 @@ class Header extends Component {
     }
 }
 
-export default Header;
+export default GlobalSearch;
