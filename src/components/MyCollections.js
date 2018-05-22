@@ -11,11 +11,10 @@ class MyCollections extends Component {
     };
 
     fetchMoreCollections() {
-        const userId = '6f22c875-f795-436b-8528-e1cb9e35a412';
-        // const userId = sessionStorage.getItem('pinster-user-id');
+        const userId = sessionStorage.getItem('pinster-user-id');
         fetch(process.env.REACT_APP_API_URL + `/v1/users/${userId}/collections`, {
             headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('pinsterUserToken')
+                Authorization: 'Bearer ' + localStorage.getItem('pinster-user-token')
             }
         })
             .then(
@@ -37,6 +36,10 @@ class MyCollections extends Component {
             });
     }
 
+    addNewCollection = () => {
+        this.props.history.push('/collections/create');
+    };
+
     componentDidMount() {
         this.fetchMoreCollections();
     }
@@ -57,7 +60,7 @@ class MyCollections extends Component {
                         ))}
                         <div className="pin-list-item add-new" onClick={this.addNewCollection}>
                             <SvgAdd classType="white pin-list-img" />
-                            <div class="pin-list-title">add new collection</div>
+                            <div className="pin-list-title">add new collection</div>
                         </div>
                     </div>
                     <LoadMoreButton

@@ -10,6 +10,7 @@ import Legal from './Legal';
 import NavBar from './NavBar';
 import Settings from './Settings';
 import AuthRedirect from './AuthRedirect';
+import AddCollectionForm from './AddCollectionForm';
 
 const Router = () => (
     <BrowserRouter>
@@ -21,7 +22,8 @@ const Router = () => (
                 <Route exact path="/settings" component={Settings} />
                 {/* <Route path="/user/:userId" component={User} /> */}
                 <Route path="/pin/:pinId" component={PinPage} />
-                <Route path="/collections" component={MyCollections} />
+                <Route exact path="/collections" component={MyCollections} />
+                <Route exact path="/collections/create" component={AddCollectionForm} />
                 <Route path="/collection/:collectionId" component={CollectionPage} />
                 {/* <Route path="/set/:setId" component={PinSet} /> */}
                 {/* <Route path="/help" component={Help} /> */}
