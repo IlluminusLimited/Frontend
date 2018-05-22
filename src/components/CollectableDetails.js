@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Tag from './Tag';
 import Image from './Image';
 import CollectableListItem from './CollectableListItem';
@@ -37,12 +37,12 @@ class CollectableDetails extends Component {
             // updated_at,
             images
             // url
-        } = {...this.props.collectableData};
+        } = { ...this.props.collectableData };
         return (
             <React.Fragment>
                 <div className={this.props.classType + '-viewer'}>
                     {images ? (
-                        <Image imageData={images[0]} imageClass={this.props.classType + '-img'}/>
+                        <Image imageData={images[0]} imageClass={this.props.classType + '-img'} />
                     ) : null}
                 </div>
                 <div className={this.props.classType + '-content'}>
@@ -51,28 +51,34 @@ class CollectableDetails extends Component {
                     <p>{year || 2018}</p>
                     <div className={this.props.classType + '-tags'}>
                         {Object.keys(tags).map(key => (
-                            <Tag key={key} tagKey={key} tagName={tags[key]}/>
+                            <Tag key={key} tagKey={key} tagName={tags[key]} />
                         ))}
                     </div>
                     <div className={this.props.classType + '-thumbs'}>
                         {images.map((image, index) => {
                             if (index === 0) {
-                                return <div key={index} className={this.props.classType + '-thumb active'}>
+                                return (
+                                    <div
+                                        key={index}
+                                        className={this.props.classType + '-thumb active'}
+                                    >
+                                        <Image
+                                            key={index}
+                                            imageData={image}
+                                            imageClass={this.props.classType + '-img'}
+                                        />
+                                    </div>
+                                );
+                            }
+                            return (
+                                <div key={index} className={this.props.classType + '-thumb'}>
                                     <Image
                                         key={index}
                                         imageData={image}
                                         imageClass={this.props.classType + '-img'}
                                     />
                                 </div>
-                            }
-                            return <div key={index} className={this.props.classType + '-thumb'}>
-                                <Image
-                                    key={index}
-                                    imageData={image}
-                                    imageClass={this.props.classType + '-img'}
-                                />
-                            </div>
-
+                            );
                         })}
                     </div>
                     {this.detailsType()}
