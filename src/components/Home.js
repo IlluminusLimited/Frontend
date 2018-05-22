@@ -5,10 +5,33 @@ import CollectableListItem from './CollectableListItem';
 class Home extends Component {
     state = {
         pins: [],
-        pageLink: process.env.REACT_APP_API_URL + '/v1/pins'
+        pageLink: ''
     };
 
-    fetchPins = () => {
+    fetchResults = query => {
+        const urlType = query === '' ? 'pins' : 'search';
+        let url = new URL(`${process.env.REACT_APP_API_URL}/v1/${urlType}`);
+        const params = { query: query };
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+        fetch(url)
+            .then(
+                results => {
+                    return results.json();
+                },
+                error => {
+                    console.error(error);
+                }
+            )
+            .then(response => {
+                // Display the pins
+                this.setState({
+                    pins: response.data,
+                    pageLink: response.links.next ? response.links.next : ''
+                });
+            });
+    };
+
+    fetchMorePins = () => {
         fetch(this.state.pageLink)
             .then(
                 results => {
@@ -23,27 +46,16 @@ class Home extends Component {
                 this.setState(prevState => {
                     return {
                         pins: [...prevState.pins, ...response.data],
-                        pageLink: response.links.next
+                        pageLink: response.links.next ? response.links.next : ''
                     };
                 });
             });
     };
 
-    updatePins = updatedPins => {
-        this.setState({
-            pins: updatedPins.data,
-            pageLink: updatedPins.links.self
-        });
-    };
-
-    componentDidMount() {
-        this.fetchPins();
-    }
-
     render() {
         return (
             <React.Fragment>
-                <Header updatePins={this.updatePins} />
+                <Header fetchResults={this.fetchResults} />
                 <main className="container">
                     <div className="pin-collection">
                         {Object.keys(this.state.pins).map(key => (
@@ -56,9 +68,11 @@ class Home extends Component {
                             />
                         ))}
                     </div>
-                    <button className="btn-load-more" onClick={this.fetchPins}>
-                        Load more
-                    </button>
+                    {this.state.pageLink === '' ? null : (
+                        <button className="btn-load-more" onClick={this.fetchMorePins}>
+                            Load more
+                        </button>
+                    )}
                 </main>
             </React.Fragment>
         );
