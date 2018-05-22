@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CollectableDetails from './CollectableDetails';
 import SvgClose from './svg/SvgClose';
 
-class Modal extends Component {
+class CollectableModal extends Component {
     openModal = toggle => {
         let modal = document.querySelector('#' + toggle.getAttribute('data-modal'));
         modal.classList.add('active');
@@ -100,4 +100,4 @@ class Modal extends Component {
     }
 }
 
-export default Modal;
+export default CollectableModal;
