@@ -6,7 +6,7 @@ import CollectionPage from './CollectionPage';
 import PinPage from './PinPage';
 import Login from './Login';
 import Legal from './Legal';
-// import Help from './Help';
+import CreatePin from './CreatePin';
 import NavBar from './NavBar';
 import Settings from './Settings';
 import AuthRedirect from './AuthRedirect';
@@ -24,7 +24,7 @@ const Router = () => (
                 <Route path="/collections" component={MyCollections} />
                 <Route path="/collection/:collectionId" component={CollectionPage} />
                 {/* <Route path="/set/:setId" component={PinSet} /> */}
-                {/* <Route path="/help" component={Help} /> */}
+                 <Route path="/create_pin" component={CreatePin} />
                 <Route path="/legal" component={Legal} />
 
                 {/* <Route component={NotFound} /> */}

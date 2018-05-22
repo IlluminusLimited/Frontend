@@ -3,8 +3,9 @@ article {
   max-width: 80rem;
 }
 
-.header-article {
-  margin-top: 50px;
+.sub-header-content {
+  margin-top: 32px;
+  padding-top: 15px;
 }
 
 @media screen and (max-width: #{$screen-tablet - 1}) {
