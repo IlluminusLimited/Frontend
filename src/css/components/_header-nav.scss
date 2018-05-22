@@ -1,8 +1,10 @@
 .header-nav-wrapper {
+  position: fixed;
   z-index: $z-nav;
   margin-bottom: $gutter;
   background-color: $turquoise;
   padding: 5px 0;
+  width: 100vw;
 }
 
 .header-nav {

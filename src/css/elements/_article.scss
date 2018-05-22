@@ -3,6 +3,10 @@ article {
   max-width: 80rem;
 }
 
+.header-article {
+  margin-top: 50px;
+}
+
 @media screen and (max-width: #{$screen-tablet - 1}) {
   article {
     margin: 0 $gutter;
