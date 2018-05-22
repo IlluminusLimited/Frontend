@@ -10,7 +10,10 @@ class CollectionPage extends Component {
     };
 
     fetchPins = () => {
-        fetch(process.env.REACT_APP_API_URL + `/v1/collections/${this.props.match.params.collectionId}`)
+        fetch(
+            process.env.REACT_APP_API_URL +
+                `/v1/collections/${this.props.match.params.collectionId}`
+        )
             .then(
                 results => {
                     return results.json();
@@ -24,8 +27,10 @@ class CollectionPage extends Component {
                 console.log(response);
                 response.collectables.forEach(collectable => {
                     fetch(
-                        process.env.REACT_APP_API_URL + `/v1/${collectable.collectable_type.toLowerCase() +
-                            's'}/${collectable.id}`
+                        process.env.REACT_APP_API_URL +
+                            `/v1/${collectable.collectable_type.toLowerCase() + 's'}/${
+                                collectable.id
+                            }`
                     )
                         .then(
                             results => {
@@ -50,10 +55,6 @@ class CollectionPage extends Component {
                 });
             });
     };
-
-    componentDidUpdate() {
-        console.log(this.state);
-    }
 
     componentDidMount() {
         this.fetchPins();

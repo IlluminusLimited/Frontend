@@ -11,7 +11,7 @@ class Settings extends Component {
     };
 
     isLoggedIn = () => {
-        if (localStorage.getItem('pinsterUserToken')) {
+        if (localStorage.getItem('pinster-user-token')) {
             return this.state.loaded ? (
                 <SettingsForm data={this.state.data} history={this.props.history} />
             ) : (
@@ -24,7 +24,7 @@ class Settings extends Component {
     makeFetch = () => {
         fetch(process.env.REACT_APP_API_URL + '/v1/me', {
             headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('pinsterUserToken')
+                Authorization: 'Bearer ' + localStorage.getItem('pinster-user-token')
             }
         })
             .then(
@@ -36,8 +36,8 @@ class Settings extends Component {
                 }
             )
             .then(response => {
-                response.forEach((value, key) => {
-                    sessionStorage.setItem(`pinster-user-${key}`, value);
+                Object.keys(response).forEach(key => {
+                    sessionStorage.setItem(`pinster-user-${key}`, response[key]);
                 });
                 this.setState({
                     loaded: true,
@@ -47,7 +47,7 @@ class Settings extends Component {
     };
 
     componentDidMount() {
-        if (localStorage.getItem('pinsterUserToken')) {
+        if (localStorage.getItem('pinster-user-token')) {
             this.makeFetch();
         }
     }

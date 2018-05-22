@@ -9,7 +9,6 @@ class Login extends Component {
     };
 
     linkToLegal = () => {
-        console.log(this.props);
         this.props.history.push('/legal');
     };
 
