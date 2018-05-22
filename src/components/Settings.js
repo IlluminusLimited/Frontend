@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Redirect} from 'react-router-dom';
 import SettingsForm from './SettingsForm';
 import Loader from './Loader';
+import HeaderNav from "./HeaderNav";
 
 class Settings extends Component {
     state = {
@@ -11,12 +12,12 @@ class Settings extends Component {
     isLoggedIn = () => {
         if (localStorage.getItem('pinsterUserToken')) {
             return this.state.loaded ? (
-                <SettingsForm data={this.state.data} history={this.props.history} />
+                <SettingsForm data={this.state.data} history={this.props.history}/>
             ) : (
-                <Loader />
+                <Loader/>
             );
         }
-        return <Redirect to="/login" />;
+        return <Redirect to="/login"/>;
     };
 
     makeFetch = () => {
@@ -48,7 +49,14 @@ class Settings extends Component {
     }
 
     render() {
-        return <main className="settings-page container">{this.isLoggedIn()}</main>;
+        return (
+            <React.Fragment>
+                <header className="container">
+                    <HeaderNav/>
+                </header>
+                <main className="settings-page container">{this.isLoggedIn()}</main>
+            </React.Fragment>
+        )
     }
 }
 

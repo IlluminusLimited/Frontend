@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from './Header';
+import GlobalSearch from './GlobalSearch';
 import CollectableListItem from './CollectableListItem';
 
 class Home extends Component {
@@ -55,7 +55,7 @@ class Home extends Component {
     render() {
         return (
             <React.Fragment>
-                <Header fetchResults={this.fetchResults} />
+                <GlobalSearch fetchResults={this.fethResults} />
                 <main className="container">
                     <div className="pin-collection">
                         {Object.keys(this.state.pins).map(key => (
