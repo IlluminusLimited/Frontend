@@ -6,7 +6,7 @@ class CreatePin extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {output: {}, pictures: [], data: {name: '', description: '', year: 2018, tags: {}}};
+        this.state = {output: {}, images: [], data: {name: '', description: '', year: 2018, tags: {}}};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onDrop = this.onDrop.bind(this);
@@ -14,7 +14,7 @@ class CreatePin extends Component {
 
     onDrop(picture) {
         this.setState({
-            pictures: this.state.pictures.concat(picture)
+            images: this.state.images.concat(picture)
         });
     }
 
@@ -49,6 +49,11 @@ class CreatePin extends Component {
     }
 
     postForm(data) {
+        if (data.length === 0 || this.state.images.length === 0) {
+            this.setState({output: "Must include all required fields and images!"});
+            return;
+        }
+
         fetch(process.env.REACT_APP_API_URL + '/v1/pins', {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('pinsterUserToken'),
@@ -59,12 +64,13 @@ class CreatePin extends Component {
         })
             .then(
                 results => {
-                    this.setState({output: results.json()});
-                    return results.json();
+                    const output = results.json();
+                    this.setState({output: output});
+                    return output;
                 },
                 error => {
                     console.error(error);
-                    this.setState({output: JSON.stringify(error)});
+                    throw error;
                 }
             )
             .then(response => {
@@ -76,24 +82,52 @@ class CreatePin extends Component {
                 });
                 return response.data;
             }).then(imageableData => {
+            const imagePromises = this.state.images.map(image => {
+                return this.postImage(imageableData, image);
+            });
 
-            this.postImage(imageableData);
+            Promise.all(imagePromises).then((responses) => {
+                this.setState({output: [...this.state.output, JSON.stringify(responses)]});
+            })
+        }).catch(exception => {
+            this.setState({output: JSON.stringify(exception)});
         });
     }
 
-    postImage = (imageable) => {
+    postImage = (imageable, image) => {
+        const body = {
+            data: {
+                metadata: {
+                    user_id: sessionStorage.getItem('pinster-user-id'),
+                    year: imageable.year,
+                    imageable_type: 'Pin',
+                    imageable_id: imageable.id
+                },
+                image: image
+            }
+        };
 
-        const data = {}
-
-
-
-        fetch(process.env.REACT_APP_IMAGE_SERVICE_API_URL + '/images/upload', {
+        fetch(process.env.REACT_APP_IMAGE_SERVICE_API_URL + '/images', {
             headers: {
                 'content-type': 'application/json'
             },
             method: 'POST',
-            body: JSON.stringify(data))
+            body: JSON.stringify(body)
+        }).then(
+            results => {
+                console.log(results);
+                let output = results.json();
+                this.setState({output: [...this.state.output, output]});
+                return output;
+            },
+            error => {
+                console.error(error);
+                this.setState({output: [...this.state.output, JSON.stringify(error)]});
+                return JSON.stringify(error);
+            }
+        )
     };
+
 
     handleChange(event) {
         const input = event.target;
@@ -174,6 +208,7 @@ class CreatePin extends Component {
                             </div>
                         </div>
                         <br/>
+                        <br/>
                         <hr/>
                         <label htmlFor='output'>api output</label>
                         <div id='output'>
@@ -194,7 +229,8 @@ class CreatePin extends Component {
                 </main>
             </React.Fragment>
         );
-    };
+    }
+    ;
 }
 
 export default CreatePin;
