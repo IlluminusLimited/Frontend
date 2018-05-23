@@ -97,9 +97,6 @@ class CollectionPage extends Component {
                             <Loader />
                         )}
                     </div>
-                    <button className="btn-load-more" onClick={this.fetchPins}>
-                        Load more
-                    </button>
                 </main>
             </React.Fragment>
         );
