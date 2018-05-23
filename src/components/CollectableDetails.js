@@ -59,6 +59,14 @@ class CollectableDetails extends Component {
                             <Tag key={key} tagKey={key} tagName={tags[key]} />
                         ))}
                     </div>
+                    {sessionStorage.getItem('pinster-user-id') && this.props.modalIsOpen ? (
+                        <CollectionSelectList
+                            collectableId={id}
+                            collectableType={this.props.collectableType}
+                            collectableUrl={url}
+                        />
+                    ) : null}
+                    <br />
                     <div className={this.props.classType + '-thumbs'}>
                         {images.map((image, index) => {
                             if (index === 0) {
@@ -86,13 +94,6 @@ class CollectableDetails extends Component {
                             );
                         })}
                     </div>
-                    {sessionStorage.getItem('pinster-user-id') && this.props.modalIsOpen ? (
-                        <CollectionSelectList
-                            collectableId={id}
-                            collectableType={this.props.collectableType}
-                            collectableUrl={url}
-                        />
-                    ) : null}
                 </div>
             </React.Fragment>
         );

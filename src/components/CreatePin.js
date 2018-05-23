@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ImageUploader from 'react-images-upload';
 import HeaderNav from './HeaderNav';
+import Loader from './Loader';
 
 class CreatePin extends Component {
     constructor(props) {
@@ -12,7 +13,8 @@ class CreatePin extends Component {
             name: '',
             description: '',
             year: '2018',
-            tags: {}
+            tags: {},
+            loading: false
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -62,7 +64,7 @@ class CreatePin extends Component {
     }
 
     postForm(data) {
-        this.setState({ output: {}, submitting: true });
+        this.setState({ output: {}, submitting: true, loading: true });
         if (this.state.images.length === 0) {
             this.setState(prevState => {
                 return {
@@ -112,7 +114,8 @@ class CreatePin extends Component {
                             year: '2018',
                             tags: {},
                             output: [...prevState.output, responses],
-                            submitting: false
+                            submitting: false,
+                            loading: false
                         };
                     });
                 });
@@ -139,7 +142,7 @@ class CreatePin extends Component {
             }
         };
 
-        fetch(process.env.REACT_APP_IMAGE_SERVICE_API_URL + '/images', {
+        return fetch(process.env.REACT_APP_IMAGE_SERVICE_API_URL + '/images', {
             headers: {
                 'content-type': 'application/json'
             },
@@ -154,7 +157,6 @@ class CreatePin extends Component {
                         output: [...prevState.output, output]
                     };
                 });
-                return output;
             },
             error => {
                 console.error(error);
@@ -163,7 +165,6 @@ class CreatePin extends Component {
                         output: [...prevState.output, error]
                     };
                 });
-                return JSON.stringify(error);
             }
         );
     };
@@ -280,6 +281,7 @@ class CreatePin extends Component {
                             />
                         </div>
                     </form>
+                    {this.state.loading ? <Loader /> : null}
                 </main>
             </React.Fragment>
         );

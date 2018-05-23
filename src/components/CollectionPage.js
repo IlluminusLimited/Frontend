@@ -6,6 +6,7 @@ import HeaderNav from './HeaderNav';
 class CollectionPage extends Component {
     state = {
         loaded: false,
+        empty: false,
         collectionData: {},
         collectablesData: []
     };
@@ -25,7 +26,10 @@ class CollectionPage extends Component {
             )
             .then(response => {
                 // Display the pins
-                if (response.collectable_collections) {
+                if (
+                    response.collectable_collections &&
+                    response.collectable_collections.length > 0
+                ) {
                     response.collectable_collections.forEach(collectable => {
                         fetch(
                             process.env.REACT_APP_API_URL +
@@ -59,6 +63,7 @@ class CollectionPage extends Component {
                 } else {
                     this.setState({
                         loaded: true,
+                        empty: true,
                         collectionData: response
                     });
                 }
@@ -78,25 +83,29 @@ class CollectionPage extends Component {
                     history={this.props.history}
                 />
                 <main className="container sub-header-content">
-                    <div className="pin-collection">
-                        {this.state.loaded ? (
-                            Object.keys(this.state.collectablesData).map(key => {
-                                return (
-                                    <CollectableListItem
-                                        key={key}
-                                        collectableData={this.state.collectablesData[key]}
-                                        uiType="pin-page-toggle"
-                                        collectableType={
-                                            this.state.collectablesData[key].collectable_type
-                                        }
-                                        history={this.props.history}
-                                    />
-                                );
-                            })
+                    {this.state.loaded ? (
+                        this.state.empty ? (
+                            <p>You have not added any Pins or Sets to this Collection!</p>
                         ) : (
-                            <Loader />
-                        )}
-                    </div>
+                            <div className="pin-collection">
+                                {Object.keys(this.state.collectablesData).map(key => {
+                                    return (
+                                        <CollectableListItem
+                                            key={key}
+                                            collectableData={this.state.collectablesData[key]}
+                                            uiType="pin-page-toggle"
+                                            collectableType={
+                                                this.state.collectablesData[key].collectable_type
+                                            }
+                                            history={this.props.history}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        )
+                    ) : (
+                        <Loader />
+                    )}
                 </main>
             </React.Fragment>
         );
