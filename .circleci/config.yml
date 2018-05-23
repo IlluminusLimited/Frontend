@@ -80,6 +80,10 @@ jobs:
       - run:
           name: Deploy S3 Bucket
           command: ./node_modules/serverless/bin/serverless deploy --stage prod
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - ./
 
   deploy-prod-react:
     working_directory: /repo
@@ -91,7 +95,7 @@ jobs:
           at: /repo
       - run:
           name: Deploy React
-          command: aws s3 cp ./build s3://app-prod.pinster.io --recursive --cache-control max-age=1800
+          command: aws s3 cp ./build s3://app-prod.pinster.io --recursive --cache-control max-age=60
 
 workflows:
   version: 2
