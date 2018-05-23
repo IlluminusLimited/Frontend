@@ -8,14 +8,22 @@ class CreatePin extends Component {
         super(props);
         this.state = {output: {}, images: [], name: '', description: '', year: 2018, tags: {}};
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onDrop = this.onDrop.bind(this);
     }
 
-    onDrop(picture) {
-        this.setState({
-            images: this.state.images.concat(picture)
-        });
-    }
+    onDrop = (picture) => {
+        let self = this;
+        let reader = new FileReader();
+        reader.readAsDataURL(picture[0]);
+        reader.onload = function () {
+            console.log(reader.result);
+            self.setState({
+                images: self.state.images.concat(reader.result)
+            });
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    };
 
     parseTags = (event) => {
         try {
@@ -72,18 +80,9 @@ class CreatePin extends Component {
                     console.error(error);
                     throw error;
                 }
-            )
-            .then(response => {
-                this.setState({
-                    name: response.data.name,
-                    description: response.data.description,
-                    year: response.data.year,
-                    tags: response.data.tags
-                });
-                return response.data;
-            }).then(imageableData => {
-            const imagePromises = this.state.images.map(image => {
-                return this.postImage(imageableData, image);
+            ).then(imageableData => {
+            const imagePromises = this.state.images.map(base64Image => {
+                return this.postImage(imageableData, base64Image);
             });
 
             Promise.all(imagePromises).then((responses) => {
@@ -94,7 +93,7 @@ class CreatePin extends Component {
         });
     }
 
-    postImage = (imageable, image) => {
+    postImage = (imageable, base64Image) => {
         const body = {
             data: {
                 metadata: {
@@ -103,7 +102,7 @@ class CreatePin extends Component {
                     imageable_type: 'Pin',
                     imageable_id: imageable.id
                 },
-                image: image
+                image: base64Image
             }
         };
 
