@@ -32,7 +32,7 @@ class CollectableModal extends Component {
             this.closeModal();
         });
 
-        document.addEventListener('popstate', () => {
+        window.addEventListener('popstate', () => {
             this.closeModal();
         });
 
