@@ -7,12 +7,13 @@ class Image extends Component {
             // featured,
             storage_location_uri,
             // url,
+            thumbnailable,
             description
         } = { ...this.props.imageData };
         return (
             <img
                 className={this.props.imageClass}
-                src={`${storage_location_uri}_200x200`}
+                src={thumbnailable === true ? `${storage_location_uri}_200x200` : storage_location_uri}
                 alt={description}
             />
         );
