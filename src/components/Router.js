@@ -20,7 +20,7 @@ const Router = () => (
                 <Route exact path="/authenticate/:token" component={AuthRedirect} />
                 <Route exact path="/settings" component={Settings} />
                 {/* <Route path="/user/:userId" component={User} /> */}
-                <Route path="/pin/create" component={CreatePin} />
+                <Route path="/pins/new" component={CreatePin} />
                 <Route path="/pin/:pinId" component={PinPage} />
                 <Route path="/collections" component={MyCollections} />
                 <Route path="/collection/:collectionId" component={CollectionPage} />
