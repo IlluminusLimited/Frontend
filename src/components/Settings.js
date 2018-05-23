@@ -29,6 +29,11 @@ class Settings extends Component {
         })
             .then(
                 results => {
+                    if (results.status === 401) {
+                        localStorage.clear();
+                        sessionStorage.clear();
+                        this.props.history.push('/login');
+                    }
                     return results.json();
                 },
                 error => {
