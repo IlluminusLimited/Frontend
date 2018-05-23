@@ -1,35 +1,42 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ImageUploader from 'react-images-upload';
-import HeaderNav from "./HeaderNav";
+import HeaderNav from './HeaderNav';
 
 class CreatePin extends Component {
-
     constructor(props) {
         super(props);
-        this.state = {output: {}, submitting: false, images: [], name: '', description: '', year: '2018', tags: {}};
+        this.state = {
+            output: [],
+            submitting: false,
+            images: [],
+            name: '',
+            description: '',
+            year: '2018',
+            tags: {}
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    onDrop = (picture) => {
+    onDrop = picture => {
         let self = this;
         let reader = new FileReader();
         reader.readAsDataURL(picture[0]);
-        reader.onload = function () {
+        reader.onload = function() {
             console.log(reader.result);
             self.setState({
                 images: self.state.images.concat(reader.result)
             });
         };
-        reader.onerror = function (error) {
+        reader.onerror = function(error) {
             console.log('Error: ', error);
         };
     };
 
-    parseTags = (event) => {
+    parseTags = event => {
         try {
             const input = event.target;
             this.toggleActive(input);
-            this.setState({tags: JSON.parse(input.value)})
+            this.setState({ tags: JSON.parse(input.value) });
         } catch (e) {
             console.log(`Json was invalid: ${e}`);
         }
@@ -55,9 +62,14 @@ class CreatePin extends Component {
     }
 
     postForm(data) {
-        this.setState({output: {}, submitting: true});
+        this.setState({ output: {}, submitting: true });
         if (this.state.images.length === 0) {
-            this.setState({output: "Must include all required fields and images!", submitting: false});
+            this.setState(prevState => {
+                return {
+                    output: [...prevState.output, 'Must include all required fields and images!'],
+                    submitting: false
+                };
+            });
             return;
         }
 
@@ -74,31 +86,45 @@ class CreatePin extends Component {
             .then(
                 results => {
                     const output = results.json();
-                    this.setState({output: output});
+                    this.setState(prevState => {
+                        return {
+                            output: [...prevState.output, output]
+                        };
+                    });
                     return output;
                 },
                 error => {
                     console.error(error);
                     throw error;
                 }
-            ).then(imageableData => {
-            const imagePromises = this.state.images.map(base64Image => {
-                return this.postImage(imageableData, base64Image);
-            });
+            )
+            .then(imageableData => {
+                const imagePromises = this.state.images.map(base64Image => {
+                    return this.postImage(imageableData, base64Image);
+                });
 
-            Promise.all(imagePromises).then((responses) => {
-                this.setState({
-                    images: [], name: '',
-                    description: '',
-                    year: '2018',
-                    tags: {},
-                    output: [...this.state.output, JSON.stringify(responses)],
-                    submitting: false
+                Promise.all(imagePromises).then(responses => {
+                    this.setState(prevState => {
+                        return {
+                            images: [],
+                            name: '',
+                            description: '',
+                            year: '2018',
+                            tags: {},
+                            output: [...prevState.output, responses],
+                            submitting: false
+                        };
+                    });
                 });
             })
-        }).catch(exception => {
-            this.setState({output: JSON.stringify(exception), submitting: false});
-        });
+            .catch(exception => {
+                this.setState(prevState => {
+                    return {
+                        output: [...prevState.output, exception],
+                        submitting: false
+                    };
+                });
+            });
     }
 
     postImage = (imageable, base64Image) => {
@@ -123,21 +149,29 @@ class CreatePin extends Component {
             results => {
                 console.log(results);
                 let output = results.json();
-                this.setState({output: [...this.state.output, output]});
+                this.setState(prevState => {
+                    return {
+                        output: [...prevState.output, output]
+                    };
+                });
                 return output;
             },
             error => {
                 console.error(error);
-                this.setState({output: [...this.state.output, JSON.stringify(error)]});
+                this.setState(prevState => {
+                    return {
+                        output: [...prevState.output, error]
+                    };
+                });
                 return JSON.stringify(error);
             }
-        )
+        );
     };
 
-    handleChange = (event) => {
+    handleChange = event => {
         const input = event.target;
         const name = input.name;
-        this.setState({[name]: input.value});
+        this.setState({ [name]: input.value });
         this.toggleActive(input);
     };
 
@@ -150,7 +184,7 @@ class CreatePin extends Component {
         const form = this;
         document
             .querySelectorAll('.form-group input, .form-group textarea')
-            .forEach(function (input) {
+            .forEach(function(input) {
                 form.toggleActive(input);
             });
     }
@@ -164,17 +198,17 @@ class CreatePin extends Component {
 
         return (
             <React.Fragment>
-                <HeaderNav history={this.props.history} label='Create Pin' modal={true}/>
+                <HeaderNav history={this.props.history} label="Create Pin" modal={true} />
                 <main className="settings-page container sub-header-content">
                     <ImageUploader
                         withIcon={true}
-                        buttonText='Choose images'
+                        buttonText="Choose images"
                         onChange={this.onDrop}
                         imgExtension={['.jpg', '.jpeg', '.gif', '.png', '.gif']}
                         maxFileSize={5242880}
                         withPreview={true}
                     />
-                    <br/>
+                    <br />
                     <form className="my-settings" onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <label htmlFor="name">name</label>
@@ -197,7 +231,7 @@ class CreatePin extends Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor='tags'>tags</label>
+                            <label htmlFor="tags">tags</label>
                             <textarea
                                 id="tags"
                                 name="tags"
@@ -206,25 +240,37 @@ class CreatePin extends Component {
                                 onChange={this.parseTags}
                             />
                             <div>
-                                <pre>{
-                                    Object.keys(this.state.tags).length === 0 ? 'Example JSON: \n\n' + JSON.stringify({
-                                        "tag_name": "tag_value",
-                                        "tag_with_many_values": ["value", "value"]
-                                    }, null, 2) : JSON.stringify(this.state.tags, null, 2)
-                                }</pre>
+                                <pre>
+                                    {Object.keys(this.state.tags).length === 0
+                                        ? 'Example JSON: \n\n' +
+                                          JSON.stringify(
+                                              {
+                                                  tag_name: 'tag_value',
+                                                  tag_with_many_values: ['value', 'value']
+                                              },
+                                              null,
+                                              2
+                                          )
+                                        : JSON.stringify(this.state.tags, null, 2)}
+                                </pre>
                             </div>
                         </div>
-                        <br/>
-                        <br/>
-                        <hr/>
-                        <label htmlFor='output'>api output</label>
-                        <div id='output'>
+                        <br />
+                        <br />
+                        <hr />
+                        <label htmlFor="output">api output</label>
+                        <div id="output">
                             <pre>{JSON.stringify(this.state.output, null, 2)}</pre>
                         </div>
 
                         <div className="form-group form-action">
-                            <input type="submit" id="submit" name="submit" disabled={this.state.submitting}
-                                   value="save changes"/>
+                            <input
+                                type="submit"
+                                id="submit"
+                                name="submit"
+                                disabled={this.state.submitting}
+                                value="save changes"
+                            />
                             <input
                                 type="reset"
                                 id="cancel"
@@ -238,7 +284,6 @@ class CreatePin extends Component {
             </React.Fragment>
         );
     }
-    ;
 }
 
 export default CreatePin;
