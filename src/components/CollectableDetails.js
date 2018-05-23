@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import Tag from './Tag';
 import Image from './Image';
 import CollectableListItem from './CollectableListItem';
+import CollectionSelectList from './CollectionSelectList';
 
 class CollectableDetails extends Component {
+    state = {
+        collections: {}
+    };
+
     detailsType = () => {
         if (this.props.collectableType.toLowerCase() === 'assortment') {
             return (
@@ -35,8 +40,8 @@ class CollectableDetails extends Component {
             tags,
             // created_at,
             // updated_at,
-            images
-            // url
+            images,
+            url
         } = { ...this.props.collectableData };
         return (
             <React.Fragment>
@@ -81,7 +86,13 @@ class CollectableDetails extends Component {
                             );
                         })}
                     </div>
-                    {this.detailsType()}
+                    {/* {sessionStorage.getItem('pinster-user-id') ? (
+                        <CollectionSelectList
+                            collectableId={id}
+                            collectableType={this.props.collectableType}
+                            collectableUrl={url}
+                        />
+                    ) : null} */}
                 </div>
             </React.Fragment>
         );
