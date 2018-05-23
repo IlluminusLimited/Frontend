@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import CollectableDetails from './CollectableDetails';
 import SvgClose from './svg/SvgClose';
-import { BackHandler } from 'react-native-web';
 
 class CollectableModal extends Component {
     state = {
@@ -33,14 +32,7 @@ class CollectableModal extends Component {
             this.closeModal();
         });
 
-        // document.addEventListener('backbutton', event => {
-        //     if (event.defaultPrevented) {
-        //         return;
-        //     }
-        //     this.closeModal();
-        // });
-
-        BackHandler.addEventListener('hardwareBackPress', () => {
+        document.addEventListener('popstate', () => {
             this.closeModal();
         });
 
