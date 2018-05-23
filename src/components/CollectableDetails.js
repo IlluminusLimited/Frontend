@@ -86,7 +86,7 @@ class CollectableDetails extends Component {
                             );
                         })}
                     </div>
-                    {sessionStorage.getItem('pinster-user-id') ? (
+                    {sessionStorage.getItem('pinster-user-id') && this.props.modalIsOpen ? (
                         <CollectionSelectList
                             collectableId={id}
                             collectableType={this.props.collectableType}
