@@ -1,27 +1,39 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import App from './App';
-import Header from './Header';
-// import Collection from './Collection';
+import Home from './Home';
+import MyCollections from './MyCollections';
+import CollectionPage from './CollectionPage';
+import PinPage from './PinPage';
 import Login from './Login';
-// import Help from './Help';
+import Legal from './Legal';
+import CreatePin from './CreatePin';
 import NavBar from './NavBar';
+import Settings from './Settings';
+import AuthRedirect from './AuthRedirect';
+import CreateCollectionForm from './CreateCollectionForm';
+import LoadUserData from './LoadUserData';
 
 const Router = () => (
     <BrowserRouter>
         <React.Fragment>
-            <Route path="/" component={Header} />
             <Switch>
-                <Route exact path="/" component={App} />
+                <Route exact path="/" component={Home} />
                 <Route exact path="/login" component={Login} />
-                {/* <Route exact path="/settings" component={Settings} /> */}
+                <Route exact path="/authenticate/:token" component={AuthRedirect} />
+                <Route exact path="/settings" component={Settings} />
                 {/* <Route path="/user/:userId" component={User} /> */}
-                {/* <Route path="/collection/:collectionId" component={Collection} /> */}
+                <Route path="/pins/new" component={CreatePin} />
+                <Route path="/pin/:pinId" component={PinPage} />
+                <Route exact path="/collections" component={MyCollections} />
+                <Route exact path="/collections/create" component={CreateCollectionForm} />
+                <Route path="/collection/:collectionId" component={CollectionPage} />
                 {/* <Route path="/set/:setId" component={PinSet} /> */}
-                {/* <Route path="/help" component={Help} /> */}
+                <Route path="/legal" component={Legal} />
+
                 {/* <Route component={NotFound} /> */}
             </Switch>
             <Route path="/" component={NavBar} />
+            <Route path="/" component={LoadUserData} />
         </React.Fragment>
     </BrowserRouter>
 );

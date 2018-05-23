@@ -6,7 +6,7 @@
   &::after {
     display: block;
     padding-bottom: 100%;
-    content: "";
+    content: '';
   }
 
   &[data-count]::before {
@@ -14,7 +14,7 @@
     position: absolute;
     right: 0.5em;
     bottom: 1.2em;
-    z-index: 1;
+    z-index: $z-badge;
     border: 1px solid $gray-dark;
     border-radius: 50px;
     background-color: rgba($white, 0.85);
@@ -24,7 +24,11 @@
   }
 
   &.add-new {
-    background-color: $gray-dark;
+    background-color: rgba($gray-dark, 0.85);
+  }
+
+  &:active {
+    color: $copy-dark;
   }
 }
 
@@ -53,14 +57,11 @@
     bottom: 0;
     left: calc(100% - 7ch);
     background: linear-gradient(90deg, transparent, rgba($white, 0.75) 70%, $white);
-    content: "";
+    content: '';
   }
 
-  a & { color: $copy-dark; }
-
-  .add-new & {
-    overflow: auto;
-    &::after { content: none; }
+  a & {
+    color: $copy-dark;
   }
 }
 
@@ -75,7 +76,9 @@
     transform: translateY(50%) translateX(50%);
   }
 
-  .pin-list-title { @include sr-only; }
+  .pin-list-title {
+    @include sr-only;
+  }
 }
 
 .add-new {
@@ -91,18 +94,22 @@
     bottom: 10px;
     background-color: transparent;
     padding: 0;
-    overflow: auto;
+    overflow: visible;
     text-align: center;
     white-space: normal;
     color: $copy-light;
     font-size: 0.875em;
+
+    &::after {
+      content: none;
+    }
   }
 }
 
 body:not(.is-touch) {
   a {
     &.pin-list-item:hover {
-      box-shadow: $box-shadow-hover;
+      box-shadow: $box-shadow;
     }
   }
 }

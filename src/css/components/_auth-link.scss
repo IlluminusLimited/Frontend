@@ -29,3 +29,36 @@ body:not(.is-touch) {
     }
   }
 }
+
+
+.auth-link-legal {
+  margin: 10px auto;
+  border: 1px solid transparent;
+  border-radius: 50px;
+  background-color: rgba($white, 0.5);
+  padding: 10px;
+  width: 65vw;
+  text-align: center;
+
+  &,
+  &:visited {
+    text-decoration: none;
+    color: $copy-light;
+  }
+
+  &:active {
+    border: 1px solid $white;
+    background-color: rgba($white, 0.75);
+    color: $copy-dark;
+  }
+}
+
+body:not(.is-touch) {
+  .auth-link-legal {
+    &:hover {
+      border: 1px solid $white;
+      background-color: rgba($white, 0.75);
+      color: $copy-dark;
+    }
+  }
+}

@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 
 class Tag extends Component {
     render() {
-        return <span>{this.props.tagName}</span>;
+        return (
+            <p>
+                <b>{this.props.tagKey}</b>: {this.props.tagName}
+            </p>
+        );
     }
 }
 

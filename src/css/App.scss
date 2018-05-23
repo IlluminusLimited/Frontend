@@ -42,9 +42,12 @@
 // Components
 //     specific UI components. This is where majority of our work takes place
 //     and our UI components are often composed of Objects and Components
+@import 'components/btn-small-round';
+@import 'components/loader';
 @import 'components/global-search';
 @import 'components/large-header';
 @import 'components/header-util';
+@import 'components/header-nav';
 @import 'components/footer-nav';
 @import 'components/nav-icon';
 @import 'components/auth-link';
@@ -54,11 +57,18 @@
 @import 'components/pin-collection';
 @import 'components/pin-list-item';
 @import 'components/pin-stack';
+
+@import 'components/modal-overlay';
+
 @import 'components/pin-modal';
 @import 'components/pin-modal-img';
 @import 'components/pin-modal-viewer';
 @import 'components/pin-modal-content';
 @import 'components/pin-modal-thumbs';
+
+@import 'components/form-modal';
+
+@import 'components/pin-page';
 
 // Utilities
 //     utilities and helper classes with ability to override anything which
@@ -67,3 +77,4 @@
 @import 'utilities/with-divider';
 @import 'utilities/bg-image';
 @import 'utilities/animations';
+@import 'utilities/settings-page';

@@ -13,9 +13,16 @@ $gutter: 15px;
 
 $opensans: 'Open Sans', sans-serif;
 
+$box-shadow-small: 3px 3px 8px 0 rgba($black, 0.3);
 $box-shadow-light: 5px 5px 5px 0 rgba($black, 0.25);
 $box-shadow: 6px 6px 10px 0 rgba($black, 0.3);
 $box-shadow-dark: 6px 6px 10px 0 rgba($black, 0.5);
 $box-shadow-hover: 0 0 10px 4px rgba($black, 0.3);
 
 $border-radius: 8px;
+
+$z-background: -1;
+$z-badge: 1;
+$z-nav: 2;
+$z-overlay: 3;
+$z-modal: 4;

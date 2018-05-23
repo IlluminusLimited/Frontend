@@ -17,3 +17,17 @@
   45% { opacity: 1; }
   100% { transform: translateX(0); }
 }
+
+@keyframes loader-bubbles {
+  from,
+  80%,
+  100% {
+    transform: scale(0);
+    opacity: 0.25;
+  }
+
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
