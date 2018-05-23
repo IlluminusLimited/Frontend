@@ -6,7 +6,7 @@ class CreatePin extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {output: {}, images: [], name: '', description: '', year: 2018, tags: {}};
+        this.state = {output: {}, submitting: false, images: [], name: '', description: '', year: '2018', tags: {}};
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -55,8 +55,9 @@ class CreatePin extends Component {
     }
 
     postForm(data) {
+        this.setState({output: {}, submitting: true});
         if (this.state.images.length === 0) {
-            this.setState({output: "Must include all required fields and images!"});
+            this.setState({output: "Must include all required fields and images!", submitting: false});
             return;
         }
 
@@ -64,7 +65,7 @@ class CreatePin extends Component {
 
         fetch(process.env.REACT_APP_API_URL + '/v1/pins', {
             headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('pinsterUserToken'),
+                Authorization: 'Bearer ' + localStorage.getItem('pinster-user-token'),
                 'content-type': 'application/json'
             },
             method: 'POST',
@@ -86,10 +87,17 @@ class CreatePin extends Component {
             });
 
             Promise.all(imagePromises).then((responses) => {
-                this.setState({output: [...this.state.output, JSON.stringify(responses)]});
+                this.setState({
+                    images: [], name: '',
+                    description: '',
+                    year: '2018',
+                    tags: {},
+                    output: [...this.state.output, JSON.stringify(responses)],
+                    submitting: false
+                });
             })
         }).catch(exception => {
-            this.setState({output: JSON.stringify(exception)});
+            this.setState({output: JSON.stringify(exception), submitting: false});
         });
     }
 
@@ -98,7 +106,6 @@ class CreatePin extends Component {
             data: {
                 metadata: {
                     user_id: sessionStorage.getItem('pinster-user-id'),
-                    year: imageable.year,
                     imageable_type: 'Pin',
                     imageable_id: imageable.id
                 },
@@ -216,7 +223,8 @@ class CreatePin extends Component {
                         </div>
 
                         <div className="form-group form-action">
-                            <input type="submit" id="submit" name="submit" value="save changes"/>
+                            <input type="submit" id="submit" name="submit" disabled={this.state.submitting}
+                                   value="save changes"/>
                             <input
                                 type="reset"
                                 id="cancel"
