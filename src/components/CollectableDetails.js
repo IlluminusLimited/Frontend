@@ -86,13 +86,13 @@ class CollectableDetails extends Component {
                             );
                         })}
                     </div>
-                    {/* {sessionStorage.getItem('pinster-user-id') ? (
+                    {sessionStorage.getItem('pinster-user-id') ? (
                         <CollectionSelectList
                             collectableId={id}
                             collectableType={this.props.collectableType}
                             collectableUrl={url}
                         />
-                    ) : null} */}
+                    ) : null}
                 </div>
             </React.Fragment>
         );

@@ -45,16 +45,31 @@ class CollectionSelectList extends Component {
                     )
                     .then(innerResponse => {
                         console.log(response);
-                        // console.log(innerResponse);
+                        console.log(innerResponse);
                         const collectionOptions = response.map(col => {
                             return {
                                 value: col.id,
                                 label: col.name
                             };
                         });
+                        const selectedCollectionOptions = innerResponse.map(col => {
+                            let collLabel;
+                            collectionOptions.forEach(colOption => {
+                                if (colOption.value === col.collection_id) {
+                                    collLabel = colOption.label;
+                                }
+                            });
+                            return {
+                                value: col.collection_id,
+                                label: collLabel
+                            };
+                        });
+                        console.log(selectedCollectionOptions);
                         this.setState({
                             loaded: true,
-                            collections: collectionOptions
+                            collections: collectionOptions,
+                            selectedCollections: selectedCollectionOptions,
+                            collectableCollections: innerResponse.collectable_collections
                         });
                     });
             });
@@ -141,7 +156,6 @@ class CollectionSelectList extends Component {
                         onChange={this.handleSelectChange}
                         options={this.state.collections}
                         placeholder="Add to Collection(s)"
-                        simpleValue
                         value={this.state.selectedCollections}
                     />
                 ) : (
