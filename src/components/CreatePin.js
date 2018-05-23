@@ -6,8 +6,7 @@ class CreatePin extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {output: {}, images: [], data: {name: '', description: '', year: 2018, tags: {}}};
-        this.handleChange = this.handleChange.bind(this);
+        this.state = {output: {}, images: [], name: '', description: '', year: 2018, tags: {}};
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onDrop = this.onDrop.bind(this);
     }
@@ -19,11 +18,10 @@ class CreatePin extends Component {
     }
 
     parseTags = (event) => {
-        event.preventDefault();
         try {
             const input = event.target;
             this.toggleActive(input);
-            this.setState({data: {tags: JSON.parse(input.value)}})
+            this.setState({tags: JSON.parse(input.value)})
         } catch (e) {
             console.log(`Json was invalid: ${e}`);
         }
@@ -32,10 +30,10 @@ class CreatePin extends Component {
     prepData() {
         return {
             data: {
-                name: this.state.data.name,
-                description: this.state.data.description,
+                name: this.state.name,
+                description: this.state.description,
                 year: 2018,
-                tags: this.state.data.tags
+                tags: this.state.tags
             }
         };
     }
@@ -49,10 +47,12 @@ class CreatePin extends Component {
     }
 
     postForm(data) {
-        if (data.length === 0 || this.state.images.length === 0) {
+        if (this.state.images.length === 0) {
             this.setState({output: "Must include all required fields and images!"});
             return;
         }
+
+        console.log(data);
 
         fetch(process.env.REACT_APP_API_URL + '/v1/pins', {
             headers: {
@@ -128,13 +128,12 @@ class CreatePin extends Component {
         )
     };
 
-
-    handleChange(event) {
+    handleChange = (event) => {
         const input = event.target;
         const name = input.name;
         this.setState({[name]: input.value});
         this.toggleActive(input);
-    }
+    };
 
     handleSubmit(event) {
         this.postForm(this.prepData());
@@ -150,11 +149,13 @@ class CreatePin extends Component {
             });
     }
 
-    componentDidUpdate() {
-        console.log(this.state.data.tags);
-    }
+    // componentDidUpdate() {
+    //     console.log(this.state.tags);
+    // }
 
     render() {
+        console.log(this.state);
+
         return (
             <React.Fragment>
                 <HeaderNav history={this.props.history} label='Create Pin' modal={true}/>
@@ -200,10 +201,10 @@ class CreatePin extends Component {
                             />
                             <div>
                                 <pre>{
-                                    Object.keys(this.state.data.tags).length === 0 ? 'Example JSON: \n\n' + JSON.stringify({
+                                    Object.keys(this.state.tags).length === 0 ? 'Example JSON: \n\n' + JSON.stringify({
                                         "tag_name": "tag_value",
                                         "tag_with_many_values": ["value", "value"]
-                                    }, null, 2) : JSON.stringify(this.state.data.tags, null, 2)
+                                    }, null, 2) : JSON.stringify(this.state.tags, null, 2)
                                 }</pre>
                             </div>
                         </div>
