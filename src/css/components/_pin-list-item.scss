@@ -6,7 +6,7 @@
   &::after {
     display: block;
     padding-bottom: 100%;
-    content: "";
+    content: '';
   }
 
   &[data-count]::before {
@@ -27,7 +27,9 @@
     background-color: rgba($gray-dark, 0.85);
   }
 
-  &:active { color: $copy-dark; }
+  &:active {
+    color: $copy-dark;
+  }
 }
 
 .pin-list-img {
@@ -55,14 +57,11 @@
     bottom: 0;
     left: calc(100% - 7ch);
     background: linear-gradient(90deg, transparent, rgba($white, 0.75) 70%, $white);
-    content: "";
+    content: '';
   }
 
-  a & { color: $copy-dark; }
-
-  .add-new & {
-    overflow: auto;
-    &::after { content: none; }
+  a & {
+    color: $copy-dark;
   }
 }
 
@@ -77,7 +76,9 @@
     transform: translateY(50%) translateX(50%);
   }
 
-  .pin-list-title { @include sr-only; }
+  .pin-list-title {
+    @include sr-only;
+  }
 }
 
 .add-new {
@@ -93,11 +94,15 @@
     bottom: 10px;
     background-color: transparent;
     padding: 0;
-    overflow: auto;
+    overflow: visible;
     text-align: center;
     white-space: normal;
     color: $copy-light;
     font-size: 0.875em;
+
+    &::after {
+      content: none;
+    }
   }
 }
 

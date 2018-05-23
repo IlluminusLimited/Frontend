@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import GlobalSearch from './GlobalSearch';
 import CollectableListItem from './CollectableListItem';
+import LoadMoreButton from './LoadMoreButton';
 
 class Home extends Component {
     state = {
@@ -68,11 +69,10 @@ class Home extends Component {
                             />
                         ))}
                     </div>
-                    {this.state.pageLink === '' ? null : (
-                        <button className="btn-load-more" onClick={this.fetchMorePins}>
-                            Load more
-                        </button>
-                    )}
+                    <LoadMoreButton
+                        pageLink={this.state.pageLink}
+                        fetchMoreItems={this.fetchMoreCollections}
+                    />
                 </main>
             </React.Fragment>
         );

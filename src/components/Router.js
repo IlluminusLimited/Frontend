@@ -10,6 +10,8 @@ import CreatePin from './CreatePin';
 import NavBar from './NavBar';
 import Settings from './Settings';
 import AuthRedirect from './AuthRedirect';
+import CreateCollectionForm from './CreateCollectionForm';
+import LoadUserData from './LoadUserData';
 
 const Router = () => (
     <BrowserRouter>
@@ -21,7 +23,8 @@ const Router = () => (
                 <Route exact path="/settings" component={Settings} />
                 {/* <Route path="/user/:userId" component={User} /> */}
                 <Route path="/pin/:pinId" component={PinPage} />
-                <Route path="/collections" component={MyCollections} />
+                <Route exact path="/collections" component={MyCollections} />
+                <Route exact path="/collections/create" component={CreateCollectionForm} />
                 <Route path="/collection/:collectionId" component={CollectionPage} />
                 {/* <Route path="/set/:setId" component={PinSet} /> */}
                  <Route path="/create_pin" component={CreatePin} />
@@ -30,6 +33,7 @@ const Router = () => (
                 {/* <Route component={NotFound} /> */}
             </Switch>
             <Route path="/" component={NavBar} />
+            <Route path="/" component={LoadUserData} />
         </React.Fragment>
     </BrowserRouter>
 );
