@@ -32,6 +32,13 @@ class CollectableModal extends Component {
             this.closeModal();
         });
 
+        document.addEventListener('backbutton', event => {
+            if (event.defaultPrevented) {
+                return;
+            }
+            this.closeModal();
+        });
+
         // close open modal on ESC
         document.addEventListener('keyup', event => {
             if (event.defaultPrevented) {
