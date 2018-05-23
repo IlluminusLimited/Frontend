@@ -52,7 +52,7 @@ class MyCollections extends Component {
         return (
             <React.Fragment>
                 <HeaderNav label="My Collections" modal={true} history={this.props.history} />
-                <main className="container">
+                <main className="container sub-header-content">
                     <div className="pin-collection">
                         {Object.keys(this.state.collections).map(key => (
                             <CollectionListItem
