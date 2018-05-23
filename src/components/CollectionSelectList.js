@@ -6,7 +6,7 @@ class CollectionSelectList extends Component {
     state = {
         loaded: false,
         collections: [],
-        value: []
+        selectedCollections: []
     };
 
     fetchUserCollections = () => {
@@ -26,9 +26,9 @@ class CollectionSelectList extends Component {
             )
             .then(response => {
                 fetch(
-                    `${process.env.REACT_APP_API_URL}/v1/${this.props.collectableType}/${
+                    `${process.env.REACT_APP_API_URL}/v1/${this.props.collectableType + 's'}/${
                         this.props.collectableId
-                    }?with_collections=true`,
+                    }?with_collectable_collections=true`,
                     {
                         headers: {
                             Authorization: 'Bearer ' + localStorage.getItem('pinster-user-token')
@@ -45,13 +45,16 @@ class CollectionSelectList extends Component {
                     )
                     .then(innerResponse => {
                         console.log(response);
-                        console.log(innerResponse);
-                        this.setState(prevState => {
+                        // console.log(innerResponse);
+                        const collectionOptions = response.map(col => {
                             return {
-                                loaded: true,
-                                collections: response.data,
-                                value: [...prevState.value, innerResponse]
+                                value: col.id,
+                                label: col.name
                             };
+                        });
+                        this.setState({
+                            loaded: true,
+                            collections: collectionOptions
                         });
                     });
             });
@@ -67,15 +70,43 @@ class CollectionSelectList extends Component {
         };
     };
 
-    handleSelectChange = value => {
-        console.log(value);
-        fetch(`${process.env.REACT_APP_API_URL}/v1/collections/${value}/collectable_collections`, {
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('pinster-user-token')
-            },
-            method: 'POST',
-            body: JSON.stringify(this.propData())
-        })
+    handleSelectChange = collections => {
+        console.log(collections);
+        let addToCollection = collections.filter(coll => {
+            !this.state.selectedCollections.some(selColl => {
+                return coll.id === selColl.id;
+            });
+        });
+        let deleteFromCollection = this.state.selectedCollections.filter(coll => {
+            !collections.some(selColl => {
+                return coll.id === selColl.id;
+            });
+        });
+        let urlToSend, httpMethod;
+        if (addToCollection.length > 0) {
+            urlToSend = `${process.env.REACT_APP_API_URL}/v1/collections/${
+                addToCollection.value
+            }/collectable_collections`;
+            httpMethod = 'POST';
+        }
+        if (deleteFromCollection.length > 0) {
+            urlToSend = `${process.env.REACT_APP_API_URL}/v1/collections/${
+                deleteFromCollection.value
+            }/collectable_collections`;
+            httpMethod = 'DELETE';
+        }
+        fetch(
+            `${process.env.REACT_APP_API_URL}/v1/collections/${
+                addToCollection.value
+            }/collectable_collections`,
+            {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('pinster-user-token')
+                },
+                method: 'POST',
+                body: JSON.stringify(this.prepData())
+            }
+        )
             .then(
                 results => {
                     return results.json();
@@ -86,12 +117,15 @@ class CollectionSelectList extends Component {
             )
             .then(response => {
                 console.log(response);
-                // this.setState(prevState => {
-                //     return {
-                //     };
-                // });
+                this.setState({
+                    selectedCollections: collections
+                });
             });
     };
+
+    componentDidUpdate() {
+        console.log(this.state);
+    }
 
     componentDidMount() {
         this.fetchUserCollections();
@@ -102,12 +136,13 @@ class CollectionSelectList extends Component {
             <React.Fragment>
                 {this.state.loaded ? (
                     <Select
-                        closeOnSelect={true}
+                        closeOnSelect
                         multi
                         onChange={this.handleSelectChange}
                         options={this.state.collections}
                         placeholder="Add to Collection(s)"
-                        value={this.state.value}
+                        simpleValue
+                        value={this.state.selectedCollections}
                     />
                 ) : (
                     <Loader />
