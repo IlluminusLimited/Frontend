@@ -6,7 +6,8 @@ import HeaderNav from './HeaderNav';
 
 class Settings extends Component {
     state = {
-        loaded: false
+        loaded: false,
+        data: {}
     };
 
     isLoggedIn = () => {
@@ -20,7 +21,7 @@ class Settings extends Component {
         return <Redirect to="/login" />;
     };
 
-    makeFetch = () => {
+    fetchUserData = () => {
         fetch(process.env.REACT_APP_API_URL + '/v1/me', {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('pinster-user-token')
@@ -28,6 +29,11 @@ class Settings extends Component {
         })
             .then(
                 results => {
+                    if (results.status === 401) {
+                        localStorage.clear();
+                        sessionStorage.clear();
+                        this.props.history.push('/login');
+                    }
                     return results.json();
                 },
                 error => {
@@ -44,7 +50,7 @@ class Settings extends Component {
 
     componentDidMount() {
         if (localStorage.getItem('pinster-user-token')) {
-            this.makeFetch();
+            this.fetchUserData();
         }
     }
 
