@@ -36,6 +36,7 @@ jobs:
     <<: *defaults
     environment:
       - REACT_APP_API_URL: https://api-dev.pinster.io
+      - REACT_APP_IMAGE_SERVICE_API_URL: https://image-service-dev.pinster.io
     steps:
       - checkout
       - attach_workspace:
@@ -67,6 +68,8 @@ jobs:
     <<: *defaults
     environment:
       - REACT_APP_API_URL: https://api-prod.pinster.io
+      - REACT_APP_IMAGE_SERVICE_API_URL: https://image-service-prod.pinster.io
+
     steps:
       - checkout
       - attach_workspace:
