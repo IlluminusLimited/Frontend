@@ -71,7 +71,7 @@ class Home extends Component {
                     </div>
                     <LoadMoreButton
                         pageLink={this.state.pageLink}
-                        fetchMoreItems={this.fetchMoreCollections}
+                        fetchMoreItems={this.fetchMorePins}
                     />
                 </main>
             </React.Fragment>
