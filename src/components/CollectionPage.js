@@ -25,12 +25,13 @@ class CollectionPage extends Component {
             )
             .then(response => {
                 // Display the pins
-                if (response.collectables) {
-                    response.collectables.forEach(collectable => {
+                console.log(response);
+                if (response.collectable_collections) {
+                    response.collectable_collections.forEach(collectable => {
                         fetch(
                             process.env.REACT_APP_API_URL +
                                 `/v1/${collectable.collectable_type.toLowerCase() + 's'}/${
-                                    collectable.id
+                                    collectable.collectable_id
                                 }`
                         )
                             .then(
@@ -43,11 +44,12 @@ class CollectionPage extends Component {
                             )
                             .then(innerResponse => {
                                 // Display the pins
-                                // console.log(response);
+                                console.log(innerResponse);
                                 innerResponse.collectable_type = collectable.collectable_type;
                                 this.setState(prevState => {
                                     return {
                                         loaded: true,
+                                        collectionData: response,
                                         collectablesData: [
                                             ...prevState.collectablesData,
                                             innerResponse
