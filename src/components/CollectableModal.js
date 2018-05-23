@@ -3,17 +3,27 @@ import CollectableDetails from './CollectableDetails';
 import SvgClose from './svg/SvgClose';
 
 class CollectableModal extends Component {
+    state = {
+        modalIsOpen: false
+    };
+
     openModal = toggle => {
         let modal = document.querySelector('#' + toggle.getAttribute('data-modal'));
         modal.classList.add('active');
         document.querySelector('.modal-overlay').classList.add('active');
         document.querySelector('html').classList.add('no-scroll');
+        this.setState({
+            modalIsOpen: true
+        });
     };
     closeModal = () => {
         document.querySelector('html').classList.remove('no-scroll');
         document.querySelector('.modal-overlay').classList.remove('active');
         document.querySelectorAll('.pin-modal.active').forEach(modal => {
             modal.classList.remove('active');
+        });
+        this.setState({
+            modalIsOpen: false
         });
     };
     componentDidMount() {
@@ -90,6 +100,7 @@ class CollectableModal extends Component {
                         collectableData={this.props.collectableData}
                         classType="pin-modal"
                         collectableType={this.props.collectableType}
+                        modalIsOpen={this.state.modalIsOpen}
                     />
                 </div>
                 <button className="pin-modal-dismiss">
