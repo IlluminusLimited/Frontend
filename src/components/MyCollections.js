@@ -12,7 +12,11 @@ class MyCollections extends Component {
 
     fetchMoreCollections() {
         const userId = sessionStorage.getItem('pinster-user-id');
-        fetch(process.env.REACT_APP_API_URL + `/v1/users/${userId}/collections`, {
+        const pageLink =
+            this.state.pageLink === ''
+                ? process.env.REACT_APP_API_URL + `/v1/users/${userId}/collections`
+                : this.state.pageLink;
+        fetch(pageLink, {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('pinster-user-token')
             }
