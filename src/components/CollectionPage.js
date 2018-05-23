@@ -77,7 +77,7 @@ class CollectionPage extends Component {
                     modal={true}
                     history={this.props.history}
                 />
-                <main className="container">
+                <main className="container sub-header-content">
                     <div className="pin-collection">
                         {this.state.loaded ? (
                             Object.keys(this.state.collectablesData).map(key => {
