@@ -6,7 +6,8 @@ class CollectionSelectList extends Component {
     state = {
         loaded: false,
         collections: [],
-        selectedCollections: []
+        selectedCollections: [],
+        collectableCollections: []
     };
 
     fetchUserCollections = () => {
@@ -54,18 +55,20 @@ class CollectionSelectList extends Component {
                         });
                         let selectedCollectionOptions = [];
                         if (innerResponse.collectable_collections) {
-                            selectedCollectionOptions = innerResponse.map(col => {
-                                let collLabel;
-                                collectionOptions.forEach(colOption => {
-                                    if (colOption.value === col.collection_id) {
-                                        collLabel = colOption.label;
-                                    }
-                                });
-                                return {
-                                    value: col.collection_id,
-                                    label: collLabel
-                                };
-                            });
+                            selectedCollectionOptions = innerResponse.collectable_collections.map(
+                                col => {
+                                    let collLabel;
+                                    collectionOptions.forEach(colOption => {
+                                        if (colOption.value === col.collection_id) {
+                                            collLabel = colOption.label;
+                                        }
+                                    });
+                                    return {
+                                        value: col.collection_id,
+                                        label: collLabel
+                                    };
+                                }
+                            );
                         }
                         // console.log(selectedCollectionOptions);
                         this.setState({
@@ -80,67 +83,27 @@ class CollectionSelectList extends Component {
             });
     };
 
-    prepData = () => {
-        return {
+    addToCollection = (collectionToAdd, collectionOptions) => {
+        const urlToSend = `${process.env.REACT_APP_API_URL}/v1/collections/${
+            collectionToAdd[0].value
+        }/collectable_collections`;
+        const uppercaseCollectableType =
+            this.props.collectableType.charAt(0).toUpperCase() +
+            this.props.collectableType.slice(1);
+        const httpBody = {
             data: {
-                collectable_type: this.props.collectableType,
+                collectable_type: uppercaseCollectableType,
                 collectable_id: this.props.collectableId,
+                collection_id: collectionToAdd[0].value,
                 count: 1
             }
         };
-    };
-
-    handleSelectChange = collections => {
-        let addToCollection = collections.filter(coll => {
-            return !this.state.selectedCollections.some(selColl => {
-                return coll.value === selColl.id;
-            });
-        });
-        let deleteFromCollection = this.state.selectedCollections.filter(coll => {
-            return !collections.some(selColl => {
-                return coll.id === selColl.value;
-            });
-        });
-        let urlToSend, httpMethod, httpBody;
-        if (addToCollection.length > 0) {
-            urlToSend = `${process.env.REACT_APP_API_URL}/v1/collections/${
-                addToCollection[0].value
-            }/collectable_collections`;
-            httpMethod = 'POST';
-            const uppercaseCollectableType =
-                this.props.collectableType.charAt(0).toUpperCase() +
-                this.props.collectableType.slice(1);
-            httpBody = {
-                data: {
-                    collectable_type: uppercaseCollectableType,
-                    collectable_id: this.props.collectableId,
-                    collection_id: addToCollection[0].value,
-                    count: 1
-                }
-            };
-        }
-        if (deleteFromCollection.length > 0) {
-            const collectableCollectionToDelete = this.state.collectable_collections.filter(
-                collColl => {
-                    return (
-                        collColl.collection_id === deleteFromCollection[0].value &&
-                        collColl.collectable_id === this.props.collectableId
-                    );
-                }
-            );
-            console.log(collectableCollectionToDelete);
-            urlToSend = `${
-                process.env.REACT_APP_API_URL
-            }/v1/collectable_collections/${collectableCollectionToDelete}`;
-            httpMethod = 'DELETE';
-            httpBody = undefined;
-        }
         fetch(urlToSend, {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('pinster-user-token'),
                 'Content-Type': 'application/json'
             },
-            method: httpMethod,
+            method: 'POST',
             body: JSON.stringify(httpBody)
         })
             .then(
@@ -154,10 +117,72 @@ class CollectionSelectList extends Component {
             .then(response => {
                 this.setState(prevState => {
                     return {
+                        selectedCollections: collectionOptions,
                         collectableCollections: [...prevState.collectableCollections, response]
                     };
                 });
             });
+    };
+
+    deleteFromCollection = (collectionToDeleteFrom, collectionOptions) => {
+        const collectableCollectionToDelete = this.state.collectable_collections.filter(
+            collColl => {
+                return (
+                    collColl.collection_id === collectionToDeleteFrom[0].value &&
+                    collColl.collectable_id === this.props.collectableId
+                );
+            }
+        );
+        console.log(collectableCollectionToDelete);
+        const urlToSend = `${process.env.REACT_APP_API_URL}/v1/collectable_collections/${
+            collectableCollectionToDelete.id
+        }`;
+        fetch(urlToSend, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('pinster-user-token')
+            },
+            method: 'DELETE'
+        })
+            .then(
+                results => {
+                    return results.json();
+                },
+                error => {
+                    console.error(error);
+                }
+            )
+            .then(response => {
+                this.setState(prevState => {
+                    const newCollectableCollections = prevState.collectableCollections.filter(
+                        prevCollColl => {
+                            return prevCollColl.id !== collectableCollectionToDelete.id;
+                        }
+                    );
+                    return {
+                        selectedCollections: collectionOptions,
+                        collectableCollections: newCollectableCollections
+                    };
+                });
+            });
+    };
+
+    handleSelectChange = collections => {
+        let collectionToAdd = collections.filter(coll => {
+            return !this.state.selectedCollections.some(selColl => {
+                return coll.value === selColl.id;
+            });
+        });
+        let collectionToDeleteFrom = this.state.selectedCollections.filter(coll => {
+            return !collections.some(selColl => {
+                return coll.id === selColl.value;
+            });
+        });
+        if (collectionToAdd.length > 0) {
+            this.addToCollection(collectionToAdd, collections);
+        }
+        if (collectionToDeleteFrom.length > 0) {
+            this.deleteFromCollection(collectionToDeleteFrom, collections);
+        }
     };
 
     componentDidUpdate() {
