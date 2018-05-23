@@ -21,7 +21,7 @@ class Settings extends Component {
         return <Redirect to="/login" />;
     };
 
-    makeFetch = () => {
+    fetchUserData = () => {
         fetch(process.env.REACT_APP_API_URL + '/v1/me', {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('pinster-user-token')
@@ -36,9 +36,6 @@ class Settings extends Component {
                 }
             )
             .then(response => {
-                Object.keys(response).forEach(key => {
-                    sessionStorage.setItem(`pinster-user-${key}`, response[key]);
-                });
                 this.setState({
                     loaded: true,
                     data: response
@@ -48,7 +45,7 @@ class Settings extends Component {
 
     componentDidMount() {
         if (localStorage.getItem('pinster-user-token')) {
-            this.makeFetch();
+            this.fetchUserData();
         }
     }
 

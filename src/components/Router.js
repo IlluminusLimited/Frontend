@@ -11,6 +11,7 @@ import NavBar from './NavBar';
 import Settings from './Settings';
 import AuthRedirect from './AuthRedirect';
 import CreateCollectionForm from './CreateCollectionForm';
+import LoadUserData from './LoadUserData';
 
 const Router = () => (
     <BrowserRouter>
@@ -32,6 +33,7 @@ const Router = () => (
                 {/* <Route component={NotFound} /> */}
             </Switch>
             <Route path="/" component={NavBar} />
+            <Route path="/" component={LoadUserData} />
         </React.Fragment>
     </BrowserRouter>
 );
