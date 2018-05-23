@@ -196,7 +196,7 @@ class CreatePin extends Component {
                                 id="tags"
                                 name="tags"
                                 rows="8"
-                                defaultValue={this.state.tags}
+                                defaultValue={JSON.stringify(this.state.tags)}
                                 onChange={this.parseTags}
                             />
                             <div>
