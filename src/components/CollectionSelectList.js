@@ -45,8 +45,6 @@ class CollectionSelectList extends Component {
                         }
                     )
                     .then(innerResponse => {
-                        // console.log(response);
-                        // console.log(innerResponse);
                         const collectionOptions = response.map(col => {
                             return {
                                 value: col.id,
@@ -70,7 +68,6 @@ class CollectionSelectList extends Component {
                                 }
                             );
                         }
-                        // console.log(selectedCollectionOptions);
                         this.setState({
                             loaded: true,
                             collections: collectionOptions,
@@ -125,17 +122,14 @@ class CollectionSelectList extends Component {
     };
 
     deleteFromCollection = (collectionToDeleteFrom, collectionOptions) => {
-        const collectableCollectionToDelete = this.state.collectable_collections.filter(
-            collColl => {
-                return (
-                    collColl.collection_id === collectionToDeleteFrom[0].value &&
-                    collColl.collectable_id === this.props.collectableId
-                );
-            }
-        );
-        console.log(collectableCollectionToDelete);
+        const collectableCollectionToDelete = this.state.collectableCollections.filter(collColl => {
+            return (
+                collColl.collection_id === collectionToDeleteFrom[0].value &&
+                collColl.collectable_id === this.props.collectableId
+            );
+        });
         const urlToSend = `${process.env.REACT_APP_API_URL}/v1/collectable_collections/${
-            collectableCollectionToDelete.id
+            collectableCollectionToDelete[0].id
         }`;
         fetch(urlToSend, {
             headers: {
@@ -145,7 +139,7 @@ class CollectionSelectList extends Component {
         })
             .then(
                 results => {
-                    return results.json();
+                    return results;
                 },
                 error => {
                     console.error(error);
@@ -184,10 +178,6 @@ class CollectionSelectList extends Component {
             this.deleteFromCollection(collectionToDeleteFrom, collections);
         }
     };
-
-    componentDidUpdate() {
-        // console.log(this.state);
-    }
 
     componentDidMount() {
         this.fetchUserCollections();

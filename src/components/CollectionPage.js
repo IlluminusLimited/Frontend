@@ -25,7 +25,6 @@ class CollectionPage extends Component {
             )
             .then(response => {
                 // Display the pins
-                console.log(response);
                 if (response.collectable_collections) {
                     response.collectable_collections.forEach(collectable => {
                         fetch(
@@ -44,7 +43,6 @@ class CollectionPage extends Component {
                             )
                             .then(innerResponse => {
                                 // Display the pins
-                                console.log(innerResponse);
                                 innerResponse.collectable_type = collectable.collectable_type;
                                 this.setState(prevState => {
                                     return {
