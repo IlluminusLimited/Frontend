@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import CollectableDetails from './CollectableDetails';
 import Loader from './Loader';
+import HeaderNav from './HeaderNav';
 
 class PinPage extends Component {
     state = {
@@ -33,17 +34,21 @@ class PinPage extends Component {
 
     render() {
         return (
-            <div className="pin-page">
-                {this.state.loaded ? (
-                    <CollectableDetails
-                        collectableData={this.state.pinData}
-                        classType="pin"
-                        collectableType="pin"
-                    />
-                ) : (
-                    <Loader />
-                )}
-            </div>
+            <main className="settings-page container ">
+                <HeaderNav history={this.props.history} label={this.state.pinData.name} modal={true}/>
+
+                <div className="pin-page sub-header-content">
+                    {this.state.loaded ? (
+                        <CollectableDetails
+                            collectableData={this.state.pinData}
+                            classType="pin"
+                            collectableType="pin"
+                        />
+                    ) : (
+                        <Loader/>
+                    )}
+                </div>
+            </main>
         );
     }
 }
