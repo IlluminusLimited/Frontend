@@ -34,6 +34,7 @@ class CollectableModal extends Component {
 
         window.addEventListener('popstate', () => {
             this.closeModal();
+            this.props.history.goForward();
         });
 
         // close open modal on ESC

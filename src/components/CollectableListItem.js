@@ -15,6 +15,7 @@ class CollectableListItem extends Component {
                     key={this.props.uid}
                     collectableData={this.state.collectableData}
                     collectableType={this.props.collectableType}
+                    history={this.props.history}
                 />
             );
         }
