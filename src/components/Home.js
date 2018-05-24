@@ -12,6 +12,10 @@ class Home extends Component {
     };
 
     fetchResults = query => {
+        this.setState({
+            loaded: false,
+            pins: []
+        });
         const urlType = query === '' ? 'pins' : 'search';
         let url = new URL(`${process.env.REACT_APP_API_URL}/v1/${urlType}`);
         const params = { query: query };
@@ -28,10 +32,6 @@ class Home extends Component {
             .then(response => {
                 // Display the pins
                 if (response.data[0] && response.data[0].searchable_type) {
-                    this.setState({
-                        loaded: false,
-                        pins: []
-                    });
                     let allPromises = response.data.map(searchable => {
                         return fetch(searchable.url)
                             .then(
@@ -42,11 +42,11 @@ class Home extends Component {
                                     console.error(error);
                                 }
                             )
-                            .then(response => {
+                            .then(innerResponse => {
                                 // Display the searchable
                                 this.setState(prevState => {
                                     return {
-                                        pins: [...prevState, response]
+                                        pins: [...prevState.pins, innerResponse]
                                     };
                                 });
                             });
