@@ -1,18 +1,26 @@
 .pin-modal-viewer {
   position: relative;
+  display: flex;
+  align-items: center;
   align-self: stretch;
+  background-color: $gray-light;
   width: 100%;
   overflow: hidden;
 
   &::after {
     display: block;
     padding-bottom: 100%;
-    content: "";
+    content: '';
   }
 
-  .pin-modal-img { position: absolute; }
+  .pin-modal-img {
+    position: absolute;
+    height: auto;
+  }
 }
 
 @media screen and (min-width: $screen-tablet) {
-  .pin-modal-viewer { width: 50%; }
+  .pin-modal-viewer {
+    width: 50%;
+  }
 }
