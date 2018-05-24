@@ -66,6 +66,7 @@ class Home extends Component {
                                 collectableData={this.state.pins[key]}
                                 uiType="pin-modal-toggle"
                                 collectableType="pin"
+                                history={this.props.history}
                             />
                         ))}
                     </div>
