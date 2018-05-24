@@ -205,7 +205,7 @@ class CreatePin extends Component {
                         withIcon={true}
                         buttonText="Choose images"
                         onChange={this.onDrop}
-                        imgExtension={['.jpg', '.jpeg', '.gif', '.png', '.gif']}
+                        imgExtension={['.jpg', '.JPG', '.jpeg', '.JPEG', '.gif', '.GIF', '.png', '.PNG']}
                         maxFileSize={5242880}
                         withPreview={true}
                     />
