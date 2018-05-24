@@ -66,12 +66,13 @@ class Home extends Component {
                                 collectableData={this.state.pins[key]}
                                 uiType="pin-modal-toggle"
                                 collectableType="pin"
+                                history={this.props.history}
                             />
                         ))}
                     </div>
                     <LoadMoreButton
                         pageLink={this.state.pageLink}
-                        fetchMoreItems={this.fetchMoreCollections}
+                        fetchMoreItems={this.fetchMorePins}
                     />
                 </main>
             </React.Fragment>

@@ -7,14 +7,19 @@ class CollectableModal extends Component {
         modalIsOpen: false
     };
 
+    handlePopState = event => {
+        this.closeModal();
+        this.props.history.goForward();
+    };
+
     openModal = toggle => {
-        let modal = document.querySelector('#' + toggle.getAttribute('data-modal'));
-        modal.classList.add('active');
-        document.querySelector('.modal-overlay').classList.add('active');
-        document.querySelector('html').classList.add('no-scroll');
         this.setState({
             modalIsOpen: true
         });
+        let modal = document.querySelector('#' + toggle.getAttribute('data-modal'));
+        modal.classList.add('active');
+        document.querySelector('.modal-overlay').classList.add('active');
+        window.addEventListener('popstate', this.handlePopState);
     };
     closeModal = () => {
         document.querySelector('html').classList.remove('no-scroll');
@@ -22,9 +27,7 @@ class CollectableModal extends Component {
         document.querySelectorAll('.pin-modal.active').forEach(modal => {
             modal.classList.remove('active');
         });
-        this.setState({
-            modalIsOpen: false
-        });
+        window.removeEventListener('popstate', this.handlePopState);
     };
     componentDidMount() {
         // close modal on overlay click
