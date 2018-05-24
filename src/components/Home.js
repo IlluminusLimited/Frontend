@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import GlobalSearch from './GlobalSearch';
 import CollectableListItem from './CollectableListItem';
 import LoadMoreButton from './LoadMoreButton';
+import Loader from './Loader';
 
 class Home extends Component {
     state = {
+        loaded: false,
         pins: [],
         pageLink: ''
     };
@@ -25,10 +27,42 @@ class Home extends Component {
             )
             .then(response => {
                 // Display the pins
-                this.setState({
-                    pins: response.data,
-                    pageLink: response.links.next ? response.links.next : ''
-                });
+                if (response.data[0] && response.data[0].searchable_type) {
+                    this.setState({
+                        loaded: false,
+                        pins: []
+                    });
+                    let allPromises = response.data.map(searchable => {
+                        fetch(searchable.url)
+                            .then(
+                                results => {
+                                    return results.json();
+                                },
+                                error => {
+                                    console.error(error);
+                                }
+                            )
+                            .then(response => {
+                                // Display the searchable
+                                this.setState(prevState => {
+                                    return {
+                                        pins: [...prevState, response]
+                                    };
+                                });
+                            });
+                    });
+                    Promise.all(allPromises).then(() => {
+                        this.setState({
+                            loaded: true
+                        });
+                    });
+                } else {
+                    this.setState({
+                        loaded: true,
+                        pins: response.data,
+                        pageLink: response.links.next ? response.links.next : ''
+                    });
+                }
             });
     };
 
@@ -59,16 +93,20 @@ class Home extends Component {
                 <GlobalSearch fetchResults={this.fetchResults} />
                 <main className="container">
                     <div className="pin-collection">
-                        {Object.keys(this.state.pins).map(key => (
-                            <CollectableListItem
-                                key={key}
-                                uid={key}
-                                collectableData={this.state.pins[key]}
-                                uiType="pin-modal-toggle"
-                                collectableType="pin"
-                                history={this.props.history}
-                            />
-                        ))}
+                        {this.state.loaded ? (
+                            Object.keys(this.state.pins).map(key => (
+                                <CollectableListItem
+                                    key={key}
+                                    uid={key}
+                                    collectableData={this.state.pins[key]}
+                                    uiType="pin-modal-toggle"
+                                    collectableType="pin"
+                                    history={this.props.history}
+                                />
+                            ))
+                        ) : (
+                            <Loader />
+                        )}
                     </div>
                     <LoadMoreButton
                         pageLink={this.state.pageLink}
