@@ -33,7 +33,7 @@ class Home extends Component {
                         pins: []
                     });
                     let allPromises = response.data.map(searchable => {
-                        fetch(searchable.url)
+                        return fetch(searchable.url)
                             .then(
                                 results => {
                                     return results.json();
