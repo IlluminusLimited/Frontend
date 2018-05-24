@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import CollectableModal from './CollectableModal';
 import Image from './Image';
-import Loader from './Loader';
 
 class CollectableListItem extends Component {
     state = {
