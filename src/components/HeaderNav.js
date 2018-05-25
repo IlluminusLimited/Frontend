@@ -8,7 +8,7 @@ class HeaderNav extends Component {
     };
 
     getModalButton(modal) {
-        if (modal) {
+        if (modal && sessionStorage.getItem('pinster-user-role') <= 2) {
             return (
                 <button
                     className="header-nav-modal-toggle modal-toggle"
