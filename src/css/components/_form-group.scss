@@ -10,10 +10,20 @@
     background: $white;
   }
 
-  [type="submit"],
-  [type="reset"],
+  [type='submit'],
+  [type='reset'],
   label {
     color: $purple;
+  }
+
+  [type='legal'],
+  [type='info'],
+  [type='help'],
+  input {
+    width: 60%;
+    margin: 0 0 10px;
+    position: center;
+    text-align: center;
   }
 
   label {
@@ -60,6 +70,17 @@
   &.form-action {
     display: flex;
     justify-content: space-between;
+
+    > * {
+      flex: 0 1 45%;
+      padding: 10px 5px 12px;
+    }
+  }
+
+  &.form-misc {
+    display: block;
+    justify-content: space-between;
+    text-align: center;
 
     > * {
       flex: 0 1 45%;
