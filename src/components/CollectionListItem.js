@@ -25,9 +25,12 @@ class CollectionListItem extends Component {
                     data-count={images.length}
                     onClick={this.resolveClick}
                 >
-                    {images.map((image, index) => (
-                        <Image key={index} imageData={image} imageClass="pin-list-img" />
-                    ))}
+                    {images.map(
+                        (image, index) =>
+                            index <= 3 ? (
+                                <Image key={index} imageData={image} imageClass="pin-list-img" />
+                            ) : null
+                    )}
                     <div className="pin-list-title">{name}</div>
                 </div>
             </React.Fragment>
