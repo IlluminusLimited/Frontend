@@ -163,12 +163,12 @@ class CollectionSelectList extends Component {
     handleSelectChange = collections => {
         let collectionToAdd = collections.filter(coll => {
             return !this.state.selectedCollections.some(selColl => {
-                return coll.value === selColl.id;
+                return coll.value === selColl.value;
             });
         });
         let collectionToDeleteFrom = this.state.selectedCollections.filter(coll => {
             return !collections.some(selColl => {
-                return coll.id === selColl.value;
+                return coll.value === selColl.value;
             });
         });
         if (collectionToAdd.length > 0) {
