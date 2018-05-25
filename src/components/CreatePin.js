@@ -259,11 +259,7 @@ class CreatePin extends Component {
                         <br />
                         <br />
                         <hr />
-                        <label htmlFor="output">api output</label>
-                        <div id="output">
-                            <pre>{JSON.stringify(this.state.output, null, 2)}</pre>
-                        </div>
-
+                        {this.state.loading ? <Loader /> : null}
                         <div className="form-group form-action">
                             <input
                                 type="submit"
@@ -281,7 +277,6 @@ class CreatePin extends Component {
                             />
                         </div>
                     </form>
-                    {this.state.loading ? <Loader /> : null}
                 </main>
             </React.Fragment>
         );
