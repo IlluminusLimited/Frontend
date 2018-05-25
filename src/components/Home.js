@@ -92,22 +92,26 @@ class Home extends Component {
             <React.Fragment>
                 <GlobalSearch fetchResults={this.fetchResults} />
                 <main className="container">
-                    <div className="pin-collection">
-                        {this.state.loaded ? (
-                            Object.keys(this.state.pins).map(key => (
-                                <CollectableListItem
-                                    key={key}
-                                    uid={key}
-                                    collectableData={this.state.pins[key]}
-                                    uiType="pin-modal-toggle"
-                                    collectableType="pin"
-                                    history={this.props.history}
-                                />
-                            ))
+                    {this.state.loaded ? (
+                        this.state.pins.length !== 0 ? (
+                            <div className="pin-collection">
+                                {Object.keys(this.state.pins).map(key => (
+                                    <CollectableListItem
+                                        key={key}
+                                        uid={key}
+                                        collectableData={this.state.pins[key]}
+                                        uiType="pin-modal-toggle"
+                                        collectableType="pin"
+                                        history={this.props.history}
+                                    />
+                                ))}
+                            </div>
                         ) : (
-                            <Loader />
-                        )}
-                    </div>
+                            <p>Your search query returned no results. Try something else.</p>
+                        )
+                    ) : (
+                        <Loader />
+                    )}
                     <LoadMoreButton
                         pageLink={this.state.pageLink}
                         fetchMoreItems={this.fetchMorePins}
