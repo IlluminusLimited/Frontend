@@ -130,27 +130,15 @@ class SettingsForm extends Component {
                         />
                     </div>
                     <div className="form-group form-misc">
-                        <input
-                            type="legal"
-                            id="legal"
-                            name="legal"
-                            value="Legal"
-                            onClick={this.goToLegal}
-                        />
-                        <input
-                            type="info"
-                            id="info"
-                            name="info"
-                            value="Info"
-                            onClick={this.goToInfo}
-                        />
-                        <input
-                            type="help"
-                            id="help"
-                            name="help"
-                            value="Send Feedback"
-                            onClick={this.goToSendFeedback}
-                        />
+                        <button type="legal" id="legal" name="legal" onClick={this.goToLegal}>
+                            Legal
+                        </button>
+                        <button type="info" id="info" name="info" onClick={this.goToInfo}>
+                            Info
+                        </button>
+                        <button type="help" id="help" name="help" onClick={this.goToSendFeedback}>
+                            Send Feedback
+                        </button>
                     </div>
                 </form>
                 <div className="form-group" />
