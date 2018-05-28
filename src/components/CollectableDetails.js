@@ -54,11 +54,8 @@ class CollectableDetails extends Component {
                     <h1 id={'title-' + id}>{name}</h1>
                     <p>{description}</p>
                     <p>{year || 2018}</p>
-                    <div className={this.props.classType + '-tags'}>
-                        {Object.keys(tags).map(key => (
-                            <Tag key={key} tagKey={key} tagName={tags[key]}/>
-                        ))}
-                    </div>
+
+                    <br />
                     {sessionStorage.getItem('pinster-user-id') && this.props.modalIsOpen ? (
                         <CollectionSelectList
                             collectableId={id}
@@ -66,7 +63,7 @@ class CollectableDetails extends Component {
                             collectableUrl={url}
                         />
                     ) : null}
-                    <br/>
+                    <br />
                     <div className={this.props.classType + '-thumbs'}>
                         {images.map((image, index) => {
                             if (index === 0) {
