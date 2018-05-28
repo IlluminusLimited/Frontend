@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import Tag from './Tag';
 import Image from './Image';
 import CollectableListItem from './CollectableListItem';
 import CollectionSelectList from './CollectionSelectList';
+import ShareButtons from './ShareButtons';
 
 class CollectableDetails extends Component {
     state = {
@@ -92,6 +92,7 @@ class CollectableDetails extends Component {
                         })}
                     </div>
                 </div>
+                    <ShareButtons collectable={this.props.collectableData} />
             </React.Fragment>
         );
     }

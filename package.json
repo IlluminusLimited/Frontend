@@ -23,7 +23,7 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
     "react-select": "^1.2.1",
-    "react-social-share-buttons": "^1.0.2"
+    "react-share": "^2.1.1"
   },
   "scripts": {
     "lintjs": "eslint --config .eslintrc.json src/**/*.js",

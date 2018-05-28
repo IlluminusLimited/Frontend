@@ -1,0 +1,42 @@
+.share-button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .share-button {
+    float: snap;
+    position: relative;
+    flex: 0 0 10%;
+    margin: 0 1% 1%;
+    cursor: pointer;
+    width: 32px;
+    overflow: hidden;
+  }
+}
+
+@media screen and (min-width: 400px) {
+  .share-button-container {
+    .share-button {
+      margin-bottom: 12px;
+      width: 22%;
+    }
+  }
+}
+
+@media screen and (min-width: $screen-tablet) {
+  .share-button-container {
+    .share-button {
+      margin-bottom: 3%;
+      width: 30%;
+    }
+  }
+}
+
+@media screen and (min-width: $screen-tablet-lg) {
+  .share-button-container {
+    .share-button {
+      margin-bottom: 12px;
+      width: 22%;
+    }
+  }
+}
