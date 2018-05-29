@@ -16,16 +16,6 @@
     color: $purple;
   }
 
-  [type='legal'],
-  [type='info'],
-  [type='help'],
-  input {
-    width: 60%;
-    margin: 0 0 10px;
-    position: center;
-    text-align: center;
-  }
-
   label {
     position: absolute;
     top: 5px;
@@ -81,6 +71,16 @@
     display: block;
     justify-content: space-between;
     text-align: center;
+
+    [type='legal'],
+    [type='info'],
+    [type='help'],
+    button {
+      width: 60%;
+      margin: 0 0 10px;
+      position: center;
+      text-align: center;
+    }
 
     > * {
       flex: 0 1 45%;
