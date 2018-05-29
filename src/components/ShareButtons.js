@@ -25,7 +25,7 @@ class ShareButtons extends Component {
         return (
             <div className='share-button-container'>
                     <FacebookShareButton
-                        url={'asdf'}
+                        url={this.props.url}
                         quote={'asdf'}
                         className="share-button-container share-button">
                         <FacebookIcon
@@ -34,7 +34,7 @@ class ShareButtons extends Component {
 
 
                 <TwitterShareButton
-                    url={'shareUrl'}
+                    url={this.props.url}
                     title='title'
                     className="share-button">
                     <TwitterIcon
@@ -43,7 +43,7 @@ class ShareButtons extends Component {
                 </TwitterShareButton>
 
                 <GooglePlusShareButton
-                    url={'shareUrl'}
+                    url={this.props.url}
                     className="share-button">
                     <GooglePlusIcon
                         size={32}
@@ -59,7 +59,7 @@ class ShareButtons extends Component {
                 </PinterestShareButton>
 
                 <RedditShareButton
-                    url={'shareUrl'}
+                    url={this.props.url}
                     title='title'
                     windowWidth={660}
                     windowHeight={460}
@@ -69,7 +69,7 @@ class ShareButtons extends Component {
                          />
                 </RedditShareButton>
                 <TumblrShareButton
-                    url={'shareUrl'}
+                    url={this.props.url}
                     title='title'
                     windowWidth={660}
                     windowHeight={460}
@@ -79,14 +79,14 @@ class ShareButtons extends Component {
                          />
                 </TumblrShareButton>
                 <WhatsappShareButton
-                    url={'shareUrl'}
+                    url={this.props.url}
                     title='title'
                     separator=":: "
                     className="share-button">
                     <WhatsappIcon size={32}  />
                 </WhatsappShareButton>
                 <EmailShareButton
-                    url={'shareUrl'}
+                    url={this.props.url}
                     subject='title'
                     body="body"
                     className="share-button">
