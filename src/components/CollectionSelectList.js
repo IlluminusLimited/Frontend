@@ -82,7 +82,7 @@ class CollectionSelectList extends Component {
 
     addToCollection = (collectionToAdd, collectionOptions) => {
         const urlToSend = `${process.env.REACT_APP_API_URL}/v1/collections/${
-            collectionToAdd[0].value
+            collectionToAdd.value
         }/collectable_collections`;
         const uppercaseCollectableType =
             this.props.collectableType.charAt(0).toUpperCase() +
@@ -91,7 +91,7 @@ class CollectionSelectList extends Component {
             data: {
                 collectable_type: uppercaseCollectableType,
                 collectable_id: this.props.collectableId,
-                collection_id: collectionToAdd[0].value,
+                collection_id: collectionToAdd.value,
                 count: 1
             }
         };
@@ -124,12 +124,12 @@ class CollectionSelectList extends Component {
     deleteFromCollection = (collectionToDeleteFrom, collectionOptions) => {
         const collectableCollectionToDelete = this.state.collectableCollections.filter(collColl => {
             return (
-                collColl.collection_id === collectionToDeleteFrom[0].value &&
+                collColl.collection_id === collectionToDeleteFrom.value &&
                 collColl.collectable_id === this.props.collectableId
             );
         });
         const urlToSend = `${process.env.REACT_APP_API_URL}/v1/collectable_collections/${
-            collectableCollectionToDelete[0].id
+            collectableCollectionToDelete.id
         }`;
         fetch(urlToSend, {
             headers: {
@@ -172,10 +172,10 @@ class CollectionSelectList extends Component {
             });
         });
         if (collectionToAdd.length > 0) {
-            this.addToCollection(collectionToAdd, collections);
+            this.addToCollection(collectionToAdd[0], collections);
         }
         if (collectionToDeleteFrom.length > 0) {
-            this.deleteFromCollection(collectionToDeleteFrom, collections);
+            this.deleteFromCollection(collectionToDeleteFrom[0], collections);
         }
     };
 
@@ -190,6 +190,7 @@ class CollectionSelectList extends Component {
                     <Select
                         closeOnSelect
                         multi
+                        clearable={false}
                         onChange={this.handleSelectChange}
                         options={this.state.collections}
                         placeholder="Add to Collection(s)"
