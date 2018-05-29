@@ -1,23 +1,10 @@
 import React, { Component } from 'react';
 import SvgAngleLeft from './svg/SvgAngleLeft';
-import SvgEllipse from './svg/SvgEllipse';
 
 class HeaderNav extends Component {
-    goToCreatePin = () => {
-        this.props.history.push('/pins/new');
-    };
-
     getModalButton(modal) {
         if (modal && sessionStorage.getItem('pinster-user-role') <= 2) {
-            return (
-                <button
-                    className="header-nav-modal-toggle modal-toggle"
-                    data-modal="form-modal-nav"
-                    onClick={this.goToCreatePin}
-                >
-                    <SvgEllipse color={'white'} />
-                </button>
-            );
+            return this.props.modalOptions();
         }
         return <div className="header-nav-spacer" />;
     }

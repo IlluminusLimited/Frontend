@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import CollectableDetails from './CollectableDetails';
 import Loader from './Loader';
 import HeaderNav from './HeaderNav';
+import SvgEllipse from './svg/SvgEllipse';
 
 class PinPage extends Component {
     state = {
@@ -28,6 +29,22 @@ class PinPage extends Component {
             });
     };
 
+    goToEditPin = () => {
+        this.props.history.push(`/pins/${this.props.match.params.pinId}/edit`);
+    };
+
+    getModalOptions = () => {
+        return (
+            <button
+                className="header-nav-modal-toggle modal-toggle"
+                data-modal="form-modal-nav"
+                onClick={this.goToEditPin}
+            >
+                <SvgEllipse color={'white'} />
+            </button>
+        );
+    };
+
     componentDidMount() {
         this.makeFetch();
     }
@@ -35,7 +52,11 @@ class PinPage extends Component {
     render() {
         return (
             <main className="settings-page container ">
-                <HeaderNav history={this.props.history} label={this.state.pinData.name} modal={true}/>
+                <HeaderNav
+                    history={this.props.history}
+                    label={this.state.pinData.name}
+                    modalOptions={this.getModalOptions}
+                />
 
                 <div className="pin-page">
                     {this.state.loaded ? (
@@ -45,7 +66,7 @@ class PinPage extends Component {
                             collectableType="pin"
                         />
                     ) : (
-                        <Loader/>
+                        <Loader />
                     )}
                 </div>
             </main>
