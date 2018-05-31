@@ -91,9 +91,9 @@ class PinPage extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <main className="settings-page container ">
                 <HeaderNav history={this.props.history} label="Edit" />
-                <form className="edit-pin" onSubmit={this.handleSubmit}>
+                <form className="pin-page sub" onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="name">name</label>
                         <input
@@ -107,7 +107,7 @@ class PinPage extends Component {
                     <div className="form-group">
                         <label htmlFor="year">year</label>
                         <input
-                            type="year"
+                            type="text"
                             id="year"
                             name="year"
                             defaultValue={this.state.pinData.year}
@@ -124,15 +124,17 @@ class PinPage extends Component {
                             defaultValue={this.state.pinData.description}
                         />
                     </div>
-                    <Creatable
-                        multi
-                        creatable
-                        isLoading={this.state.loaded}
-                        onChange={this.handleSelectChange}
-                        options={this.state.tags}
-                        placeholder="Tag(s)"
-                        value={this.state.selectedTags}
-                    />
+                    <div className="form-group">
+                        <Creatable
+                            multi
+                            creatable
+                            isLoading={this.state.loaded}
+                            onChange={this.handleSelectChange}
+                            options={this.state.tags}
+                            placeholder="Tag(s)"
+                            value={this.state.selectedTags}
+                        />
+                    </div>
                     <div className="form-group form-action">
                         <input type="submit" id="submit" name="submit" value="save changes" />
                         <input
@@ -144,7 +146,7 @@ class PinPage extends Component {
                         />
                     </div>
                 </form>
-            </React.Fragment>
+            </main>
         );
     }
 }
