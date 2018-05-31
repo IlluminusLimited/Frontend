@@ -37,7 +37,7 @@ class PinPage extends Component {
             <main className="settings-page container ">
                 <HeaderNav history={this.props.history} label={this.state.pinData.name} modal={true}/>
 
-                <div className="pin-page sub-header-content">
+                <div className="pin-page">
                     {this.state.loaded ? (
                         <CollectableDetails
                             collectableData={this.state.pinData}

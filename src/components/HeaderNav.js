@@ -24,7 +24,7 @@ class HeaderNav extends Component {
 
     render() {
         return (
-            <header className="container">
+            <header className="container with-fixed-header">
                 <div className="header-nav-wrapper full-bleed container">
                     <div className="header-nav">
                         <a className="header-nav-back" onClick={this.props.history.goBack}>
