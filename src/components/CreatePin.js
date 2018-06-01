@@ -195,12 +195,12 @@ class CreatePin extends Component {
     // }
 
     render() {
-        console.log(this.state);
+        // console.log(this.state);
 
         return (
             <React.Fragment>
                 <HeaderNav history={this.props.history} label="Create Pin" modal={true} />
-                <main className="settings-page container sub-header-content">
+                <main className="settings-page container">
                     <ImageUploader
                         withIcon={true}
                         buttonText="Choose images"

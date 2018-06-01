@@ -1,7 +1,11 @@
+.with-fixed-header {
+  padding-top: 42px;
+}
+
 .header-nav-wrapper {
-  margin: 0 0 15px;
   position: fixed;
   z-index: $z-nav;
+  margin: 0;
   background-color: $turquoise;
   padding: 5px 0;
   width: 100vw;
