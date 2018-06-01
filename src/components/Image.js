@@ -13,7 +13,7 @@ class Image extends Component {
         return (
             <img
                 className={this.props.imageClass}
-                src={thumbnailable === true ? this.props.large ? `${storage_location_uri}_800x800` : `${storage_location_uri}_200x200` : storage_location_uri}
+                src={thumbnailable === true ? this.props.large ? `${storage_location_uri}_1000x1000` : `${storage_location_uri}_400x400` : storage_location_uri}
                 alt={description}
             />
         );

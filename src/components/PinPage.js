@@ -58,7 +58,7 @@ class PinPage extends Component {
                     modalOptions={this.getModalOptions}
                 />
 
-                <div className="pin-page sub-header-content">
+                <div className="pin-page">
                     {this.state.loaded ? (
                         <CollectableDetails
                             collectableData={this.state.pinData}
