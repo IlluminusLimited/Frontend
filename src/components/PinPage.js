@@ -34,21 +34,22 @@ class PinPage extends Component {
 
     render() {
         return (
-            <main className="settings-page container ">
+            <React.Fragment>
                 <HeaderNav history={this.props.history} label={this.state.pinData.name} modal={true}/>
-
-                <div className="pin-page">
-                    {this.state.loaded ? (
-                        <CollectableDetails
-                            collectableData={this.state.pinData}
-                            classType="pin"
-                            collectableType="pin"
-                        />
-                    ) : (
-                        <Loader/>
-                    )}
-                </div>
-            </main>
+                <main className="settings-page container ">
+                    <div className="pin-page">
+                        {this.state.loaded ? (
+                            <CollectableDetails
+                                collectableData={this.state.pinData}
+                                classType="pin"
+                                collectableType="pin"
+                            />
+                        ) : (
+                            <Loader/>
+                        )}
+                    </div>
+                </main>
+            </React.Fragment>
         );
     }
 }
