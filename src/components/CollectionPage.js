@@ -77,11 +77,7 @@ class CollectionPage extends Component {
     render() {
         return (
             <React.Fragment>
-                <HeaderNav
-                    label={this.state.collectionData.name}
-                    modal={true}
-                    history={this.props.history}
-                />
+                <HeaderNav label={this.state.collectionData.name} history={this.props.history} />
                 <main className="container">
                     {this.state.loaded ? (
                         this.state.empty ? (
