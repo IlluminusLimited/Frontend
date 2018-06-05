@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import SettingsForm from './SettingsForm';
 import Loader from './Loader';
 import HeaderNav from './HeaderNav';
+import SvgEllipse from './svg/SvgEllipse';
 
 class Settings extends Component {
     state = {
@@ -48,6 +49,22 @@ class Settings extends Component {
             });
     };
 
+    goToCreatePin = () => {
+        this.props.history.push('/pins/new');
+    };
+
+    getModalOptions = () => {
+        return (
+            <button
+                className="header-nav-modal-toggle modal-toggle"
+                data-modal="form-modal-nav"
+                onClick={this.goToCreatePin}
+            >
+                <SvgEllipse color={'white'} />
+            </button>
+        );
+    };
+
     componentDidMount() {
         if (localStorage.getItem('pinster-user-token')) {
             this.fetchUserData();
@@ -57,7 +74,11 @@ class Settings extends Component {
     render() {
         return (
             <React.Fragment>
-                <HeaderNav history={this.props.history} label="Settings" modal={true} />
+                <HeaderNav
+                    history={this.props.history}
+                    label="Settings"
+                    modalOptions={this.getModalOptions}
+                />
                 <main className="settings-page container">{this.isLoggedIn()}</main>
             </React.Fragment>
         );

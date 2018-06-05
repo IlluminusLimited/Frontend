@@ -61,8 +61,8 @@ class MyCollections extends Component {
     render() {
         return (
             <React.Fragment>
-                <HeaderNav label="My Collections" modal={true} history={this.props.history} />
-                <main className="container sub-header-content">
+                <HeaderNav label="My Collections" history={this.props.history} />
+                <main className="container">
                     {this.isLoggedIn() ? (
                         <React.Fragment>
                             <div className="pin-collection">

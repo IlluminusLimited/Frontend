@@ -77,12 +77,8 @@ class CollectionPage extends Component {
     render() {
         return (
             <React.Fragment>
-                <HeaderNav
-                    label={this.state.collectionData.name}
-                    modal={true}
-                    history={this.props.history}
-                />
-                <main className="container sub-header-content">
+                <HeaderNav label={this.state.collectionData.name} history={this.props.history} />
+                <main className="container">
                     {this.state.loaded ? (
                         this.state.empty ? (
                             <p>You have not added any Pins or Sets to this Collection!</p>

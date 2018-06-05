@@ -3,11 +3,6 @@ article {
   max-width: 80rem;
 }
 
-.sub-header-content {
-  margin-top: 32px;
-  padding-top: 15px;
-}
-
 @media screen and (max-width: #{$screen-tablet - 1}) {
   article {
     margin: 0 $gutter;

@@ -12,6 +12,7 @@ import Settings from './Settings';
 import AuthRedirect from './AuthRedirect';
 import CreateCollectionForm from './CreateCollectionForm';
 import LoadUserData from './LoadUserData';
+import EditPin from './EditPin';
 
 const Router = () => (
     <BrowserRouter>
@@ -24,6 +25,7 @@ const Router = () => (
                 {/* <Route path="/user/:userId" component={User} /> */}
                 <Route path="/pins/new" component={CreatePin} />
                 <Route path="/pin/:pinId" component={PinPage} />
+                <Route path="/pins/:pinId/edit" component={EditPin} />
                 <Route exact path="/collections" component={MyCollections} />
                 <Route exact path="/collections/create" component={CreateCollectionForm} />
                 <Route path="/collection/:collectionId" component={CollectionPage} />

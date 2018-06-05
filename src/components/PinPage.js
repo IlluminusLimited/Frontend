@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import CollectableDetails from './CollectableDetails';
 import Loader from './Loader';
 import HeaderNav from './HeaderNav';
+import SvgEllipse from './svg/SvgEllipse';
 
 class PinPage extends Component {
     state = {
@@ -28,27 +29,48 @@ class PinPage extends Component {
             });
     };
 
+    goToEditPin = () => {
+        this.props.history.push(`/pins/${this.props.match.params.pinId}/edit`);
+    };
+
+    getModalOptions = () => {
+        return (
+            <button
+                className="header-nav-modal-toggle modal-toggle"
+                data-modal="form-modal-nav"
+                onClick={this.goToEditPin}
+            >
+                <SvgEllipse color={'white'} />
+            </button>
+        );
+    };
+
     componentDidMount() {
         this.makeFetch();
     }
 
     render() {
         return (
-            <main className="settings-page container ">
-                <HeaderNav history={this.props.history} label={this.state.pinData.name} modal={true}/>
-
-                <div className="pin-page sub-header-content">
-                    {this.state.loaded ? (
-                        <CollectableDetails
-                            collectableData={this.state.pinData}
-                            classType="pin"
-                            collectableType="pin"
-                        />
-                    ) : (
-                        <Loader/>
-                    )}
-                </div>
-            </main>
+            <React.Fragment>
+                <HeaderNav
+                    history={this.props.history}
+                    label={this.state.pinData.name}
+                    modalOptions={this.getModalOptions}
+                />
+                <main className="settings-page container ">
+                    <div className="pin-page">
+                        {this.state.loaded ? (
+                            <CollectableDetails
+                                collectableData={this.state.pinData}
+                                classType="pin"
+                                collectableType="pin"
+                            />
+                        ) : (
+                            <Loader/>
+                        )}
+                    </div>
+                </main>
+            </React.Fragment>
         );
     }
 }
