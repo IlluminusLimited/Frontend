@@ -112,7 +112,7 @@ workflows:
             branches:
               only:
                 - develop
-                - newell/fix_image_uploading
+
       - deploy-dev-react:
           requires:
             - test
@@ -121,7 +121,6 @@ workflows:
             branches:
               only:
                 - develop
-                - newell/fix_image_uploading
 
       - deploy-prod-serverless:
           requires:
