@@ -36,7 +36,7 @@ jobs:
     <<: *defaults
     environment:
       - REACT_APP_API_URL: https://api-dev.pinster.io
-      - REACT_APP_IMAGE_SERVICE_API_URL: https://image-service-dev.pinster.io
+      - REACT_APP_IMAGE_SERVICE_API_URL: https://images.image-service-dev.pinster.io
     steps:
       - checkout
       - attach_workspace:
@@ -68,7 +68,7 @@ jobs:
     <<: *defaults
     environment:
       - REACT_APP_API_URL: https://api-prod.pinster.io
-      - REACT_APP_IMAGE_SERVICE_API_URL: https://image-service-prod.pinster.io
+      - REACT_APP_IMAGE_SERVICE_API_URL: https://images.image-service-prod.pinster.io
 
     steps:
       - checkout
@@ -112,6 +112,7 @@ workflows:
             branches:
               only:
                 - develop
+                - newell/fix_image_uploading
       - deploy-dev-react:
           requires:
             - test
@@ -120,6 +121,8 @@ workflows:
             branches:
               only:
                 - develop
+                - newell/fix_image_uploading
+
       - deploy-prod-serverless:
           requires:
             - test
