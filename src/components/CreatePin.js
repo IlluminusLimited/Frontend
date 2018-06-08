@@ -142,7 +142,7 @@ class CreatePin extends Component {
             }
         };
 
-        return fetch(process.env.REACT_APP_IMAGE_SERVICE_API_URL + '/images', {
+        return fetch(process.env.REACT_APP_IMAGE_SERVICE_API_URL, {
             headers: {
                 'content-type': 'application/json'
             },
