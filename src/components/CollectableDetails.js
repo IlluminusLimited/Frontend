@@ -56,10 +56,8 @@ class CollectableDetails extends Component {
                     ) : null}
                 </div>
                 <div className={this.props.classType + '-content'}>
-                    <h1 id={'title-' + id}>
-                        <div onClick={this.props.closeModal}>
-                            <Link to={`/pin/${id}/edit`}>{name}</Link>
-                        </div>
+                    <h1 id={'title-' + id} onClick={this.props.closeModal}>
+                        <Link to={`/pin/${id}/edit`}>{name}</Link>
                     </h1>
                     <p>{description}</p>
                     <p>{year || 2018}</p>
