@@ -1,15 +1,7 @@
 .pin-modal-content {
   padding: 0 $gutter $gutter;
 
-  h1 {
-    font-size: 1.2em;
-
-    a {
-      border-bottom: 1px solid;
-      text-decoration: none;
-      color: $copy-dark;
-    }
-  }
+  h1 { font-size: 1.2em; }
 
   p {
     margin: 0.5em 0 0;
