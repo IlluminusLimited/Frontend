@@ -129,6 +129,8 @@ class SettingsForm extends Component {
                             onClick={this.props.history.goBack}
                         />
                     </div>
+                </form>
+                <form>
                     <div className="form-group form-misc">
                         <button type="legal" id="legal" name="legal" onClick={this.goToLegal}>
                             Legal
@@ -141,7 +143,6 @@ class SettingsForm extends Component {
                         </button>
                     </div>
                 </form>
-                <div className="form-group" />
             </React.Fragment>
         );
     }

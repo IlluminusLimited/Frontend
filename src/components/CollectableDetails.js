@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Tag from './Tag';
 import Image from './Image';
 import CollectableListItem from './CollectableListItem';
@@ -42,21 +43,27 @@ class CollectableDetails extends Component {
             // updated_at,
             images,
             url
-        } = {...this.props.collectableData};
+        } = { ...this.props.collectableData };
         return (
             <React.Fragment>
                 <div className={this.props.classType + '-viewer'}>
                     {images ? (
-                        <Image imageData={images[0]} imageClass={this.props.classType + '-img'} large={true} />
+                        <Image
+                            imageData={images[0]}
+                            imageClass={this.props.classType + '-img'}
+                            large={true}
+                        />
                     ) : null}
                 </div>
                 <div className={this.props.classType + '-content'}>
-                    <h1 id={'title-' + id}>{name}</h1>
+                    <h1 id={'title-' + id} onClick={this.props.closeModal}>
+                        <Link className="copy-dark" to={`/pin/${id}/edit`}>{name}</Link>
+                    </h1>
                     <p>{description}</p>
                     <p>{year || 2018}</p>
                     <div className={this.props.classType + '-tags'}>
                         {Object.keys(tags).map(key => (
-                            <Tag key={key} tagKey={key} tagName={tags[key]}/>
+                            <Tag key={key} tagKey={key} tagName={tags[key]} />
                         ))}
                     </div>
                     {sessionStorage.getItem('pinster-user-id') && this.props.modalIsOpen ? (
@@ -66,7 +73,7 @@ class CollectableDetails extends Component {
                             collectableUrl={url}
                         />
                     ) : null}
-                    <br/>
+                    <br />
                     <div className={this.props.classType + '-thumbs'}>
                         {images.map((image, index) => {
                             if (index === 0) {

@@ -104,6 +104,7 @@ class CollectableModal extends Component {
                         classType="pin-modal"
                         collectableType={this.props.collectableType}
                         modalIsOpen={this.state.modalIsOpen}
+                        closeModal={this.closeModal}
                     />
                 </div>
                 <button className="pin-modal-dismiss">
