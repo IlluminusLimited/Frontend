@@ -13,6 +13,7 @@ import AuthRedirect from './AuthRedirect';
 import CreateCollectionForm from './CreateCollectionForm';
 import LoadUserData from './LoadUserData';
 import EditPin from './EditPin';
+import Callback from './Callback';
 
 const Router = () => (
     <BrowserRouter>
@@ -31,6 +32,7 @@ const Router = () => (
                 <Route path="/collection/:collectionId" component={CollectionPage} />
                 {/* <Route path="/set/:setId" component={PinSet} /> */}
                 <Route path="/legal" component={Legal} />
+                <Route path="/callback" component={Callback} />
 
                 {/* <Route component={NotFound} /> */}
             </Switch>
