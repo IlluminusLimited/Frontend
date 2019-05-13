@@ -14,7 +14,7 @@ class HeaderNav extends Component {
             <header className="container with-fixed-header">
                 <div className="header-nav-wrapper full-bleed container">
                     <div className="header-nav">
-                        <a className="header-nav-back" onClick={this.props.history.goBack}>
+                        <a href="#back" className="header-nav-back" onClick={this.props.history.goBack}>
                             <span className="sr-only">back</span>
                             <SvgAngleLeft color={'white'} />
                         </a>
