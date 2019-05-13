@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Loader from './Loader';
 import SvgRaccoon from './svg/SvgRaccoon';
+import Auth from '../lib/auth';
+const auth = new Auth();
 
 class Login extends Component {
     state = {
@@ -13,22 +15,24 @@ class Login extends Component {
     };
 
     fetchAuth = () => {
-        fetch(process.env.REACT_APP_API_URL + '/login')
-            .then(
-                results => {
-                    return results.json();
-                },
-                error => {
-                    console.error(error);
-                }
-            )
-            .then(response => {
-                // Display the pins
-                this.setState({
-                    loaded: true,
-                    oauthProviders: response.oauth_providers
-                });
-            });
+        auth.login();
+
+        // fetch(process.env.REACT_APP_API_URL + '/login')
+        //     .then(
+        //         results => {
+        //             return results.json();
+        //         },
+        //         error => {
+        //             console.error(error);
+        //         }
+        //     )
+        //     .then(response => {
+        //         // Display the pins
+        //         this.setState({
+        //             loaded: true,
+        //             oauthProviders: response.oauth_providers
+        //         });
+        //     });
     };
 
     componentDidMount() {
