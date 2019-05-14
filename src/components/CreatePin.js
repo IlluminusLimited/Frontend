@@ -137,18 +137,15 @@ class CreatePin extends Component {
   postImage = (imageable, base64Image) => {
     const body = {
       data: {
-        metadata: {
-          user_id: sessionStorage.getItem("pinster-user-id"),
-          imageable_type: "Pin",
-          imageable_id: imageable.id
-        },
+        // name, desc, featured (timestamp)
         image: base64Image
       }
     };
 
     return fetch(process.env.REACT_APP_IMAGE_SERVICE_API_URL, {
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
+        Authorization: "Bearer " + imageable.image_service_token,
       },
       method: "POST",
       body: JSON.stringify(body)
