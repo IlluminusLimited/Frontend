@@ -64,6 +64,10 @@ class SettingsForm extends Component {
     event.preventDefault();
   }
 
+  goToLogout = () => {
+    this.props.history.push("/logout");
+  };
+
   goToLegal = () => {
     this.props.history.push("/legal");
   };
@@ -137,6 +141,14 @@ class SettingsForm extends Component {
         </form>
         <form>
           <div className="form-group form-misc">
+            <button
+              type="legal"
+              id="legal"
+              name="legal"
+              onClick={this.goToLogout}
+            >
+              Logout
+            </button>
             <button
               type="legal"
               id="legal"

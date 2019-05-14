@@ -4,9 +4,9 @@ import SvgRaccoon from "./svg/SvgRaccoon";
 import Auth from "../lib/auth";
 const auth = new Auth();
 
-class Login extends Component {
+class Logout extends Component {
   componentDidMount() {
-    auth.login();
+    auth.logout();
   }
 
   render() {
@@ -22,4 +22,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Logout;

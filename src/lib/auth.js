@@ -19,6 +19,11 @@ export default class Auth {
     this.auth0.authorize();
   }
 
+  logout(){
+    localStorage.removeItem("pinster-user-token");
+    this.auth0.logout({returnTo: process.env.REACT_APP_URL});
+  }
+
   fetchUser(name, token) {
     fetch(process.env.REACT_APP_API_URL + "/v1/users", {
       method: "post",
