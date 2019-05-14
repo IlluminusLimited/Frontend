@@ -38,6 +38,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "prettier": "^1.17.1",
     "sass-lint": "^1.13.1",
     "serverless": "^1.42.2",
     "serverless-pseudo-parameters": "^1.6.0"
