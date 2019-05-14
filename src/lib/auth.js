@@ -43,7 +43,7 @@ export default class Auth {
   handleAuthentication() {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        localStorage.setItem("access_token", authResult.accessToken);
+        localStorage.setItem("pinster-user-token", authResult.accessToken);
 
         console.dir("auth0 response");
         console.dir(authResult);
