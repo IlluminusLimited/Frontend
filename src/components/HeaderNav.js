@@ -14,7 +14,7 @@ class HeaderNav extends Component {
 
   render() {
     return (
-      <header className="container with-fixed-header">
+      <header className="container">
         <div className="header-nav-wrapper full-bleed container">
           <div className="header-nav">
             <a

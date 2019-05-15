@@ -7,7 +7,7 @@ class Legal extends Component {
       <React.Fragment>
         <HeaderNav history={this.props.history} label="Legal" modal={false} />
 
-        <main className="container">
+        <main className="container with-fixed-header">
           <section className="grid col-100">
             <h1 className="copy-turquoise">Pinster</h1>
             <p>Your information will not be shared with external entities.</p>

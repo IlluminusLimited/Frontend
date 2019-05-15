@@ -7,6 +7,10 @@
   > .full-bleed { grid-column: 1 / -1; }
 }
 
+.with-fixed-header {
+  padding-top: 62px;
+}
+
 @media screen and (min-width: #{$screen-tablet}) {
   .container {
     grid-template-columns: 1fr $container-tablet 1fr;
