@@ -26,18 +26,22 @@ class SettingsForm extends Component {
     };
   }
 
-  putForm(data) {
+  putForm = (data) => {
+    const { getAccessToken } = this.props.auth;
+
     fetch(process.env.REACT_APP_API_URL + "/v1/me", {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("pinster-user-token"),
+        Authorization: "Bearer " + getAccessToken(),
         "content-type": "application/json"
       },
       method: "PUT",
       body: JSON.stringify(data)
     })
-      .then(
-        results => {
-          return results.json();
+      .then( response => {
+        return response.json();
+      })
+      .then( data => {
+          return data;
         },
         error => {
           console.error(error);
@@ -92,6 +96,7 @@ class SettingsForm extends Component {
   render() {
     return (
       <React.Fragment>
+        <p />
         <form className="my-settings" onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="display_name">display name</label>

@@ -12,13 +12,10 @@ class CollectionSelectList extends Component {
 
   fetchUserCollections = () => {
     const userId = sessionStorage.getItem("pinster-user-id");
+    const { getAccessToken } = this.props.auth;
     fetch(
       `${process.env.REACT_APP_API_URL}/v1/users/${userId}/collections/summary`,
-      {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("pinster-user-token")
-        }
-      }
+      { headers: { Authorization: "Bearer " + getAccessToken() } }
     )
       .then(
         results => {
@@ -32,12 +29,7 @@ class CollectionSelectList extends Component {
         fetch(
           `${process.env.REACT_APP_API_URL}/v1/${this.props.collectableType +
             "s"}/${this.props.collectableId}?with_collectable_collections=true`,
-          {
-            headers: {
-              Authorization:
-                "Bearer " + localStorage.getItem("pinster-user-token")
-            }
-          }
+          { headers: { Authorization: "Bearer " + getAccessToken() } }
         )
           .then(
             results => {
@@ -98,9 +90,10 @@ class CollectionSelectList extends Component {
         count: 1
       }
     };
+    const { getAccessToken } = this.props.auth;
     fetch(urlToSend, {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("pinster-user-token"),
+        Authorization: "Bearer " + getAccessToken(),
         "Content-Type": "application/json"
       },
       method: "POST",
@@ -136,12 +129,13 @@ class CollectionSelectList extends Component {
         );
       }
     );
+    const { getAccessToken } = this.props.auth;
     const urlToSend = `${
       process.env.REACT_APP_API_URL
     }/v1/collectable_collections/${collectableCollectionToDelete.id}`;
     fetch(urlToSend, {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("pinster-user-token")
+        Authorization: "Bearer " + getAccessToken()
       },
       method: "DELETE"
     })

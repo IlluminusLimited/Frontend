@@ -80,9 +80,10 @@ class CreatePin extends Component {
 
     console.log(data);
 
+    const { getAccessToken } = this.props.auth;
     fetch(process.env.REACT_APP_API_URL + "/v1/pins", {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("pinster-user-token"),
+        Authorization: "Bearer " + getAccessToken(),
         "content-type": "application/json"
       },
       method: "POST",

@@ -17,10 +17,10 @@ class MyCollections extends Component {
       this.state.pageLink === ""
         ? process.env.REACT_APP_API_URL + `/v1/users/${userId}/collections`
         : this.state.pageLink;
+    const { getAccessToken } = this.props.auth;
+
     fetch(pageLink, {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("pinster-user-token")
-      }
+      headers: { Authorization: "Bearer " + getAccessToken() }
     })
       .then(
         results => {
@@ -46,14 +46,16 @@ class MyCollections extends Component {
   };
 
   isLoggedIn = () => {
-    if (localStorage.getItem("pinster-user-token")) {
+    const { isAuthenticated } = this.props.auth;
+    if (isAuthenticated()) {
       return true;
     }
     return false;
   };
 
   componentDidMount() {
-    if (localStorage.getItem("pinster-user-token")) {
+    const { isAuthenticated } = this.props.auth;
+    if (isAuthenticated()) {
       this.fetchMoreCollections();
     }
   }
