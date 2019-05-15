@@ -68,10 +68,7 @@ class CreatePin extends Component {
     if (this.state.images.length === 0) {
       this.setState(prevState => {
         return {
-          output: [
-            ...prevState.output,
-            "Must include all required fields and images!"
-          ],
+          output: [...prevState.output, "Must include all required fields and images!"],
           submitting: false
         };
       });
@@ -145,7 +142,7 @@ class CreatePin extends Component {
     return fetch(process.env.REACT_APP_IMAGE_SERVICE_API_URL, {
       headers: {
         "content-type": "application/json",
-        Authorization: "Bearer " + imageable.image_service_token,
+        Authorization: "Bearer " + imageable.image_service_token
       },
       method: "POST",
       body: JSON.stringify(body)
@@ -184,11 +181,9 @@ class CreatePin extends Component {
 
   componentDidMount() {
     const form = this;
-    document
-      .querySelectorAll(".form-group input, .form-group textarea")
-      .forEach(function(input) {
-        form.toggleActive(input);
-      });
+    document.querySelectorAll(".form-group input, .form-group textarea").forEach(function(input) {
+      form.toggleActive(input);
+    });
   }
 
   // componentDidUpdate() {
@@ -196,34 +191,22 @@ class CreatePin extends Component {
   // }
 
   render() {
-    // console.log(this.state);
-
     return (
       <React.Fragment>
-        <HeaderNav
-          history={this.props.history}
-          label="Create Pin"
-          modal={true}
-        />
-        <main className="settings-page container">
+        <HeaderNav history={this.props.history} label="Create Pin" modal={true} />
+
+        <main className="settings-page container with-fixed-header">
           <ImageUploader
             withIcon={true}
             buttonText="Choose images"
             onChange={this.onDrop}
-            imgExtension={[
-              ".jpg",
-              ".JPG",
-              ".jpeg",
-              ".JPEG",
-              ".gif",
-              ".GIF",
-              ".png",
-              ".PNG"
-            ]}
+            imgExtension={[".jpg", ".JPG", ".jpeg", ".JPEG", ".gif", ".GIF", ".png", ".PNG"]}
             maxFileSize={5242880}
             withPreview={true}
           />
+
           <br />
+
           <form className="my-settings" onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label htmlFor="name">name</label>
@@ -270,10 +253,9 @@ class CreatePin extends Component {
                 </pre>
               </div>
             </div>
-            <br />
-            <br />
-            <hr />
+
             {this.state.loading ? <Loader /> : null}
+
             <div className="form-group form-action">
               <input
                 type="submit"
@@ -291,6 +273,8 @@ class CreatePin extends Component {
               />
             </div>
           </form>
+          <p />
+          <p />
         </main>
       </React.Fragment>
     );

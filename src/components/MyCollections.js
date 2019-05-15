@@ -64,7 +64,7 @@ class MyCollections extends Component {
     return (
       <React.Fragment>
         <HeaderNav label="My Collections" history={this.props.history} />
-        <main className="container">
+        <main className="container with-fixed-header">
           {this.isLoggedIn() ? (
             <React.Fragment>
               <div className="pin-collection">

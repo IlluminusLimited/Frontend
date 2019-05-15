@@ -96,7 +96,6 @@ class SettingsForm extends Component {
   render() {
     return (
       <React.Fragment>
-        <p />
         <form className="my-settings" onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="display_name">display name</label>

@@ -75,7 +75,7 @@ class Settings extends Component {
           label="Settings"
           modalOptions={this.getModalOptions}
         />
-        <main className="settings-page container">{this.isLoggedIn()}</main>
+        <main className="settings-page container with-fixed-header">{this.isLoggedIn()}</main>
       </React.Fragment>
     );
   }
