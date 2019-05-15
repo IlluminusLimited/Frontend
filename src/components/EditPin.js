@@ -20,12 +20,14 @@ class PinPage extends Component {
         tags: this.state.tags
       }
     };
+    const { getAccessToken } = this.props.auth;
+
     fetch(
       process.env.REACT_APP_API_URL +
         `/v1/pins/${this.props.match.params.pinId}`,
       {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("pinster-user-token"),
+          Authorization: "Bearer " + getAccessToken(),
           "content-type": "application/json"
         },
         method: "PUT",
@@ -96,12 +98,13 @@ class PinPage extends Component {
   };
 
   deletePin = () => {
+    const { getAccessToken } = this.props.auth;
     fetch(
       process.env.REACT_APP_API_URL +
         `/v1/pins/${this.props.match.params.pinId}`,
       {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("pinster-user-token")
+          Authorization: "Bearer " + getAccessToken()
         },
         method: "DELETE"
       }

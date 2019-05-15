@@ -71,6 +71,7 @@ class CollectableDetails extends Component {
           {sessionStorage.getItem("pinster-user-id") &&
           this.props.modalIsOpen ? (
             <CollectionSelectList
+              auth={this.props.auth}
               collectableId={id}
               collectableType={this.props.collectableType}
               collectableUrl={url}

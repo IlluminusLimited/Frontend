@@ -12,9 +12,11 @@ class Settings extends Component {
   };
 
   isLoggedIn = () => {
-    if (localStorage.getItem("pinster-user-token")) {
+    const { isAuthenticated } = this.props.auth;
+
+    if (isAuthenticated()) {
       return this.state.loaded ? (
-        <SettingsForm data={this.state.data} history={this.props.history} />
+        <SettingsForm auth={this.props.auth} data={this.state.data} history={this.props.history} />
       ) : (
         <Loader />
       );
@@ -23,29 +25,22 @@ class Settings extends Component {
   };
 
   fetchUserData = () => {
+    const { getAccessToken } = this.props.auth;
+
     fetch(process.env.REACT_APP_API_URL + "/v1/me", {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("pinster-user-token")
-      }
+      headers: { Authorization: "Bearer " + getAccessToken() }
     })
-      .then(
-        results => {
-          if (results.status === 401) {
-            localStorage.clear();
-            sessionStorage.clear();
-            this.props.history.push("/login");
-          }
-          return results.json();
-        },
-        error => {
-          console.error(error);
-        }
-      )
       .then(response => {
+        return response.json();
+      })
+      .then(data => {
         this.setState({
           loaded: true,
-          data: response
+          data: data
         });
+      })
+      .catch(error => {
+        console.error(error);
       });
   };
 
@@ -66,7 +61,8 @@ class Settings extends Component {
   };
 
   componentDidMount() {
-    if (localStorage.getItem("pinster-user-token")) {
+    const { isAuthenticated } = this.props.auth;
+    if (isAuthenticated()) {
       this.fetchUserData();
     }
   }
