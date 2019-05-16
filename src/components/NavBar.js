@@ -11,14 +11,14 @@ class NavBar extends Component {
       <footer className="container">
         <div className="footer-nav-wrapper full-bleed container">
           <nav className="footer-nav">
-            <NavLink className="nav-icon" to="/settings">
-              <SvgSettings />
-              <span>settings</span>
-            </NavLink>
-
             <NavLink className="nav-icon" to="/">
               <SvgHome />
               <span>home</span>
+            </NavLink>
+
+            <NavLink className="nav-icon" to="/collections">
+              <SvgCollections />
+              <span>collections</span>
             </NavLink>
 
             {this.props.auth.hasPermission("create:pin") ? (
@@ -28,9 +28,9 @@ class NavBar extends Component {
             </NavLink>
             ) : null }
 
-            <NavLink className="nav-icon" to="/collections">
-              <SvgCollections />
-              <span>collections</span>
+            <NavLink className="nav-icon" to="/settings">
+              <SvgSettings />
+              <span>settings</span>
             </NavLink>
           </nav>
         </div>

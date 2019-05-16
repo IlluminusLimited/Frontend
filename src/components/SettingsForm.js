@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class SettingsForm extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class SettingsForm extends Component {
     };
   }
 
-  putForm = (data) => {
+  putForm = data => {
     const { getAccessToken } = this.props.auth;
 
     fetch(process.env.REACT_APP_API_URL + "/v1/me", {
@@ -37,10 +38,11 @@ class SettingsForm extends Component {
       method: "PUT",
       body: JSON.stringify(data)
     })
-      .then( response => {
+      .then(response => {
         return response.json();
       })
-      .then( data => {
+      .then(
+        data => {
           return data;
         },
         error => {
@@ -54,7 +56,7 @@ class SettingsForm extends Component {
           email: response.email
         });
       });
-  }
+  };
 
   handleChange(event) {
     const input = event.target;
@@ -68,29 +70,11 @@ class SettingsForm extends Component {
     event.preventDefault();
   }
 
-  goToLogout = () => {
-    this.props.history.push("/logout");
-  };
-
-  goToLegal = () => {
-    this.props.history.push("/legal");
-  };
-
-  goToInfo = () => {
-    window.location = "http://pinster.io";
-  };
-
-  goToSendFeedback = () => {
-    window.location = "http://pinster.io/contact-us";
-  };
-
   componentDidMount() {
     const form = this;
-    document
-      .querySelectorAll(".form-group input, .form-group textarea")
-      .forEach(function(input) {
-        form.toggleActive(input);
-      });
+    document.querySelectorAll(".form-group input, .form-group textarea").forEach(function(input) {
+      form.toggleActive(input);
+    });
   }
 
   render() {
@@ -128,12 +112,7 @@ class SettingsForm extends Component {
             />
           </div>
           <div className="form-group form-action">
-            <input
-              type="submit"
-              id="submit"
-              name="submit"
-              value="save changes"
-            />
+            <input type="submit" id="submit" name="submit" value="save changes" />
             <input
               type="reset"
               id="cancel"
@@ -145,33 +124,18 @@ class SettingsForm extends Component {
         </form>
         <form>
           <div className="form-group form-misc">
-            <button
-              type="legal"
-              id="legal"
-              name="legal"
-              onClick={this.goToLogout}
-            >
+            <Link to="/logout" className="btn-flat">
               Logout
-            </button>
-            <button
-              type="legal"
-              id="legal"
-              name="legal"
-              onClick={this.goToLegal}
-            >
+            </Link>
+            <Link to="/legal" className="btn-flat">
               Legal
-            </button>
-            <button type="info" id="info" name="info" onClick={this.goToInfo}>
+            </Link>
+            <a href="http://pinster.io" className="btn-flat">
               Info
-            </button>
-            <button
-              type="help"
-              id="help"
-              name="help"
-              onClick={this.goToSendFeedback}
-            >
+            </a>
+            <a href="http://pinster.io/contact-us" className="btn-flat">
               Send Feedback
-            </button>
+            </a>
           </div>
         </form>
       </React.Fragment>

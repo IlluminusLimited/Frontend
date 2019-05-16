@@ -10,6 +10,23 @@ button {
   border-radius: 0;
   box-shadow: none;
   background: none;
+  cursor: pointer;
   padding: 5px;
   appearance: none;
+}
+
+.btn-flat {
+  display: inline-block;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: $white;
+  padding: 5px;
+  text-decoration: none;
+  color: $copy-dark;
+
+  .form-group & {
+    margin-bottom: 10px;
+    width: 60%;
+  }
 }

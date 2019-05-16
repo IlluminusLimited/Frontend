@@ -45,30 +45,9 @@ const Router = () => (
         <Route path="/collection/:collectionId" render={props => <CollectionPage auth={auth} {...props} />} />
         <Route path="/legal" component={Legal} />
 
-        <Route
-          exact
-          path="/login"
-          render={props => {
-            login();
-            return null;
-          }}
-        />
-        <Route
-          exact
-          path="/logout"
-          render={props => {
-            logout();
-            return null;
-          }}
-        />
-        <Route
-          exact
-          path="/callback"
-          render={props => {
-            handleAuthentication(props);
-            return <Callback {...props} />;
-          }}
-        />
+        <Route exact path="/login" render={props => { login(); return null; }} />
+        <Route exact path="/logout" render={props => { logout(); return null; }} />
+        <Route exact path="/callback" render={props => { handleAuthentication(props); return <Callback {...props} />; }} />
       </Switch>
       <Route path="/" render={props => <NavBar auth={auth} {...props} />} />
     </React.Fragment>
