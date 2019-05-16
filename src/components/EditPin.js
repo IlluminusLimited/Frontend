@@ -193,6 +193,8 @@ class PinPage extends Component {
                 />
               </div>
             </form>
+
+            { this.props.auth.hasPermission("destroy:pin") ? (
             <div className="form-group form-misc">
               <button
                 type="delete"
@@ -203,6 +205,7 @@ class PinPage extends Component {
                 delete
               </button>
             </div>
+            ) : null }
           </React.Fragment>
         ) : (
           <Loader />
