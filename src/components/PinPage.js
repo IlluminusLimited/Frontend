@@ -37,15 +37,19 @@ class PinPage extends Component {
   };
 
   getModalOptions = () => {
-    return (
-      <button
-        className="header-nav-modal-toggle modal-toggle"
-        data-modal="form-modal-nav"
-        onClick={this.goToEditPin}
-      >
-        <SvgEllipse color={"white"} />
-      </button>
-    );
+    if(this.props.auth.hasPermission("update:pin")){
+      return (
+        <button
+          className="header-nav-modal-toggle modal-toggle"
+          data-modal="form-modal-nav"
+          onClick={this.goToEditPin}
+        >
+          <SvgEllipse color={"white"} />
+        </button>
+      );
+    } else {
+      return <div />;
+    }
   };
 
   componentDidMount() {
