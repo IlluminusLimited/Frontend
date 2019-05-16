@@ -81,7 +81,7 @@ class CollectionPage extends Component {
           label={this.state.collectionData.name}
           history={this.props.history}
         />
-        <main className="container">
+        <main className="container with-fixed-header">
           {this.state.loaded ? (
             this.state.empty ? (
               <p>You have not added any Pins or Sets to this Collection!</p>

@@ -9,10 +9,12 @@ class Image extends Component {
   fallbackSource = () => {
     return this.state.thumbnailable === true
       ? `${this.state.storage_location_uri}_600x600`
-      : this.state.storage_location_uri;
+      : '/img/PendingImage.png';
   };
 
   noSrcSetNeeded = () => {
+    if (!this.props.imageData) { return true; }
+
     return this.state.thumbnailable === false && !this.props.large;
   };
 
