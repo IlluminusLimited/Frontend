@@ -42,7 +42,7 @@ jobs:
       - REACT_APP_AUTH0_DOMAIN: dev-pinster-illuminusltd.auth0.com
       - REACT_APP_AUTH0_AUDIENCE: https://api-dev.pinster.io
       - REACT_APP_AUTH0_SCOPE: openid profile
-      - REACT_APP_AUTH0_RESPONSE_TYPE: token id_token"
+      - REACT_APP_AUTH0_RESPONSE_TYPE: token id_token
 
     steps:
       - checkout
