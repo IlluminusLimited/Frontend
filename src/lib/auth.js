@@ -23,8 +23,12 @@ export default class Auth {
   }
 
   hasPermission(perm) {
-    const perms = localStorage.getItem("perms").split(',');
-    return perms.indexOf(perm) >= 0;
+    if (localStorage.getItem("perms")) {
+      const perms = localStorage.getItem("perms").split(',');
+      return perms.indexOf(perm) >= 0;
+    } else {
+      return false;
+    }
   }
 
   checkApiUser(name, token) {
@@ -92,6 +96,7 @@ export default class Auth {
   logout() {
     localStorage.setItem("expires_at", 0);
     localStorage.removeItem("access_token");
+    localStorage.removeItem("perms");
     localStorage.removeItem("isLoggedIn");
     this.auth0.logout({ returnTo: window.location.origin });
   }
