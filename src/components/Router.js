@@ -70,7 +70,7 @@ const Router = () => (
           }}
         />
       </Switch>
-      <Route path="/" component={NavBar} />
+      <Route path="/" render={props => <NavBar auth={auth} {...props} />} />
     </React.Fragment>
   </BrowserRouter>
 );

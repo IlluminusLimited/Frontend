@@ -1,5 +1,6 @@
 import auth0 from "auth0-js";
 import history from "./history";
+import jwtDecode from "jwt-decode";
 
 export default class Auth {
   auth0 = new auth0.WebAuth({
@@ -18,6 +19,12 @@ export default class Auth {
     this.isAuthenticated = this.isAuthenticated.bind(this);
     this.getAccessToken = this.getAccessToken.bind(this);
     this.renewSession = this.renewSession.bind(this);
+    this.hasPermission = this.hasPermission.bind(this);
+  }
+
+  hasPermission(perm) {
+    const perms = localStorage.getItem("perms").split(',');
+    return perms.indexOf(perm) >= 0;
   }
 
   checkApiUser(name, token) {
@@ -29,9 +36,15 @@ export default class Auth {
       },
       body: JSON.stringify({ data: { display_name: name } })
     })
-      .then(data => { return data.json(); })
-      .then(response => { return true; })
-      .catch(error => { console.error(error); });
+      .then(data => {
+        return data.json();
+      })
+      .then(response => {
+        return true;
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   handleAuthentication() {
@@ -55,8 +68,9 @@ export default class Auth {
     localStorage.setItem("access_token", authResult.accessToken);
     localStorage.setItem("expires_at", authResult.expiresIn * 1000 + new Date().getTime());
     localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("perms", jwtDecode(authResult.accessToken).permissions);
 
-    history.push('/settings');
+    history.push("/settings");
   }
 
   renewSession() {
