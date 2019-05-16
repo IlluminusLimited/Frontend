@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import SvgSettings from "./svg/SvgSettings";
 import SvgHome from "./svg/SvgHome";
+import SvgAdd from "./svg/SvgAdd";
 import SvgCollections from "./svg/SvgCollections";
 
 class NavBar extends Component {
@@ -14,10 +15,19 @@ class NavBar extends Component {
               <SvgSettings />
               <span>settings</span>
             </NavLink>
+
             <NavLink className="nav-icon" to="/">
               <SvgHome />
               <span>home</span>
             </NavLink>
+
+            {this.props.auth.hasPermission("create:pin") ? (
+            <NavLink className="nav-icon" to="/pins/new">
+              <SvgAdd />
+              <span>add pin</span>
+            </NavLink>
+            ) : null }
+
             <NavLink className="nav-icon" to="/collections">
               <SvgCollections />
               <span>collections</span>
