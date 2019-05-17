@@ -1,0 +1,16 @@
+.tmp-toast {
+  display: block;
+  animation-name: toast;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-fill-mode: both;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: $turquoise;
+  padding: 10px;
+  text-decoration: none;
+  color: $white;
+
+}

@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 class SettingsForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { ...this.props.data };
+    this.state = {
+      ...this.props.data,
+      message: ""
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -29,6 +32,7 @@ class SettingsForm extends Component {
 
   putForm = data => {
     const { getAccessToken } = this.props.auth;
+    this.setState({ message: "" });
 
     fetch(process.env.REACT_APP_API_URL + "/v1/me", {
       headers: {
@@ -51,6 +55,7 @@ class SettingsForm extends Component {
       )
       .then(response => {
         this.setState({
+          message: "Success",
           display_name: response.display_name,
           bio: response.bio,
           email: response.email
@@ -61,7 +66,10 @@ class SettingsForm extends Component {
   handleChange(event) {
     const input = event.target;
     const name = input.name;
-    this.setState({ [name]: input.value });
+    this.setState({
+      message: "",
+      [name]: input.value
+    });
     this.toggleActive(input);
   }
 
@@ -122,6 +130,11 @@ class SettingsForm extends Component {
                 onClick={this.props.history.goBack}
               />
             </div>
+            {this.state.message ? (
+              <div className="form-group">
+                <div className="tmp-toast">{this.state.message}</div>
+              </div>
+            ) : null}
           </form>
         </section>
         <section>
