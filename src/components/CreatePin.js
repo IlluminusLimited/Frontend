@@ -119,6 +119,9 @@ class CreatePin extends Component {
               loading: false
             };
           });
+        }).then(_data => {
+          // toast
+          this.props.history.push("/");
         });
       })
       .catch(exception => {
