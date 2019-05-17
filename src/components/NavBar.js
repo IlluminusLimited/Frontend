@@ -16,22 +16,33 @@ class NavBar extends Component {
               <span>home</span>
             </NavLink>
 
-            <NavLink className="nav-icon" to="/collections">
-              <SvgCollections />
-              <span>collections</span>
-            </NavLink>
+            {this.props.auth.isAuthenticated() ? (
+              <NavLink className="nav-icon" to="/collections">
+                <SvgCollections />
+                <span>collections</span>
+              </NavLink>
+            ) : null}
 
             {this.props.auth.hasPermission("create:pin") ? (
-            <NavLink className="nav-icon" to="/pins/new">
-              <SvgAdd />
-              <span>add pin</span>
-            </NavLink>
-            ) : null }
+              <NavLink className="nav-icon" to="/pins/new">
+                <SvgAdd />
+                <span>add pin</span>
+              </NavLink>
+            ) : null}
 
-            <NavLink className="nav-icon" to="/settings">
-              <SvgSettings />
-              <span>settings</span>
-            </NavLink>
+            {this.props.auth.isAuthenticated() ? (
+              <NavLink className="nav-icon" to="/settings">
+                <SvgSettings />
+                <span>settings</span>
+              </NavLink>
+            ) : null}
+
+            {this.props.auth.isAuthenticated() ? null : (
+              <NavLink className="nav-icon" to="/login">
+                <SvgSettings />
+                <span>login</span>
+              </NavLink>
+            )}
           </nav>
         </div>
       </footer>
