@@ -1,17 +1,21 @@
 import React, { Component } from "react";
 import { Creatable } from "react-select";
 import HeaderNav from "./HeaderNav";
+import Image from "./Image";
 import Loader from "./Loader";
 
 class PinPage extends Component {
   state = {
+    message: "",
     loaded: false,
     pinData: {},
     tags: [],
-    selectedTags: []
+    selectedTags: [],
+    images: []
   };
 
   putForm = () => {
+    this.setState({ message: "" });
     const putData = {
       data: {
         name: this.state.name,
@@ -22,18 +26,14 @@ class PinPage extends Component {
     };
     const { getAccessToken } = this.props.auth;
 
-    fetch(
-      process.env.REACT_APP_API_URL +
-        `/v1/pins/${this.props.match.params.pinId}`,
-      {
-        headers: {
-          Authorization: "Bearer " + getAccessToken(),
-          "content-type": "application/json"
-        },
-        method: "PUT",
-        body: JSON.stringify(putData)
-      }
-    )
+    fetch(process.env.REACT_APP_API_URL + `/v1/pins/${this.props.match.params.pinId}`, {
+      headers: {
+        Authorization: "Bearer " + getAccessToken(),
+        "content-type": "application/json"
+      },
+      method: "PUT",
+      body: JSON.stringify(putData)
+    })
       .then(
         results => {
           return results.json();
@@ -44,6 +44,7 @@ class PinPage extends Component {
       )
       .then(response => {
         // Toast that the save was successful
+        this.setState({ message: "Success" });
       });
   };
 
@@ -58,7 +59,10 @@ class PinPage extends Component {
   handleChange = event => {
     const input = event.target;
     const name = input.name;
-    this.setState({ [name]: input.value });
+    this.setState({
+      message: "",
+      [name]: input.value
+    });
     this.toggleActive(input);
   };
 
@@ -68,10 +72,7 @@ class PinPage extends Component {
   };
 
   makeFetch = () => {
-    fetch(
-      process.env.REACT_APP_API_URL +
-        `/v1/pins/${this.props.match.params.pinId}`
-    )
+    fetch(process.env.REACT_APP_API_URL + `/v1/pins/${this.props.match.params.pinId}`)
       .then(
         results => {
           return results.json();
@@ -86,7 +87,8 @@ class PinPage extends Component {
           name: response.name,
           year: response.year,
           description: response.description,
-          tags: response.tags
+          tags: response.tags,
+          images: response.images
         });
         const form = this;
         document
@@ -99,16 +101,12 @@ class PinPage extends Component {
 
   deletePin = () => {
     const { getAccessToken } = this.props.auth;
-    fetch(
-      process.env.REACT_APP_API_URL +
-        `/v1/pins/${this.props.match.params.pinId}`,
-      {
-        headers: {
-          Authorization: "Bearer " + getAccessToken()
-        },
-        method: "DELETE"
-      }
-    )
+    fetch(process.env.REACT_APP_API_URL + `/v1/pins/${this.props.match.params.pinId}`, {
+      headers: {
+        Authorization: "Bearer " + getAccessToken()
+      },
+      method: "DELETE"
+    })
       .then(
         results => {
           return results;
@@ -133,10 +131,12 @@ class PinPage extends Component {
         <HeaderNav history={this.props.history} label="Edit" />
         {this.state.loaded ? (
           <React.Fragment>
-            <form
-              className="pin-page sub-header-content"
-              onSubmit={this.handleSubmit}
-            >
+            <form className="pin-page sub-header-content" onSubmit={this.handleSubmit}>
+              <div className="form-group pin-list-item pin-stack pin-stack-edit">
+                {this.state.images.map(image => {
+                  return <Image key={image.id} imageData={image} imageClass="pin-list-img" />;
+                })}
+              </div>
               <div className="form-group">
                 <label htmlFor="name">name</label>
                 <input
@@ -178,12 +178,7 @@ class PinPage extends Component {
                 />
               </div>
               <div className="form-group form-action">
-                <input
-                  type="submit"
-                  id="submit"
-                  name="submit"
-                  value="save changes"
-                />
+                <input type="submit" id="submit" name="submit" value="save changes" />
                 <input
                   type="reset"
                   id="cancel"
@@ -192,20 +187,20 @@ class PinPage extends Component {
                   onClick={this.props.history.goBack}
                 />
               </div>
+              {this.state.message ? (
+                <div className="form-group">
+                  <div className="tmp-toast">{this.state.message}</div>
+                </div>
+              ) : null}
             </form>
 
-            { this.props.auth.hasPermission("destroy:pin") ? (
-            <div className="form-group form-misc">
-              <button
-                type="delete"
-                id="delete"
-                name="delete"
-                onClick={this.deletePin}
-              >
-                delete
-              </button>
-            </div>
-            ) : null }
+            {this.props.auth.hasPermission("destroy:pin") ? (
+              <div className="form-group form-misc">
+                <button type="delete" id="delete" name="delete" onClick={this.deletePin}>
+                  delete
+                </button>
+              </div>
+            ) : null}
           </React.Fragment>
         ) : (
           <Loader />
