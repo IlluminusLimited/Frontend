@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import ImageUploader from "react-images-upload";
 import HeaderNav from "./HeaderNav";
 import Loader from "./Loader";
@@ -107,22 +108,24 @@ class CreatePin extends Component {
           return this.postImage(imageableData, base64Image);
         });
 
-        Promise.all(imagePromises).then(responses => {
-          this.setState(prevState => {
-            return {
-              images: [],
-              name: "",
-              description: "",
-              year: new Date().getFullYear(),
-              message: "Pin Created",
-              submitting: false,
-              loading: false
-            };
+        Promise.all(imagePromises)
+          .then(responses => {
+            this.setState(prevState => {
+              return {
+                images: [],
+                name: "",
+                description: "",
+                year: new Date().getFullYear(),
+                message: "Pin Created",
+                submitting: false,
+                loading: false
+              };
+            });
+          })
+          .then(_data => {
+            // toast
+            this.props.history.push("/");
           });
-        }).then(_data => {
-          // toast
-          this.props.history.push("/");
-        });
       })
       .catch(exception => {
         this.setState(prevState => {
@@ -182,6 +185,12 @@ class CreatePin extends Component {
   }
 
   render() {
+    const { isAuthenticated } = this.props.auth;
+
+    if (!isAuthenticated()) {
+      return <Redirect to="/login" />;
+    }
+
     return (
       <React.Fragment>
         <HeaderNav history={this.props.history} label="Create Pin" modal={true} />
