@@ -76,6 +76,12 @@ jobs:
     environment:
       - REACT_APP_API_URL: https://api-prod.pinster.io
       - REACT_APP_IMAGE_SERVICE_API_URL: https://images.image-service-prod.pinster.io
+      - REACT_APP_AUTH0_KEY: cCr41BiNVfHi1TvvwUkYXrr1Bk0aqAlC
+      - REACT_APP_AUTH0_CALLBACK: https://app-prod.pinster.io/callback
+      - REACT_APP_AUTH0_DOMAIN: pinster-illuminusltd.auth0.com
+      - REACT_APP_AUTH0_AUDIENCE: https://api-prod.pinster.io
+      - REACT_APP_AUTH0_SCOPE: openid profile
+      - REACT_APP_AUTH0_RESPONSE_TYPE: token id_token
 
     steps:
       - checkout
