@@ -2,7 +2,7 @@
   position: fixed;
   top: 0;
   right: 0;
-  bottom: 0;
+  bottom: $footer-height;
   left: 0;
   background-color: $purple;
   background-image: linear-gradient($turquoise 60px, $purple);
