@@ -56,16 +56,16 @@ class CreatePin extends Component {
   postForm(data) {
     this.setState({ message: "", submitting: true, loading: true });
 
-    if (this.state.images.length === 0) {
-      this.setState(prevState => {
-        return {
-          message: "Must include name and image!",
-          loading: false,
-          submitting: false
-        };
-      });
-      return;
-    }
+    // if (this.state.images.length === 0) {
+    //   this.setState(prevState => {
+    //     return {
+    //       message: "Must include name and image!",
+    //       loading: false,
+    //       submitting: false
+    //     };
+    //   });
+    //   return;
+    // }
 
     const { getAccessToken } = this.props.auth;
     fetch(process.env.REACT_APP_API_URL + "/v1/pins", {
