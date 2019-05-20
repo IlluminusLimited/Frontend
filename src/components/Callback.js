@@ -7,7 +7,7 @@ class Callback extends Component {
     return (
       <React.Fragment>
         <main>
-          <Redirect to="/settings" />
+          <Redirect to="/profile" />
         </main>
       </React.Fragment>
     );

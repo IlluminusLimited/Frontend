@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import SvgSettings from "./svg/SvgSettings";
 import SvgHome from "./svg/SvgHome";
+import SvgProfile from "./svg/SvgProfile";
 import SvgAdd from "./svg/SvgAdd";
 import SvgCollections from "./svg/SvgCollections";
 
@@ -31,9 +32,9 @@ class NavBar extends Component {
             ) : null}
 
             {this.props.auth.isAuthenticated() ? (
-              <NavLink className="nav-icon" to="/settings">
-                <SvgSettings />
-                <span>settings</span>
+              <NavLink className="nav-icon" to="/profile">
+                <SvgProfile />
+                <span>profile</span>
               </NavLink>
             ) : null}
 

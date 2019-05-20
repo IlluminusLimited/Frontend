@@ -36,7 +36,7 @@ const Router = () => (
     <React.Fragment>
       <Switch>
         <Route exact path="/" render={props => <Home auth={auth} {...props} />} />
-        <Route exact path="/settings" render={props => <Settings auth={auth} {...props} />} />
+        <Route exact path="/profile" render={props => <Settings auth={auth} {...props} />} />
         <Route path="/pins/new" render={props => <CreatePin auth={auth} {...props} />} />
         <Route path="/pin/:pinId" render={props => <PinPage auth={auth} {...props} />} />
         <Route path="/pins/:pinId/edit" render={props => <EditPin auth={auth} {...props} />} />
