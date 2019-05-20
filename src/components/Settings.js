@@ -1,26 +1,12 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import SettingsForm from "./SettingsForm";
-import Loader from "./Loader";
 import HeaderNav from "./HeaderNav";
 
 class Settings extends Component {
   state = {
     loaded: false,
     data: {}
-  };
-
-  isLoggedIn = () => {
-    const { isAuthenticated } = this.props.auth;
-
-    if (isAuthenticated()) {
-      return this.state.loaded ? (
-        <SettingsForm auth={this.props.auth} data={this.state.data} history={this.props.history} />
-      ) : (
-        <Loader />
-      );
-    }
-    return <Redirect to="/login" />;
   };
 
   fetchUserData = () => {
@@ -55,10 +41,18 @@ class Settings extends Component {
   }
 
   render() {
+    const { isAuthenticated } = this.props.auth;
+
+    if (!isAuthenticated()) {
+      return <Redirect to="/login" />;
+    }
+
     return (
       <React.Fragment>
         <HeaderNav history={this.props.history} label="Settings" />
-        <main className="settings-page container with-fixed-header">{this.isLoggedIn()}</main>
+        <main className="settings-page container with-fixed-header">
+          <SettingsForm auth={this.props.auth} data={this.state.data} history={this.props.history} />
+        </main>
       </React.Fragment>
     );
   }
