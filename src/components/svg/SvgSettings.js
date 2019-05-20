@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class SvgHome extends Component {
+class SvgSettings extends Component {
   render() {
     return (
       <svg
@@ -23,4 +23,4 @@ class SvgHome extends Component {
   }
 }
 
-export default SvgHome;
+export default SvgSettings;

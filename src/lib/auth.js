@@ -74,7 +74,7 @@ export default class Auth {
     localStorage.setItem("isLoggedIn", "true");
     localStorage.setItem("perms", jwtDecode(authResult.accessToken).permissions);
 
-    history.push("/settings");
+    history.push("/profile");
   }
 
   renewSession() {
