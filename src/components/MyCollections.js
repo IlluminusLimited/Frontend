@@ -61,37 +61,33 @@ class MyCollections extends Component {
   }
 
   render() {
+    const { isAuthenticated } = this.props.auth;
+
+    if (!isAuthenticated()) {
+      return <Redirect to="/login" />;
+    }
+
     return (
       <React.Fragment>
         <HeaderNav label="My Collections" history={this.props.history} />
         <main className="container with-fixed-header">
-          {this.isLoggedIn() ? (
-            <React.Fragment>
-              <div className="pin-collection">
-                {Object.keys(this.state.collections).map(key => (
-                  <CollectionListItem
-                    key={key}
-                    userId={this.props.userId}
-                    collectionData={this.state.collections[key]}
-                    history={this.props.history}
-                  />
-                ))}
-                <div
-                  className="pin-list-item add-new"
-                  onClick={this.addNewCollection}
-                >
-                  <SvgAdd classType="white pin-list-img" />
-                  <div className="pin-list-title">add new collection</div>
-                </div>
+          <React.Fragment>
+            <div className="pin-collection">
+              {Object.keys(this.state.collections).map(key => (
+                <CollectionListItem
+                  key={key}
+                  userId={this.props.userId}
+                  collectionData={this.state.collections[key]}
+                  history={this.props.history}
+                />
+              ))}
+              <div className="pin-list-item add-new" onClick={this.addNewCollection} >
+                <SvgAdd classType="white pin-list-img" />
+                <div className="pin-list-title">add new collection</div>
               </div>
-              <LoadMoreButton
-                pageLink={this.state.pageLink}
-                fetchMoreItems={this.fetchMoreCollections}
-              />
-            </React.Fragment>
-          ) : (
-            <Redirect to="/login" />
-          )}
+            </div>
+            <LoadMoreButton pageLink={this.state.pageLink} fetchMoreItems={this.fetchMoreCollections} />
+          </React.Fragment>
         </main>
       </React.Fragment>
     );
