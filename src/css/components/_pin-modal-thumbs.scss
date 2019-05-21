@@ -1,12 +1,12 @@
 .pin-modal-thumbs {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
 
   .pin-modal-thumb {
     position: relative;
     flex: 0 0 auto;
-    margin: 0 0 3%;
+    margin: 0 3% 3% 0;
     cursor: pointer;
     width: 30%;
     overflow: hidden;
@@ -26,6 +26,7 @@
 @media screen and (min-width: 400px) {
   .pin-modal-thumbs {
     .pin-modal-thumb {
+      margin-right: 12px;
       margin-bottom: 12px;
       width: 22%;
     }
@@ -35,6 +36,7 @@
 @media screen and (min-width: $screen-tablet) {
   .pin-modal-thumbs {
     .pin-modal-thumb {
+      margin-right: 3%;
       margin-bottom: 3%;
       width: 30%;
     }
@@ -44,6 +46,7 @@
 @media screen and (min-width: $screen-tablet-lg) {
   .pin-modal-thumbs {
     .pin-modal-thumb {
+      margin-right: 12px;
       margin-bottom: 12px;
       width: 22%;
     }

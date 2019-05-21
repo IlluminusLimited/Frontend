@@ -87,6 +87,7 @@ class Modal extends Component {
       >
         <div className="pin-modal-container" role="document">
           <CollectableDetails
+            titleLink={true}
             collectableData={this.props.collectableData}
             classType="pin-modal"
             collectableType={this.props.collectableType}
