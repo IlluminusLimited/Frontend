@@ -102,6 +102,7 @@ class CollectableModal extends Component {
           <CollectableDetails
             collectableData={this.props.collectableData}
             classType="pin-modal"
+            titleLink={true}
             collectableType={this.props.collectableType}
             modalIsOpen={this.state.modalIsOpen}
             closeModal={this.closeModal}

@@ -64,13 +64,14 @@ class PinPage extends Component {
           label={this.state.pinData.name}
           modalOptions={this.getModalOptions}
         />
-        <main className="settings-page container ">
+        <main className="settings-page container with-fixed-header">
           <div className="pin-page">
             {this.state.loaded ? (
               <CollectableDetails
                 collectableData={this.state.pinData}
                 classType="pin"
                 collectableType="pin"
+                titleLink={false}
               />
             ) : (
               <Loader />

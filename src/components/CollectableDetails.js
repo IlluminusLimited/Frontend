@@ -32,6 +32,22 @@ class CollectableDetails extends Component {
     return;
   };
 
+  componentDidMount() {
+    // swap viewer images
+    document.querySelectorAll(".pin-thumb").forEach(thumb => {
+      thumb.addEventListener("click", () => {
+        var viewer = thumb.closest(".pin-page").querySelector(".pin-viewer");
+        viewer.querySelector("img").remove();
+        viewer.append(thumb.querySelector("img").cloneNode());
+
+        thumb.parentNode.querySelectorAll(".pin-thumb").forEach(elem => {
+          elem.classList.remove("active");
+        });
+        thumb.classList.add("active");
+      });
+    });
+  }
+
   render() {
     const {
       id,
@@ -57,9 +73,11 @@ class CollectableDetails extends Component {
         </div>
         <div className={this.props.classType + "-content"}>
           <h1 id={"title-" + id} onClick={this.props.closeModal}>
+            { this.props.titleLink ? (
             <Link className="copy-dark" to={`/pin/${id}`}>
               {name}
             </Link>
+            ) : <React.Fragment>{name}</React.Fragment>}
           </h1>
           <p>{description}</p>
           <p>{year || 2018}</p>
