@@ -4,7 +4,7 @@ import HeaderNav from "./HeaderNav";
 import Image from "./Image";
 import Loader from "./Loader";
 
-class PinPage extends Component {
+class EditPin extends Component {
   state = {
     message: "",
     loaded: false,
@@ -210,4 +210,4 @@ class PinPage extends Component {
   }
 }
 
-export default PinPage;
+export default EditPin;
