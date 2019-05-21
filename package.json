@@ -21,7 +21,7 @@
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
     "react-flip-move": "^3.0.2",
-    "react-images-upload": "^1.0.95",
+    "react-images-upload": "^1.2.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "^3.0.1",
     "react-select": "^1.2.1"

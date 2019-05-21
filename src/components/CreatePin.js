@@ -19,20 +19,22 @@ class CreatePin extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  onDrop = picture => {
+  onDrop = pictures => {
     let self = this;
-    let reader = new FileReader();
-    if (picture[0] !== "") {
-      reader.readAsDataURL(picture[0]);
+    self.setState({ images: [] });
+    pictures.forEach(picture => {
+      let reader = new FileReader();
+      reader.readAsDataURL(picture);
       reader.onload = function() {
+        let imgList = self.state.images.concat(reader.result);
         self.setState({
-          images: self.state.images.concat(reader.result)
+          images: imgList.filter((value, index, memo) => memo.indexOf(value) === index)
         });
       };
       reader.onerror = function(error) {
         console.error(error);
       };
-    }
+    });
   };
 
   prepData() {
@@ -196,7 +198,7 @@ class CreatePin extends Component {
         <HeaderNav history={this.props.history} label="Create Pin" modal={true} />
 
         <main className="settings-page container with-fixed-header">
-          <div className="form-group">
+          <div className="image-uploader">
             <ImageUploader
               withIcon={true}
               buttonText="Choose images"
@@ -222,11 +224,22 @@ class CreatePin extends Component {
             </div>
 
             <div className="form-group">
+              <label htmlFor="year">year</label>
+              <input
+                type="text"
+                id="year"
+                name="year"
+                defaultValue={this.state.year}
+                onChange={this.handleChange}
+              />
+            </div>
+
+            <div className="form-group">
               <label htmlFor="description">description</label>
               <textarea
                 id="description"
                 name="description"
-                rows="8"
+                rows="4"
                 onChange={this.handleChange}
                 defaultValue={this.state.description}
               />
@@ -251,8 +264,6 @@ class CreatePin extends Component {
               />
             </div>
           </form>
-          <p />
-          <p />
         </main>
       </React.Fragment>
     );
