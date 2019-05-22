@@ -24,7 +24,7 @@ class NavBar extends Component {
               </NavLink>
             ) : null}
 
-            {this.props.auth.hasPermission("create:pin") ? (
+            {this.props.auth.isAuthenticated() && this.props.auth.hasPermission("create:pin") ? (
               <NavLink className="nav-icon" to="/pins/new">
                 <SvgAdd />
                 <span>add pin</span>

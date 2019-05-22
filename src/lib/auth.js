@@ -1,5 +1,4 @@
 import auth0 from "auth0-js";
-import history from "./history";
 import jwtDecode from "jwt-decode";
 
 export default class Auth {
@@ -24,67 +23,59 @@ export default class Auth {
 
   hasPermission(perm) {
     if (localStorage.getItem("perms")) {
-      const perms = localStorage.getItem("perms").split(',');
+      const perms = localStorage.getItem("perms").split(",");
       return perms.indexOf(perm) >= 0;
     } else {
       return false;
     }
   }
 
-  checkApiUser(name, token) {
-    fetch(process.env.REACT_APP_API_URL + "/v1/users", {
+  handleAuthentication() {
+    this.auth0.parseHash((err, authResult) => {
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        this.setSession(authResult).then();
+      } else if (err) {
+        console.error(err);
+      }
+    });
+  }
+
+  getAccessToken() {
+    return localStorage.getItem("access_token");
+  }
+
+  setSession(authResult) {
+    return fetch(process.env.REACT_APP_API_URL + "/v1/users", {
       method: "post",
       headers: {
-        Authorization: "Bearer " + token,
+        Authorization: "Bearer " + authResult.accessToken,
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ data: { display_name: name } })
+      body: JSON.stringify({ data: { display_name: authResult.idTokenPayload.name } })
     })
       .then(data => {
         return data.json();
       })
       .then(response => {
-        return true;
+        localStorage.setItem("access_token", authResult.accessToken);
+        localStorage.setItem("expires_at", authResult.expiresIn * 1000 + new Date().getTime());
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("perms", jwtDecode(authResult.accessToken).permissions);
+
+        return response;
       })
       .catch(error => {
         console.error(error);
       });
   }
 
-  handleAuthentication() {
-    this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult);
-      } else if (err) {
-        console.error(err);
-        // Handle authentication error, for example by displaying a notification to the user
-      }
-    });
-  }
-
-  getAccessToken() {
-    // console.log("called getAccessToken()");
-    return localStorage.getItem("access_token");
-  }
-
-  setSession(authResult) {
-    this.checkApiUser(authResult.idTokenPayload.name, authResult.accessToken);
-    localStorage.setItem("access_token", authResult.accessToken);
-    localStorage.setItem("expires_at", authResult.expiresIn * 1000 + new Date().getTime());
-    localStorage.setItem("isLoggedIn", "true");
-    localStorage.setItem("perms", jwtDecode(authResult.accessToken).permissions);
-
-    history.push("/profile");
-  }
-
   renewSession() {
     this.auth0.checkSession({}, (err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult);
+        this.setSession(authResult).then();
       } else if (err) {
         this.logout();
         console.error(err);
-        // alert( `Could not get a new token (${err.error}: ${err.error_description}).`);
       }
     });
   }

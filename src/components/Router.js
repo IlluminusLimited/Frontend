@@ -1,6 +1,6 @@
+import Auth from "../lib/auth";
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-
 import Callback from "./Callback";
 import CollectionPage from "./CollectionPage";
 import CreateCollectionForm from "./CreateCollectionForm";
@@ -12,8 +12,6 @@ import MyCollections from "./MyCollections";
 import NavBar from "./NavBar";
 import PinPage from "./PinPage";
 import Settings from "./Settings";
-
-import Auth from "../lib/auth";
 
 const auth = new Auth();
 
@@ -47,7 +45,7 @@ const Router = () => (
 
         <Route exact path="/login" render={props => { login(); return null; }} />
         <Route exact path="/logout" render={props => { logout(); return null; }} />
-        <Route exact path="/callback" render={props => { handleAuthentication(props); return <Callback {...props} />; }} />
+        <Route exact path="/callback" render={props => { handleAuthentication(props); return <Callback auth={auth} {...props} />; }} />
       </Switch>
       <Route path="/" render={props => <NavBar auth={auth} {...props} />} />
     </React.Fragment>
