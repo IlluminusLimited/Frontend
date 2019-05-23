@@ -27,7 +27,7 @@
 
   &:focus-within,
   &.active {
-    &:not(.radio-toggle) {
+    &:not(.input-toggle) {
       label {
         top: -1.2em;
         color: $white;
@@ -36,7 +36,7 @@
     }
   }
 
-  &.radio-toggle {
+  &.input-toggle {
     display: flex;
     align-content: center;
     align-items: center;
@@ -49,6 +49,11 @@
       flex: 1 1 auto;
       padding: 10px 5px 12px;
       text-align: center;
+    }
+
+    [type="radio"],
+    [type="checkbox"] {
+      @include sr-only;
     }
 
     input:checked + label {

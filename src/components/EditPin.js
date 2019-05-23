@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Creatable } from "react-select";
 import HeaderNav from "./HeaderNav";
 import Image from "./Image";
 import Loader from "./Loader";
@@ -21,6 +20,7 @@ class EditPin extends Component {
         name: this.state.name,
         year: this.state.year,
         description: this.state.description,
+        published: this.state.published,
         tags: this.state.tags
       }
     };
@@ -88,6 +88,7 @@ class EditPin extends Component {
           year: response.year,
           description: response.description,
           tags: response.tags,
+          published: response.published,
           images: response.images
         });
         const form = this;
@@ -167,15 +168,9 @@ class EditPin extends Component {
                   defaultValue={this.state.description}
                 />
               </div>
-              <div className="form-group">
-                <Creatable
-                  multi
-                  creatable
-                  onChange={this.handleSelectChange}
-                  options={this.state.tags}
-                  placeholder="Tag(s)"
-                  value={this.state.selectedTags}
-                />
+              <div className="form-group input-toggle">
+                <input type="checkbox" name="published" id="published" value={this.state.published} />
+                <label htmlFor="published">Published</label>
               </div>
               <div className="form-group form-action">
                 <input type="submit" id="submit" name="submit" value="save changes" />
