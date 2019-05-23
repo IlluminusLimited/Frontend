@@ -14,6 +14,7 @@ class CreatePin extends Component {
       name: "",
       description: "",
       year: new Date().getFullYear(),
+      uploadedCount: 0,
       loading: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -142,12 +143,7 @@ class CreatePin extends Component {
   }
 
   postImage = (imageable, base64Image) => {
-    const body = {
-      data: {
-        // name, desc, featured (timestamp)
-        image: base64Image
-      }
-    };
+    const body = { data: { image: base64Image } };
 
     return fetch(imageable.image_service_url, {
       headers: {
@@ -158,6 +154,7 @@ class CreatePin extends Component {
       body: JSON.stringify(body)
     }).then(
       response => {
+        this.setState({ uploadedCount: this.state.uploadedCount + 1 });
         return response.json();
       },
       error => {
@@ -184,6 +181,14 @@ class CreatePin extends Component {
     document.querySelectorAll(".form-group input, .form-group textarea").forEach(function(input) {
       form.toggleActive(input);
     });
+  }
+
+  uploadCounter() {
+    return (
+      <div className="form-group copy-light copy-center">
+        Uploaded image {this.state.uploadedCount} of {this.state.images.length}.
+      </div>
+    );
   }
 
   render() {
@@ -245,6 +250,7 @@ class CreatePin extends Component {
               />
             </div>
 
+            {this.state.loading ? this.uploadCounter() : null}
             {this.state.loading ? <Loader /> : null}
 
             <div className="form-group form-action">
