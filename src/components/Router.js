@@ -7,6 +7,7 @@ import CreateCollectionForm from "./CreateCollectionForm";
 import CreatePin from "./CreatePin";
 import EditPin from "./EditPin";
 import Home from "./Home";
+import Unpublished from "./Unpublished";
 import Legal from "./Legal";
 import MyCollections from "./MyCollections";
 import NavBar from "./NavBar";
@@ -34,6 +35,7 @@ const Router = () => (
     <React.Fragment>
       <Switch>
         <Route exact path="/" render={props => <Home auth={auth} {...props} />} />
+        <Route exact path="/unpublished" render={props => <Unpublished auth={auth} {...props} />} />
         <Route exact path="/profile" render={props => <Settings auth={auth} {...props} />} />
         <Route path="/pins/new" render={props => <CreatePin auth={auth} {...props} />} />
         <Route path="/pin/:pinId" render={props => <PinPage auth={auth} {...props} />} />

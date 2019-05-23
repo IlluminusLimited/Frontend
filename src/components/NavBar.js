@@ -4,6 +4,7 @@ import SvgSettings from "./svg/SvgSettings";
 import SvgHome from "./svg/SvgHome";
 import SvgProfile from "./svg/SvgProfile";
 import SvgAdd from "./svg/SvgAdd";
+import SvgRaccoon from "./svg/SvgRaccoon";
 import SvgCollections from "./svg/SvgCollections";
 
 class NavBar extends Component {
@@ -21,6 +22,13 @@ class NavBar extends Component {
               <NavLink className="nav-icon" to="/collections">
                 <SvgCollections />
                 <span>collections</span>
+              </NavLink>
+            ) : null}
+
+            {this.props.auth.isAuthenticated() && this.props.auth.hasPermission("publish:pin") ? (
+              <NavLink className="nav-icon" to="/unpublished">
+                <SvgRaccoon />
+                <span>publish</span>
               </NavLink>
             ) : null}
 
