@@ -10,6 +10,7 @@ class EditPin extends Component {
     pinData: {},
     tags: [],
     selectedTags: [],
+    published: false,
     images: []
   };
 
@@ -71,10 +72,21 @@ class EditPin extends Component {
     this.putForm();
   };
 
+  onChangePublish = event => {
+    this.setState({ published: !this.state.published });
+  };
+
   makeFetch = () => {
-    fetch(process.env.REACT_APP_API_URL + `/v1/pins/${this.props.match.params.pinId}`)
+    const { getAccessToken } = this.props.auth;
+    fetch(process.env.REACT_APP_API_URL + `/v1/pins/${this.props.match.params.pinId}?published=all`, {
+      headers: {
+        Authorization: "Bearer " + getAccessToken(),
+        "content-type": "application/json"
+      }
+    })
       .then(
         results => {
+          console.log('initial', results);
           return results.json();
         },
         error => {
@@ -82,6 +94,7 @@ class EditPin extends Component {
         }
       )
       .then(response => {
+        console.dir(response);
         this.setState({
           loaded: true,
           name: response.name,
@@ -169,8 +182,17 @@ class EditPin extends Component {
                 />
               </div>
               <div className="form-group input-toggle">
-                <input type="checkbox" name="published" id="published" value={this.state.published} />
-                <label htmlFor="published">Published</label>
+                <input type="hidden" name="published" value="false" />
+                <input
+                  type="checkbox"
+                  name="published"
+                  id="published"
+                  checked={this.state.published}
+                  onChange={this.onChangePublish}
+                />
+                <label htmlFor="published">
+                  {this.state.published ? "Published" : "Not Published"}
+                </label>
               </div>
               <div className="form-group form-action">
                 <input type="submit" id="submit" name="submit" value="save changes" />

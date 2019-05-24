@@ -17,13 +17,17 @@ class Unpublished extends Component {
       loaded: false,
       pins: []
     });
+    const { getAccessToken } = this.props.auth;
     const urlType = query === "" ? "pins" : "search";
     let url = new URL(`${process.env.REACT_APP_API_URL}/v1/${urlType}?published=false`);
     const params = { query: query };
-    Object.keys(params).forEach(key =>
-      url.searchParams.append(key, params[key])
-    );
-    fetch(url)
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+    fetch(url, {
+      headers: {
+        Authorization: "Bearer " + getAccessToken(),
+        "content-type": "application/json"
+      }
+    })
       .then(
         results => {
           return results.json();
@@ -115,10 +119,7 @@ class Unpublished extends Component {
           ) : (
             <Loader />
           )}
-          <LoadMoreButton
-            pageLink={this.state.pageLink}
-            fetchMoreItems={this.fetchMorePins}
-          />
+          <LoadMoreButton pageLink={this.state.pageLink} fetchMoreItems={this.fetchMorePins} />
         </main>
       </React.Fragment>
     );
