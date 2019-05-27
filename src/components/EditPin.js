@@ -44,7 +44,6 @@ class EditPin extends Component {
         }
       )
       .then(response => {
-        // Toast that the save was successful
         this.setState({ message: "Success" });
       });
   };
@@ -78,15 +77,17 @@ class EditPin extends Component {
 
   makeFetch = () => {
     const { getAccessToken } = this.props.auth;
-    fetch(process.env.REACT_APP_API_URL + `/v1/pins/${this.props.match.params.pinId}?published=all`, {
-      headers: {
-        Authorization: "Bearer " + getAccessToken(),
-        "content-type": "application/json"
+    fetch(
+      process.env.REACT_APP_API_URL + `/v1/pins/${this.props.match.params.pinId}?published=all`,
+      {
+        headers: {
+          Authorization: "Bearer " + getAccessToken(),
+          "content-type": "application/json"
+        }
       }
-    })
+    )
       .then(
         results => {
-          console.log('initial', results);
           return results.json();
         },
         error => {
@@ -94,7 +95,6 @@ class EditPin extends Component {
         }
       )
       .then(response => {
-        console.dir(response);
         this.setState({
           loaded: true,
           name: response.name,
@@ -115,10 +115,8 @@ class EditPin extends Component {
 
   deletePin = () => {
     const { getAccessToken } = this.props.auth;
-    fetch(process.env.REACT_APP_API_URL + `/v1/pins/${this.props.match.params.pinId}`, {
-      headers: {
-        Authorization: "Bearer " + getAccessToken()
-      },
+    fetch(process.env.REACT_APP_API_URL + `/v1/pins/${this.props.match.params.pinId}?published=all`, {
+      headers: { Authorization: "Bearer " + getAccessToken() },
       method: "DELETE"
     })
       .then(
