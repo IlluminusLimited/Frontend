@@ -8,6 +8,13 @@ import SvgRaccoon from "./svg/SvgRaccoon";
 import SvgCollections from "./svg/SvgCollections";
 
 class NavBar extends Component {
+  // {this.props.auth.isAuthenticated() ? (
+  //   <NavLink className="nav-icon" to="/collections">
+  //     <SvgCollections />
+  //     <span>collections</span>
+  //   </NavLink>
+  // ) : null}
+
   render() {
     return (
       <footer className="container">
@@ -17,13 +24,6 @@ class NavBar extends Component {
               <SvgHome />
               <span>home</span>
             </NavLink>
-
-            {this.props.auth.isAuthenticated() ? (
-              <NavLink className="nav-icon" to="/collections">
-                <SvgCollections />
-                <span>collections</span>
-              </NavLink>
-            ) : null}
 
             {this.props.auth.isAuthenticated() && this.props.auth.hasPermission("publish:pin") ? (
               <NavLink className="nav-icon" to="/unpublished">
