@@ -4,28 +4,33 @@ import Image from "./Image";
 import Loader from "./Loader";
 
 class EditPin extends Component {
-  state = {
-    message: "",
-    loaded: false,
-    pinData: {},
-    tags: [],
-    selectedTags: [],
-    published: false,
-    images: []
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: "",
+      loaded: false,
+      tags: [],
+      selectedTags: [],
+      published: false,
+      images: []
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
   putForm = () => {
     this.setState({ message: "" });
     const putData = {
       data: {
         name: this.state.name,
-        year: this.state.year,
+        year: parseInt(this.state.year),
         description: this.state.description,
         published: this.state.published,
         tags: this.state.tags
       }
     };
     const { getAccessToken } = this.props.auth;
+
+    console.log('put', putData);
 
     fetch(process.env.REACT_APP_API_URL + `/v1/pins/${this.props.match.params.pinId}`, {
       headers: {

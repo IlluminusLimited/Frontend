@@ -5,7 +5,7 @@ import SvgHome from "./svg/SvgHome";
 import SvgProfile from "./svg/SvgProfile";
 import SvgAdd from "./svg/SvgAdd";
 import SvgRaccoon from "./svg/SvgRaccoon";
-import SvgCollections from "./svg/SvgCollections";
+// import SvgCollections from "./svg/SvgCollections";
 
 class NavBar extends Component {
   // {this.props.auth.isAuthenticated() ? (
