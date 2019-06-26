@@ -43,7 +43,7 @@ class CreatePin extends Component {
       data: {
         name: this.state.name,
         description: this.state.description,
-        year: this.state.year
+        year: parseInt(this.state.year)
       }
     };
   }

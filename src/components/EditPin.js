@@ -30,8 +30,6 @@ class EditPin extends Component {
     };
     const { getAccessToken } = this.props.auth;
 
-    console.log('put', putData);
-
     fetch(process.env.REACT_APP_API_URL + `/v1/pins/${this.props.match.params.pinId}`, {
       headers: {
         Authorization: "Bearer " + getAccessToken(),
