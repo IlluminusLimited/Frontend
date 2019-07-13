@@ -16,7 +16,7 @@ class Home extends Component {
       loaded: false,
       pins: []
     });
-    const urlType = query === "" ? "pins" : "search";
+    const urlType = query === "" ? "pins" : "search/pins";
     let url = new URL(`${process.env.REACT_APP_API_URL}/v1/${urlType}`);
     const params = { query: query };
     Object.keys(params).forEach(key =>

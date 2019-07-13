@@ -18,7 +18,7 @@ class Unpublished extends Component {
       pins: []
     });
     const { getAccessToken } = this.props.auth;
-    const urlType = query === "" ? "pins" : "search";
+    const urlType = query === "" ? "pins" : "search/pins";
     let url = new URL(`${process.env.REACT_APP_API_URL}/v1/${urlType}?published=false`);
     const params = { query: query };
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
